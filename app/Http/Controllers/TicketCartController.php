@@ -11,6 +11,21 @@ use Illuminate\Support\Facades\DB;
 
 class TicketCartController extends Controller
 {
+    protected function isValidCpf(string $cpf): bool
+    {
+        $cpf = preg_replace('/\D+/', '', $cpf);
+        if (strlen($cpf) != 11) return false;
+        if (preg_match('/^(\d)\1{10}$/', $cpf)) return false;
+        for ($t = 9; $t < 11; $t++) {
+            $d = 0;
+            for ($c = 0; $c < $t; $c++) {
+                $d += (int)$cpf[$c] * (($t + 1) - $c);
+            }
+            $d = ((10 * $d) % 11) % 10;
+            if ((int)$cpf[$c] !== $d) return false;
+        }
+        return true;
+    }
     public function index(Request $request)
     {
         if (!Auth::check()) return redirect()->route('login');
@@ -97,7 +112,7 @@ class TicketCartController extends Controller
         ]);
 
         $cpfDigits = preg_replace('/\D+/', '', (string) ($data['cpf'] ?? ''));
-        if ($cpfDigits === '') {
+        if ($cpfDigits === '' || !$this->isValidCpf($cpfDigits)) {
             return back()->withErrors(['cpf' => 'CPF inválido'])->withInput();
         }
 
@@ -185,6 +200,7 @@ class TicketCartController extends Controller
         // Corta excedentes se vieram mais convidados do que o permitido
         $participantes = array_slice($participantes, 0, $quantidade);
 
+        $voucherCodes = [];
         foreach ($participantes as $p) {
             // Gera um código único por ingresso e garante unicidade
             do {
@@ -219,9 +235,30 @@ class TicketCartController extends Controller
                 'created_at' => now(),
                 'updated_at' => now(),
             ]);
+
+            $voucherCodes[] = [
+                'codigo' => $codigo,
+                'nome' => $p['nome'] ?: $titularNome,
+                'email' => $p['email'] ?: $titularEmail,
+                'is_titular' => (bool) $p['is_titular'],
+            ];
         }
 
+        DB::table('evt_lotes_ingressos_tb')
+            ->where('lote_id', $ticket->lote_id)
+            ->increment('quantidade_vendida', count($participantes));
+
         return redirect()->route('site.ticket.show', $ticket->lote_id)
+            ->with('voucher', [
+                'evento_id' => $event->evento_id,
+                'lote_id' => $ticket->lote_id,
+                'evento_nome' => $event->nome,
+                'lote_nome' => $ticket->nome,
+                'valor' => $ticket->preco,
+                'titular_nome' => $titularNome,
+                'titular_whatsapp' => $titularWhats,
+                'codes' => $voucherCodes,
+            ])
             ->with('success', 'Compra registrada com sucesso!');
     }
 

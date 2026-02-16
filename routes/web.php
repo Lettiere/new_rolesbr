@@ -3,9 +3,16 @@
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Schema;
 use App\Models\Event;
 use App\Models\Establishment;
 use App\Models\EventTicketLot;
+use App\Models\Product;
+use App\Models\BaseEstado;
+use App\Models\BaseCidade;
+use App\Models\BaseBairro;
+use App\Models\EventType;
+use App\Models\EstablishmentType;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\TicketCartController;
 
@@ -19,10 +26,65 @@ Route::get('/', function () {
             'events' => collect(),
             'establishments' => collect(),
             'tickets' => collect(),
+            'featuredEvents' => collect(),
+            'estados' => collect(),
+            'cidades' => collect(),
+            'bairros' => collect(),
+            'tipoEstabelecimentos' => collect(),
+            'tiposEvento' => collect(),
         ]);
     }
 
     $q = trim((string) request('q', ''));
+    $estadoId = (int) request('estado_id', 0);
+    $cidadeId = (int) request('cidade_id', 0);
+    $bairroId = (int) request('bairro_id', 0);
+    $tipoBarId = (int) request('tipo_bar_id', 0);
+    $tipoEventoId = (int) request('tipo_evento_id', 0);
+
+    $estados = DB::table('form_perfil_bares_tb as b')
+        ->join('base_estados as est', 'est.id', '=', 'b.estado_id')
+        ->whereNull('b.deleted_at')
+        ->groupBy('est.id', 'est.nome', 'est.uf')
+        ->orderBy('est.nome', 'ASC')
+        ->get(['est.id', 'est.nome', 'est.uf']);
+
+    $cidades = collect();
+    if ($estadoId > 0) {
+        $cidades = DB::table('form_perfil_bares_tb as b')
+            ->join('base_cidades as cid', 'cid.id', '=', 'b.cidade_id')
+            ->whereNull('b.deleted_at')
+            ->where('b.estado_id', $estadoId)
+            ->groupBy('cid.id', 'cid.nome')
+            ->orderBy('cid.nome', 'ASC')
+            ->get(['cid.id', 'cid.nome']);
+    }
+
+    $bairros = collect();
+    if ($cidadeId > 0) {
+        $sqlBairros = "
+            SELECT DISTINCT bai.id, bai.nome
+            FROM form_perfil_bares_tb b
+            INNER JOIN base_bairros bai
+                ON bai.cidade_id = b.cidade_id
+               AND (
+                    bai.id = b.bairro_id
+                    OR (b.bairro_id IS NULL AND bai.nome = b.bairro_nome)
+               )
+            WHERE b.deleted_at IS NULL
+              AND b.cidade_id = ?
+            ORDER BY bai.nome ASC
+        ";
+        $bairros = collect(DB::select($sqlBairros, [$cidadeId]));
+    }
+
+    $tipoEstabelecimentos = EstablishmentType::where('ativo', 1)
+        ->orderBy('nome')
+        ->get(['tipo_bar_id','nome']);
+
+    $tiposEvento = EventType::where('ativo', 1)
+        ->orderBy('nome')
+        ->get(['tipo_evento_id','nome']);
 
     $eventsQuery = DB::table('evt_eventos_tb as evt')
         ->selectRaw("
@@ -54,10 +116,49 @@ Route::get('/', function () {
         });
     }
 
+    if ($estadoId > 0) {
+        $eventsQuery->where('perfil.estado_id', $estadoId);
+    }
+    if ($cidadeId > 0) {
+        $eventsQuery->where('perfil.cidade_id', $cidadeId);
+    }
+    if ($bairroId > 0) {
+        $eventsQuery->where('perfil.bairro_id', $bairroId);
+    }
+    if ($tipoBarId > 0) {
+        $eventsQuery->where('perfil.tipo_bar', $tipoBarId);
+    }
+    if ($tipoEventoId > 0) {
+        $eventsQuery->where('evt.tipo_evento_id', $tipoEventoId);
+    }
+
     $events = $eventsQuery
         ->orderBy('evt.data_inicio', 'asc')
         ->limit(8)
         ->get();
+
+    $featuredEvents = collect();
+    if (Schema::hasColumn('evt_eventos_tb', 'is_destaque')) {
+        $featuredEvents = DB::table('evt_eventos_tb as evt')
+            ->select('evt.evento_id','evt.nome','evt.slug','evt.imagem_capa')
+            ->where('evt.is_destaque', 1)
+            ->whereIn('evt.status', ['publicado','programado'])
+            ->where('evt.data_inicio', '>=', DB::raw('NOW()'))
+            ->whereNull('evt.deleted_at')
+            ->orderBy('evt.data_inicio','asc')
+            ->limit(5)
+            ->get();
+    }
+    if ($featuredEvents->isEmpty()) {
+        $featuredEvents = $events
+            ->map(function ($e) {
+                if (!isset($e->nome) && isset($e->evento_nome)) {
+                    $e->nome = $e->evento_nome;
+                }
+                return $e;
+            })
+            ->take(5);
+    }
 
     $establishmentsQuery = DB::table('form_perfil_bares_tb as b')
         ->selectRaw("
@@ -94,8 +195,29 @@ Route::get('/', function () {
         });
     }
 
+    if ($estadoId > 0) {
+        $establishmentsQuery->where('b.estado_id', $estadoId);
+    }
+    if ($cidadeId > 0) {
+        $establishmentsQuery->where('b.cidade_id', $cidadeId);
+    }
+    if ($bairroId > 0) {
+        $establishmentsQuery->where('b.bairro_id', $bairroId);
+    }
+    if ($tipoBarId > 0) {
+        $establishmentsQuery->where('b.tipo_bar', $tipoBarId);
+    }
+
     $establishments = $establishmentsQuery
         ->orderBy('b.nome', 'asc')
+        ->limit(6)
+        ->get();
+
+    $products = DB::table('prod_produtos_tb as p')
+        ->select('p.prod_id','p.nome','p.preco','b.bares_id','b.nome as bar_nome')
+        ->join('form_perfil_bares_tb as b','b.bares_id','=','p.bares_id')
+        ->whereNull('p.deleted_at')
+        ->inRandomOrder()
         ->limit(6)
         ->get();
 
@@ -110,6 +232,7 @@ Route::get('/', function () {
             l.quantidade_vendida,
             evt.evento_id,
             evt.nome as evento_nome,
+            evt.imagem_capa,
             evt.data_inicio,
             perfil.nome as bar_nome,
             perfil.bairro_nome,
@@ -133,6 +256,22 @@ Route::get('/', function () {
         });
     }
 
+    if ($estadoId > 0) {
+        $ticketsQuery->where('perfil.estado_id', $estadoId);
+    }
+    if ($cidadeId > 0) {
+        $ticketsQuery->where('perfil.cidade_id', $cidadeId);
+    }
+    if ($bairroId > 0) {
+        $ticketsQuery->where('perfil.bairro_id', $bairroId);
+    }
+    if ($tipoBarId > 0) {
+        $ticketsQuery->where('perfil.tipo_bar', $tipoBarId);
+    }
+    if ($tipoEventoId > 0) {
+        $ticketsQuery->where('evt.tipo_evento_id', $tipoEventoId);
+    }
+
     $tickets = $ticketsQuery
         ->orderBy('evt.data_inicio', 'asc')
         ->limit(8)
@@ -142,8 +281,144 @@ Route::get('/', function () {
         'events' => $events,
         'establishments' => $establishments,
         'tickets' => $tickets,
+        'products' => $products,
+        'featuredEvents' => $featuredEvents,
+        'estados' => $estados,
+        'cidades' => $cidades,
+        'bairros' => $bairros,
+        'tipoEstabelecimentos' => $tipoEstabelecimentos,
+        'tiposEvento' => $tiposEvento,
     ]);
 });
+
+Route::get('/eventos', function (Request $request) {
+    $q = trim((string) $request->input('q',''));
+    $query = DB::table('evt_eventos_tb as evt')
+        ->selectRaw("
+            evt.evento_id,
+            evt.imagem_capa,
+            evt.nome as evento_nome,
+            perfil.nome as bar_nome,
+            evt.data_inicio,
+            evt.hora_abertura_portas,
+            perfil.bairro_nome as bairro_nome,
+            cidades.nome as cidade_nome
+        ")
+        ->join('form_perfil_bares_tb as perfil', 'perfil.bares_id', '=', 'evt.bares_id')
+        ->leftJoin('base_cidades as cidades', 'cidades.id', '=', 'perfil.cidade_id')
+        ->whereIn('evt.status', ['publicado','programado'])
+        ->whereNull('evt.deleted_at')
+        ->where('evt.data_inicio','>=', DB::raw('NOW()'));
+    if ($q !== '') {
+        $query->where(function($sub) use ($q) {
+            $like = '%'.$q.'%';
+            $sub->where('evt.nome','like',$like)
+                ->orWhere('perfil.nome','like',$like)
+                ->orWhere('perfil.bairro_nome','like',$like)
+                ->orWhere('cidades.nome','like',$like);
+        });
+    }
+    $events = $query->orderBy('evt.data_inicio','asc')->paginate(24);
+    if ($request->ajax() || $request->boolean('ajax')) {
+        return view('site.partials.events_list', compact('events'));
+    }
+    return view('site.list_events', compact('events'));
+})->name('site.events.index');
+
+Route::get('/ingressos', function (Request $request) {
+    $q = trim((string) $request->input('q',''));
+    $query = DB::table('evt_lotes_ingressos_tb as l')
+        ->selectRaw("
+            l.lote_id,
+            l.nome as lote_nome,
+            l.tipo,
+            l.preco,
+            evt.evento_id,
+            evt.nome as evento_nome,
+            evt.imagem_capa,
+            evt.data_inicio,
+            perfil.nome as bar_nome,
+            perfil.bairro_nome,
+            cidades.nome as cidade_nome
+        ")
+        ->join('evt_eventos_tb as evt', 'evt.evento_id', '=', 'l.evento_id')
+        ->join('form_perfil_bares_tb as perfil', 'perfil.bares_id', '=', 'evt.bares_id')
+        ->leftJoin('base_cidades as cidades', 'cidades.id', '=', 'perfil.cidade_id')
+        ->whereNull('evt.deleted_at')
+        ->whereNull('l.deleted_at')
+        ->where('evt.status', 'publicado');
+    if ($q !== '') {
+        $query->where(function($sub) use ($q) {
+            $like = '%'.$q.'%';
+            $sub->where('l.nome','like',$like)
+                ->orWhere('evt.nome','like',$like)
+                ->orWhere('perfil.nome','like',$like)
+                ->orWhere('perfil.bairro_nome','like',$like)
+                ->orWhere('cidades.nome','like',$like);
+        });
+    }
+    $tickets = $query->orderBy('evt.data_inicio','asc')->paginate(24);
+    if ($request->ajax() || $request->boolean('ajax')) {
+        return view('site.partials.tickets_list', compact('tickets'));
+    }
+    return view('site.list_tickets', compact('tickets'));
+})->name('site.tickets.index');
+
+Route::get('/estabelecimentos', function (Request $request) {
+    $q = trim((string) $request->input('q',''));
+    $query = DB::table('form_perfil_bares_tb as b')
+        ->selectRaw("
+            b.bares_id,
+            b.nome,
+            b.endereco,
+            b.bairro_nome,
+            cid.nome as cidade_nome,
+            b.imagem
+        ")
+        ->leftJoin('base_cidades as cid', 'cid.id', '=', 'b.cidade_id')
+        ->whereNull('b.deleted_at');
+    if ($q !== '') {
+        $query->where(function($sub) use ($q) {
+            $like = '%'.$q.'%';
+            $sub->where('b.nome','like',$like)
+                ->orWhere('b.endereco','like',$like)
+                ->orWhere('b.bairro_nome','like',$like)
+                ->orWhere('cid.nome','like',$like);
+        });
+    }
+    $establishments = $query->orderBy('b.nome','asc')->paginate(24);
+    if ($request->ajax() || $request->boolean('ajax')) {
+        return view('site.partials.establishments_list', compact('establishments'));
+    }
+    return view('site.list_establishments', compact('establishments'));
+})->name('site.establishments.index');
+
+Route::get('/produtos', function (Request $request) {
+    $q = trim((string) $request->input('q',''));
+    $query = DB::table('prod_produtos_tb as p')
+        ->select('p.prod_id','p.nome','p.preco','b.bares_id','b.nome as bar_nome')
+        ->join('form_perfil_bares_tb as b','b.bares_id','=','p.bares_id')
+        ->whereNull('p.deleted_at');
+    if ($q !== '') {
+        $query->where(function($sub) use ($q) {
+            $like = '%'.$q.'%';
+            $sub->where('p.nome','like',$like)
+                ->orWhere('b.nome','like',$like);
+        });
+    }
+    $products = $query->orderBy('p.nome','asc')->paginate(24);
+    if ($request->ajax() || $request->boolean('ajax')) {
+        return view('site.partials.products_list', compact('products'));
+    }
+    return view('site.list_products', compact('products'));
+})->name('site.products.index');
+
+Route::get('/produto/{produto}-{slug?}', function ($produto) {
+    $product = Product::with(['establishment','base','family','type'])
+        ->whereNull('deleted_at')
+        ->findOrFail((int) $produto);
+    return view('site.product_show', compact('product'));
+})->name('site.product.show');
 
 Route::get('/evento/{evento}-{slug?}', function ($evento) {
     $event = Event::with(['establishment', 'type'])->findOrFail((int) $evento);
@@ -156,6 +431,12 @@ Route::get('/evento/{evento}-{slug?}', function ($evento) {
 
 Route::get('/estabelecimento/{bar}-{slug?}', function ($bar) {
     $establishment = Establishment::findOrFail((int) $bar);
+    $tipo = null;
+    try {
+        $tipo = \App\Models\EstablishmentType::find($establishment->tipo_bar);
+    } catch (\Throwable $e) {
+        $tipo = null;
+    }
     $upcomingEvents = Event::where('bares_id', $establishment->bares_id)
         ->whereNull('deleted_at')
         ->where('data_inicio', '>=', now())
@@ -163,9 +444,59 @@ Route::get('/estabelecimento/{bar}-{slug?}', function ($bar) {
         ->limit(8)
         ->get();
 
+    $fotos = DB::table('ft_fotos_bar_tb')
+        ->where('bares_id', $establishment->bares_id)
+        ->whereNull('deleted_at')
+        ->orderBy('created_at', 'desc')
+        ->limit(15)
+        ->get(['foto_id','url','descricao']);
+
+    $cardapios = DB::table('prod_cardapio_tb')
+        ->where('bares_id', $establishment->bares_id)
+        ->whereNull('deleted_at')
+        ->where('status','ativo')
+        ->orderBy('nome','asc')
+        ->get(['cardapio_id','nome','descricao','tipo_cardapio','status']);
+
+    $cardapioItens = collect();
+    if (!$cardapios->isEmpty()) {
+        $ids = $cardapios->pluck('cardapio_id')->all();
+        $cardapioItens = DB::table('prod_cardapio_itens_tb as ci')
+            ->join('prod_produtos_tb as p','p.prod_id','=','ci.prod_id')
+            ->selectRaw('
+                ci.cardapio_item_id,
+                ci.cardapio_id,
+                ci.categoria,
+                ci.ordem,
+                ci.preco_override,
+                ci.observacoes,
+                p.prod_id,
+                p.nome as produto_nome,
+                p.preco as produto_preco,
+                p.unidade
+            ')
+            ->whereIn('ci.cardapio_id', $ids)
+            ->whereNull('ci.deleted_at')
+            ->orderBy('ci.ordem','asc')
+            ->get();
+    }
+
+    $products = DB::table('prod_produtos_tb as p')
+        ->select('p.prod_id','p.nome','p.preco','p.unidade')
+        ->where('p.bares_id', $establishment->bares_id)
+        ->whereNull('p.deleted_at')
+        ->orderBy('p.nome','asc')
+        ->limit(24)
+        ->get();
+
     return view('site.establishment_show', [
-        'establishment' => $establishment,
-        'upcomingEvents' => $upcomingEvents,
+        'establishment'   => $establishment,
+        'upcomingEvents'  => $upcomingEvents,
+        'fotos'           => $fotos,
+        'cardapios'       => $cardapios,
+        'cardapioItens'   => $cardapioItens,
+        'products'        => $products,
+        'tipo'            => $tipo,
     ]);
 })->name('site.establishment.show');
 
@@ -256,6 +587,9 @@ Route::middleware(['auth'])->group(function () {
         Route::get('estados', [LocationController::class, 'estados'])->name('api.geo.estados');
         Route::get('cidades/{estadoId}', [LocationController::class, 'cidades'])->name('api.geo.cidades');
         Route::get('bairros/{cidadeId}', [LocationController::class, 'bairros'])->name('api.geo.bairros');
+        Route::get('estados-bares', [LocationController::class, 'estadosBares'])->name('api.geo.estados.bares');
+        Route::get('cidades-bares/{estadoId}', [LocationController::class, 'cidadesBares'])->name('api.geo.cidades.bares');
+        Route::get('bairros-bares/{cidadeId}', [LocationController::class, 'bairrosBares'])->name('api.geo.bairros.bares');
         Route::post('bairros', [LocationController::class, 'storeBairro'])->name('api.geo.bairros.store');
         Route::get('povoados/{cidadeId}', [LocationController::class, 'povoados'])->name('api.geo.povoados');
         Route::get('prefixos', [LocationController::class, 'prefixos'])->name('api.geo.prefixos');

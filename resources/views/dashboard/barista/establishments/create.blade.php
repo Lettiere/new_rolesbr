@@ -160,6 +160,11 @@
                         <label class="form-label">Imagem de Perfil</label>
                         <input type="file" name="imagem" class="form-control" accept="image/*">
                     </div>
+                    <div class="col-md-6">
+                        <label class="form-label">Galeria de fotos (até 15)</label>
+                        <input type="file" name="galeria[]" class="form-control" accept="image/*" multiple>
+                        <div class="form-text">Selecione uma ou mais imagens para a galeria.</div>
+                    </div>
                     <div class="col-md-6 d-flex align-items-center">
                         <div class="form-check">
                             <input class="form-check-input" type="checkbox" name="nome_na_lista" value="1" id="nomeNaLista">

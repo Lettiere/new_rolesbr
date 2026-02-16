@@ -82,13 +82,22 @@ class EventController extends Controller
             'logo_img_2' => 'nullable|image|mimes:jpg,jpeg,png,webp|max:5120',
             'logo_img_3' => 'nullable|image|mimes:jpg,jpeg,png,webp|max:5120',
             'logo_img_4' => 'nullable|image|mimes:jpg,jpeg,png,webp|max:5120',
+            'is_destaque' => 'nullable|boolean',
+            'comprovante_pagamento' => 'nullable|mimes:jpg,jpeg,png,webp,pdf|max:8192',
         ]);
+        if (\Illuminate\Support\Facades\Schema::hasColumn('evt_eventos_tb', 'is_destaque')) {
+            $data['is_destaque'] = (bool) ($data['is_destaque'] ?? false);
+        } else {
+            unset($data['is_destaque']);
+        }
         $event = Event::create($data);
         if ($request->hasFile('imagem_capa')) {
             $this->handleEventCover($request, $event);
         }
         // Upload de logos
         $this->handleEventLogos($request, $event);
+        // Comprovante de pagamento
+        $this->handlePaymentReceipt($request, $event);
         return redirect()->route('dashboard.barista.events.index')->with('ok','Evento criado');
     }
 
@@ -125,12 +134,20 @@ class EventController extends Controller
             'logo_img_2' => 'nullable|image|mimes:jpg,jpeg,png,webp|max:5120',
             'logo_img_3' => 'nullable|image|mimes:jpg,jpeg,png,webp|max:5120',
             'logo_img_4' => 'nullable|image|mimes:jpg,jpeg,png,webp|max:5120',
+            'is_destaque' => 'nullable|boolean',
+            'comprovante_pagamento' => 'nullable|mimes:jpg,jpeg,png,webp,pdf|max:8192',
         ]);
+        if (\Illuminate\Support\Facades\Schema::hasColumn('evt_eventos_tb', 'is_destaque')) {
+            $data['is_destaque'] = (bool) ($data['is_destaque'] ?? false);
+        } else {
+            unset($data['is_destaque']);
+        }
         $event->update($data);
         if ($request->hasFile('imagem_capa')) {
             $this->handleEventCover($request, $event);
         }
         $this->handleEventLogos($request, $event);
+        $this->handlePaymentReceipt($request, $event);
         return redirect()->route('dashboard.barista.events.index')->with('ok','Evento atualizado');
     }
 
@@ -274,5 +291,23 @@ class EventController extends Controller
         if (!$ok) {
             return;
         }
+    }
+
+    protected function handlePaymentReceipt(Request $request, Event $event): void
+    {
+        if (!$request->hasFile('comprovante_pagamento')) return;
+        $file = $request->file('comprovante_pagamento');
+        $slug = \Illuminate\Support\Str::slug($event->nome ?: 'evento');
+        $dir = public_path("uploads/eventos/{$event->evento_id}_{$slug}/comprovantes");
+        if (!is_dir($dir)) { @mkdir($dir, 0775, true); }
+        $ext = strtolower($file->getClientOriginalExtension() ?: 'pdf');
+        if (!in_array($ext, ['jpg','jpeg','png','webp','pdf'])) $ext = 'pdf';
+        $name = "comprovante_".date('Ymd_His').".".$ext;
+        $path = $dir . DIRECTORY_SEPARATOR . $name;
+        $file->move($dir, $name);
+        $rel = str_replace(public_path(), '', $path);
+        $rel = str_replace('\\','/',$rel);
+        $rel = $rel[0] === '/' ? $rel : ('/'.$rel);
+        $event->update(['comprovante_pagamento' => $rel]);
     }
 }

@@ -147,6 +147,31 @@
                     </div>
                 @endif
             </div>
+            <div class="col-md-6">
+                <label class="form-label">Galeria de fotos (até 15)</label>
+                <input type="file" name="galeria[]" class="form-control" accept="image/*" multiple>
+                <div class="form-text">Selecione novas imagens para adicionar à galeria.</div>
+                @if(isset($gallery) && !$gallery->isEmpty())
+                    <div class="mt-2 d-flex flex-wrap gap-2">
+                        @foreach($gallery as $g)
+                            @php
+                                $raw = (string)($g->url ?? '');
+                                $norm = str_replace('\\','/',$raw);
+                                $u = $norm ? asset(ltrim($norm,'/')) : null;
+                            @endphp
+                            @if($u)
+                                <label class="d-inline-flex flex-column align-items-center me-2 mb-2" style="cursor:pointer;">
+                                    <img src="{{ $u }}" alt="Foto" class="img-thumbnail mb-1" style="max-height:80px;">
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" name="delete_galeria[]" value="{{ $g->foto_id }}" id="del-gal-{{ $g->foto_id }}">
+                                        <label class="form-check-label small" for="del-gal-{{ $g->foto_id }}">Remover</label>
+                                    </div>
+                                </label>
+                            @endif
+                        @endforeach
+                    </div>
+                @endif
+            </div>
             <div class="col-md-6 d-flex align-items-end">
                 <div class="form-check">
                     <input class="form-check-input" type="checkbox" name="nome_na_lista" value="1" id="nomeNaLista" @checked(old('nome_na_lista', $establishment->nome_na_lista))>

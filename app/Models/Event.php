@@ -36,12 +36,15 @@ class Event extends Model
         'logo_img_3',
         'logo_img_4',
         'video_youtube_url',
+        'is_destaque',
+        'comprovante_pagamento',
     ];
 
     protected $casts = [
         'data_inicio' => 'datetime',
         'data_fim' => 'datetime',
         'hora_abertura_portas' => 'datetime:H:i:s',
+        'is_destaque' => 'boolean',
     ];
 
     protected static function booted()
@@ -49,6 +52,9 @@ class Event extends Model
         static::saving(function ($model) {
             if (empty($model->slug) && !empty($model->nome)) {
                 $model->slug = Str::slug($model->nome);
+            }
+            if (!\Illuminate\Support\Facades\Schema::hasColumn($model->getTable(), 'is_destaque')) {
+                unset($model->is_destaque);
             }
         });
     }

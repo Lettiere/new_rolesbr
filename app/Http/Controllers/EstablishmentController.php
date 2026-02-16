@@ -14,6 +14,7 @@ use App\Models\BaseRua;
 use App\Models\BaseRuaPrefixo;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 
@@ -56,6 +57,8 @@ class EstablishmentController extends Controller
             'socials_type.*' => 'nullable|string|max:50',
             'socials_value' => 'nullable|array',
             'socials_value.*' => 'nullable|string|max:255',
+            'galeria' => 'nullable|array|max:15',
+            'galeria.*' => 'image|max:2048',
         ]);
 
         $data = $request->except('imagem');
@@ -65,6 +68,8 @@ class EstablishmentController extends Controller
         $data['nome_na_lista'] = $request->has('nome_na_lista');
 
         $establishment = Establishment::create($data);
+
+        $slug = Str::slug($establishment->nome ?: 'estabelecimento');
 
         $types = $request->input('socials_type', []);
         $values = $request->input('socials_value', []);
@@ -96,7 +101,6 @@ class EstablishmentController extends Controller
         if ($request->hasFile('imagem')) {
             $image = $request->file('imagem');
             $filename = time() . '_' . Str::random(10) . '.' . $image->getClientOriginalExtension();
-            $slug = Str::slug($establishment->nome);
             $path = "uploads/bares/{$establishment->bares_id}_{$slug}/perfil";
             $fullPath = public_path($path);
             if (!is_dir($fullPath)) {
@@ -106,6 +110,44 @@ class EstablishmentController extends Controller
             $image->move($fullPath, $filename);
             
             $establishment->update(['imagem' => $path . '/' . $filename]);
+        }
+
+        $galleryFiles = $request->file('galeria', []);
+        if (is_array($galleryFiles) && count($galleryFiles) > 0) {
+            $existingCount = DB::table('ft_fotos_bar_tb')
+                ->where('bares_id', $establishment->bares_id)
+                ->whereNull('deleted_at')
+                ->count();
+            $remaining = max(0, 15 - $existingCount);
+            $toProcess = array_slice($galleryFiles, 0, $remaining);
+            if ($remaining === 0 && count($galleryFiles) > 0) {
+                return redirect()->route('dashboard.barista.establishments.index')
+                    ->with('success', 'Estabelecimento criado, mas limite de 15 fotos na galeria já foi atingido.');
+            }
+            $galleryPath = "uploads/bares/{$establishment->bares_id}_{$slug}/galeria";
+            $galleryFullPath = public_path($galleryPath);
+            if (!is_dir($galleryFullPath)) {
+                @mkdir($galleryFullPath, 0775, true);
+            }
+            $rows = [];
+            foreach ($toProcess as $file) {
+                if (!$file->isValid()) {
+                    continue;
+                }
+                $name = time() . '_' . Str::random(16) . '.' . $file->getClientOriginalExtension();
+                $file->move($galleryFullPath, $name);
+                $rows[] = [
+                    'bares_id' => $establishment->bares_id,
+                    'url' => $galleryPath . '/' . $name,
+                    'descricao' => 'Foto da galeria',
+                    'created_at' => now(),
+                    'updated_at' => now(),
+                    'deleted_at' => null,
+                ];
+            }
+            if (!empty($rows)) {
+                DB::table('ft_fotos_bar_tb')->insert($rows);
+            }
         }
 
         return redirect()->route('dashboard.barista.establishments.index')
@@ -119,10 +161,16 @@ class EstablishmentController extends Controller
         $facilities = EstablishmentFacility::where('ativo', 1)->orderBy('ordem')->orderBy('nome')->get();
         $selectedFacilities = $establishment->facilities()->pluck('establishment_facilities.id')->all();
         $socialLinks = $establishment->socialLinks()->orderBy('network')->orderBy('id')->get();
+        $gallery = DB::table('ft_fotos_bar_tb')
+            ->where('bares_id', $establishment->bares_id)
+            ->whereNull('deleted_at')
+            ->orderBy('created_at', 'desc')
+            ->limit(15)
+            ->get(['foto_id','url','descricao']);
         $initialSocials = $socialLinks->map(function ($link) {
             return ['network' => $link->network, 'handle' => $link->handle];
         })->values()->all();
-        return view('dashboard.barista.establishments.edit', compact('establishment', 'types', 'facilities', 'selectedFacilities', 'socialLinks', 'initialSocials'));
+        return view('dashboard.barista.establishments.edit', compact('establishment', 'types', 'facilities', 'selectedFacilities', 'socialLinks', 'initialSocials', 'gallery'));
     }
 
     public function update(Request $request, $id)
@@ -151,6 +199,10 @@ class EstablishmentController extends Controller
             'socials_type.*' => 'nullable|string|max:50',
             'socials_value' => 'nullable|array',
             'socials_value.*' => 'nullable|string|max:255',
+            'galeria' => 'nullable|array|max:15',
+            'galeria.*' => 'image|max:2048',
+            'delete_galeria' => 'nullable|array',
+            'delete_galeria.*' => 'integer',
         ]);
 
         $data = $request->except('imagem');
@@ -188,6 +240,34 @@ class EstablishmentController extends Controller
             $establishment->facilities()->sync([]);
         }
 
+        $deleteIds = $request->input('delete_galeria', []);
+        if (is_array($deleteIds) && !empty($deleteIds)) {
+            $ids = array_values(array_filter(array_map('intval', $deleteIds), function ($v) {
+                return $v > 0;
+            }));
+            if (!empty($ids)) {
+                $rows = DB::table('ft_fotos_bar_tb')
+                    ->where('bares_id', $establishment->bares_id)
+                    ->whereNull('deleted_at')
+                    ->whereIn('foto_id', $ids)
+                    ->get(['foto_id','url']);
+                foreach ($rows as $row) {
+                    $path = (string)($row->url ?? '');
+                    $norm = str_replace('\\', '/', $path);
+                    $full = $norm !== '' ? public_path($norm) : null;
+                    if ($full && file_exists($full)) {
+                        @unlink($full);
+                    }
+                }
+                DB::table('ft_fotos_bar_tb')
+                    ->where('bares_id', $establishment->bares_id)
+                    ->whereIn('foto_id', $ids)
+                    ->update(['deleted_at' => now()]);
+            }
+        }
+
+        $slug = Str::slug($establishment->nome ?: 'estabelecimento');
+
         if ($request->hasFile('imagem')) {
             if ($establishment->imagem && file_exists(public_path($establishment->imagem))) {
                 unlink(public_path($establishment->imagem));
@@ -195,7 +275,6 @@ class EstablishmentController extends Controller
 
             $image = $request->file('imagem');
             $filename = time() . '_' . Str::random(10) . '.' . $image->getClientOriginalExtension();
-            $slug = Str::slug($establishment->nome);
             $path = "uploads/bares/{$establishment->bares_id}_{$slug}/perfil";
             $fullPath = public_path($path);
             if (!is_dir($fullPath)) {
@@ -205,6 +284,44 @@ class EstablishmentController extends Controller
             $image->move($fullPath, $filename);
             
             $establishment->update(['imagem' => $path . '/' . $filename]);
+        }
+
+        $galleryFiles = $request->file('galeria', []);
+        if (is_array($galleryFiles) && count($galleryFiles) > 0) {
+            $existingCount = DB::table('ft_fotos_bar_tb')
+                ->where('bares_id', $establishment->bares_id)
+                ->whereNull('deleted_at')
+                ->count();
+            $remaining = max(0, 15 - $existingCount);
+            if (count($galleryFiles) > $remaining) {
+                return back()
+                    ->withErrors(['galeria' => 'Você pode ter no máximo 15 fotos na galeria.'])
+                    ->withInput();
+            }
+            $galleryPath = "uploads/bares/{$establishment->bares_id}_{$slug}/galeria";
+            $galleryFullPath = public_path($galleryPath);
+            if (!is_dir($galleryFullPath)) {
+                @mkdir($galleryFullPath, 0775, true);
+            }
+            $rows = [];
+            foreach ($galleryFiles as $file) {
+                if (!$file->isValid()) {
+                    continue;
+                }
+                $name = time() . '_' . Str::random(16) . '.' . $file->getClientOriginalExtension();
+                $file->move($galleryFullPath, $name);
+                $rows[] = [
+                    'bares_id' => $establishment->bares_id,
+                    'url' => $galleryPath . '/' . $name,
+                    'descricao' => 'Foto da galeria',
+                    'created_at' => now(),
+                    'updated_at' => now(),
+                    'deleted_at' => null,
+                ];
+            }
+            if (!empty($rows)) {
+                DB::table('ft_fotos_bar_tb')->insert($rows);
+            }
         }
 
         return redirect()->route('dashboard.barista.establishments.index')

@@ -14,6 +14,16 @@ class EventTicketLotController extends Controller
     {
         $event = Event::whereHas('establishment', function($q){ $q->where('user_id', Auth::id()); })->findOrFail($eventoId);
         $lots = EventTicketLot::where('evento_id', $eventoId)->orderBy('preco','asc')->paginate(20);
+        $soldByLot = DB::table('evt_ingressos_vendidos_tb')
+            ->select('lote_id', DB::raw('COUNT(*) as vendidos'))
+            ->where('evento_id', $eventoId)
+            ->groupBy('lote_id')
+            ->pluck('vendidos','lote_id')
+            ->toArray();
+        $lots->getCollection()->transform(function($l) use ($soldByLot){
+            $l->quantidade_vendida = $soldByLot[$l->lote_id] ?? 0;
+            return $l;
+        });
         return view('dashboard.barista.events.tickets.lots.index', compact('event','lots'));
     }
 

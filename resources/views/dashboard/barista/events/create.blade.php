@@ -115,6 +115,19 @@
                 <label class="form-label">Vídeo (YouTube URL)</label>
                 <input type="url" name="video_youtube_url" class="form-control" placeholder="https://youtube.com/...">
             </div>
+            <div class="col-md-4">
+                <div class="form-check mt-4">
+                    <input class="form-check-input" type="checkbox" name="is_destaque" value="1" id="isDestaqueCreate">
+                    <label class="form-check-label" for="isDestaqueCreate">
+                        Evento destacado (patrocinado)
+                    </label>
+                </div>
+            </div>
+            <div class="col-md-8">
+                <label class="form-label">Comprovante de pagamento (imagem ou PDF)</label>
+                <input type="file" name="comprovante_pagamento" class="form-control" accept="image/*,.pdf">
+                <small class="text-muted">Anexe o comprovante se o evento for patrocinado.</small>
+            </div>
             <div class="col-12">
                 <label class="form-label">Logos do Evento (1 a 4)</label>
                 <div class="row g-2">

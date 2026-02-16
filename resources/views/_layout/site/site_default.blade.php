@@ -14,6 +14,7 @@
     <!-- ===================== -->
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
 
     <title>RolesBr São Paulo | Eventos, Festas, Bares, Raves, Gospel e Cultura</title>
 
@@ -329,6 +330,7 @@
                             @auth
                                 <li><h6 class="dropdown-header text-muted">Olá, {{ Auth::user()->name }}</h6></li>
                                 <li><a class="dropdown-item text-light" href="#">Meu Perfil</a></li>
+                                <li><a class="dropdown-item text-light" href="#" id="btnShareSite">Compartilhar o RolesBr</a></li>
                                 <li><hr class="dropdown-divider bg-secondary"></li>
                                 <li>
                                     <form action="{{ route('logout') }}" method="POST" class="d-inline">
@@ -339,11 +341,13 @@
                             @else
                                 <li><a class="dropdown-item text-light" href="{{ route('login') }}">Entrar</a></li>
                                 <li><a class="dropdown-item text-light" href="{{ route('register') }}">Cadastrar</a></li>
+                                <li><hr class="dropdown-divider bg-secondary"></li>
+                                <li><a class="dropdown-item text-light" href="#" id="btnShareSite">Compartilhar o RolesBr</a></li>
                             @endauth
                         </ul>
                     </div>
 
-                    <a href="https://wa.me/5511999999999" class="btn btn-outline-light btn-sm ms-1" target="_blank" rel="noopener" title="WhatsApp">
+                    <a href="https://wa.me/5511982301985" class="btn btn-outline-light btn-sm ms-1" target="_blank" rel="noopener" title="WhatsApp">
                         <i class="fab fa-whatsapp"></i>
                     </a>
                     <a href="https://instagram.com/rolesbrsp" class="btn btn-outline-light btn-sm" target="_blank" rel="noopener" title="Instagram">
@@ -365,12 +369,7 @@
                         @if(Auth::user()->type_user == 2) <!-- Rolezeiro -->
                             @include('includes.sidebars.left_rolezeiro')
                         @else
-                            <!-- Sidebar padrão ou outras roles -->
-                            <div class="card shadow-sm border-0">
-                                <div class="card-body">
-                                    <p class="text-muted text-center mb-0">Bem-vindo, {{ Auth::user()->name }}!</p>
-                                </div>
-                            </div>
+                            <!-- Espaço em branco reservado para futuras propagandas -->
                         @endif
                     @else
                         <div class="card shadow-sm border-0 mb-3">
@@ -414,6 +413,25 @@
                 @show
             </aside>
 
+        </div>
+    </div>
+
+    <!-- PWA INSTALL BAR -->
+    <div id="pwaInstallBar" class="position-fixed bottom-0 start-0 end-0 d-none" style="z-index:1080;">
+        <div class="container">
+            <div class="alert alert-dark bg-dark text-white border-0 mb-3 shadow-lg d-flex align-items-center justify-content-between">
+                <div class="d-flex align-items-center gap-2">
+                    <span class="badge bg-warning text-dark">Atalho</span>
+                    <div>
+                        <div class="fw-semibold">Adicionar RolesBr à tela inicial</div>
+                        <div class="small text-white-50">Toque em “Instalar” para ter acesso rápido ao app.</div>
+                    </div>
+                </div>
+                <div class="d-flex align-items-center gap-2">
+                    <button id="pwaInstallClose" type="button" class="btn btn-sm btn-outline-light">Agora não</button>
+                    <button id="pwaInstallBtn" type="button" class="btn btn-sm btn-warning text-dark">Instalar</button>
+                </div>
+            </div>
         </div>
     </div>
 

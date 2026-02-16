@@ -9,22 +9,85 @@ use App\Models\BasePovoado;
 use App\Models\BaseRua;
 use App\Models\BaseRuaPrefixo;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class LocationController extends Controller
 {
     public function estados()
     {
-        return response()->json(BaseEstado::where('status', 1)->orderBy('nome')->get(['id','nome','uf']));
+        return response()->json(
+            BaseEstado::where('status', 1)
+                ->orderBy('nome')
+                ->get(['id', 'nome', 'uf'])
+        );
     }
 
     public function cidades($estadoId)
     {
-        return response()->json(BaseCidade::where('estado_id', (int)$estadoId)->orderBy('nome')->get(['id','nome']));
+        return response()->json(
+            BaseCidade::where('estado_id', (int) $estadoId)
+                ->orderBy('nome')
+                ->get(['id', 'nome'])
+        );
     }
 
     public function bairros($cidadeId)
     {
-        return response()->json(BaseBairro::where('cidade_id', (int)$cidadeId)->orderBy('nome')->get(['id','nome']));
+        return response()->json(
+            BaseBairro::where('cidade_id', (int) $cidadeId)
+                ->orderBy('nome')
+                ->get(['id', 'nome'])
+        );
+    }
+
+    public function estadosBares()
+    {
+        $rows = DB::table('form_perfil_bares_tb as b')
+            ->join('base_estados as est', 'est.id', '=', 'b.estado_id')
+            ->whereNull('b.deleted_at')
+            ->groupBy('est.id', 'est.nome', 'est.uf')
+            ->orderBy('est.nome', 'ASC')
+            ->get(['est.id as id', 'est.nome', 'est.uf']);
+
+        return response()->json($rows);
+    }
+
+    public function cidadesBares($estadoId)
+    {
+        $estadoId = (int) $estadoId;
+
+        $rows = DB::table('form_perfil_bares_tb as b')
+            ->join('base_cidades as cid', 'cid.id', '=', 'b.cidade_id')
+            ->whereNull('b.deleted_at')
+            ->where('b.estado_id', $estadoId)
+            ->groupBy('cid.id', 'cid.nome')
+            ->orderBy('cid.nome', 'ASC')
+            ->get(['cid.id as id', 'cid.nome']);
+
+        return response()->json($rows);
+    }
+
+    public function bairrosBares($cidadeId)
+    {
+        $cidadeId = (int) $cidadeId;
+
+        $sql = "
+            SELECT DISTINCT bai.id, bai.nome
+            FROM form_perfil_bares_tb b
+            INNER JOIN base_bairros bai
+                ON bai.cidade_id = b.cidade_id
+               AND (
+                    bai.id = b.bairro_id
+                    OR (b.bairro_id IS NULL AND bai.nome = b.bairro_nome)
+               )
+            WHERE b.deleted_at IS NULL
+              AND b.cidade_id = ?
+            ORDER BY bai.nome ASC
+        ";
+
+        $rows = DB::select($sql, [$cidadeId]);
+
+        return response()->json($rows);
     }
 
     public function storeBairro(Request $request)

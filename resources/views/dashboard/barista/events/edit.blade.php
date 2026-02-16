@@ -121,6 +121,24 @@
                 <label class="form-label">Vídeo (YouTube URL)</label>
                 <input type="url" name="video_youtube_url" value="{{ old('video_youtube_url',$event->video_youtube_url) }}" class="form-control" placeholder="https://youtube.com/...">
             </div>
+            <div class="col-md-4">
+                <div class="form-check mt-4">
+                    <input class="form-check-input" type="checkbox" name="is_destaque" value="1" id="isDestaqueEdit" @checked(old('is_destaque', $event->is_destaque))>
+                    <label class="form-check-label" for="isDestaqueEdit">
+                        Evento destacado (patrocinado)
+                    </label>
+                </div>
+            </div>
+            <div class="col-md-8">
+                <label class="form-label">Comprovante de pagamento (imagem ou PDF)</label>
+                <input type="file" name="comprovante_pagamento" class="form-control" accept="image/*,.pdf">
+                @if($event->comprovante_pagamento)
+                    <small class="d-block mt-1">
+                        Comprovante atual: <a href="{{ $event->comprovante_pagamento }}" target="_blank">abrir</a>
+                    </small>
+                @endif
+                <small class="text-muted">Envie um novo arquivo para substituir o comprovante atual.</small>
+            </div>
             <div class="col-12">
                 <label class="form-label">Logos do Evento (1 a 4)</label>
                 <div class="row g-2 align-items-end">

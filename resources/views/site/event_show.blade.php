@@ -1,11 +1,11 @@
 @extends('_layout.site.site_default')
 
 @section('content')
+@php
+    $cover = $event->imagem_capa ? asset(ltrim($event->imagem_capa, '/')) : 'https://images.unsplash.com/photo-1514933651103-005eec06c04b?w=1400&h=700&fit=crop';
+@endphp
 <div class="event-container">
     <div class="hero-section">
-        @php
-            $cover = $event->imagem_capa ? asset(ltrim($event->imagem_capa, '/')) : 'https://images.unsplash.com/photo-1514933651103-005eec06c04b?w=1400&h=700&fit=crop';
-        @endphp
         <div class="hero-image" style="background-image: url('{{ $cover }}');">
             <div class="hero-overlay">
                 <div class="hero-content">
@@ -21,15 +21,8 @@
                 </div>
             </div>
         </div>
-        
-        <div class="event-details">
-            @if($event->descricao)
-                <div class="description">
-                    {{ $event->descricao }}
-                </div>
-            @endif
-            
-            @php
+    </div>
+    @php
                 $lat = $event->latitude_evento ?: ($event->establishment->latitude ?? null);
                 $lon = $event->longitude_evento ?: ($event->establishment->longitude ?? null);
                 $addressParts = [];
@@ -39,39 +32,34 @@
                 $address = implode(', ', $addressParts);
                 $mapsQuery = ($lat && $lon) ? ($lat . ',' . $lon) : $address;
                 $mapsLink = 'https://www.google.com/maps/search/?api=1&query=' . urlencode($mapsQuery);
-                $wazeLink = ($lat && $lon)
-                    ? ('https://waze.com/ul?ll=' . $lat . ',' . $lon . '&navigate=yes')
-                    : ('https://waze.com/ul?q=' . urlencode($address) . '&navigate=yes');
+                $wazeLink = ($lat && $lon) ? ('https://waze.com/ul?ll=' . $lat . ',' . $lon . '&navigate=yes') : ('https://waze.com/ul?q=' . urlencode($address) . '&navigate=yes');
                 $shareTitle = trim($event->nome . ' - ' . ($event->establishment->nome ?? ''));
-                $shareText = $shareTitle . ' - ' . ($address ?: '');
                 $currentUrl = url()->current();
-                $whatsUrl = 'https://wa.me/?text=' . urlencode($shareTitle . ' ' . $currentUrl);
             @endphp
-            
-            <div class="action-buttons">
-                <a href="{{ $mapsLink }}" target="_blank" rel="noopener" class="btn-action maps-btn" data-tooltip="Abrir no Google Maps">
-                    <i class="fas fa-map-marker-alt"></i>
-                    <span>Maps</span>
-                </a>
-                <a href="{{ $wazeLink }}" target="_blank" rel="noopener" class="btn-action waze-btn" data-tooltip="Abrir no Waze">
-                    <i class="fas fa-route"></i>
-                    <span>Waze</span>
-                </a>
-                <a href="{{ $whatsUrl }}" target="_blank" rel="noopener" class="btn-action whatsapp-btn" data-tooltip="Compartilhar no WhatsApp">
-                    <i class="fab fa-whatsapp"></i>
-                    <span>WhatsApp</span>
-                </a>
-                <button class="btn-action share-btn primary" onclick="shareEvent('{{ e($shareTitle) }}','{{ e($shareText) }}','{{ e($currentUrl) }}')" data-tooltip="Compartilhar evento">
-                    <i class="fas fa-share-alt"></i>
-                    <span>Compartilhar</span>
-                </button>
-            </div>
-        </div>
-    </div>
-
     <div class="main-content">
         <div class="content-grid">
             <div class="main-column">
+                @if($event->descricao)
+                    <div class="event-details">
+                        <div class="description">
+                            {{ $event->descricao }}
+                        </div>
+                        <div class="action-buttons">
+                            <a href="{{ $mapsLink }}" target="_blank" rel="noopener" class="btn-action maps-btn" data-tooltip="Abrir no Google Maps">
+                                <i class="fas fa-map-marker-alt"></i>
+                                <span>Maps</span>
+                            </a>
+                            <a href="{{ $wazeLink }}" target="_blank" rel="noopener" class="btn-action waze-btn" data-tooltip="Abrir no Waze">
+                                <i class="fas fa-route"></i>
+                                <span>Waze</span>
+                            </a>
+                            <a href="https://wa.me/?text={{ urlencode($shareTitle.' '.$currentUrl) }}" target="_blank" rel="noopener" class="btn-action whatsapp-btn" data-tooltip="Compartilhar no WhatsApp">
+                                <i class="fab fa-whatsapp"></i>
+                                <span>WhatsApp</span>
+                            </a>
+                        </div>
+                    </div>
+                @endif
                 @if(!$lots->isEmpty())
                 <div class="tickets-section">
                     <div class="section-header">
@@ -175,12 +163,7 @@
 <style>
 .event-container { width: 100%; margin: 0; padding: 0; }
 
-.hero-section {
-    margin-bottom: 2rem;
-    border-radius: 0;
-    overflow: hidden;
-    box-shadow: none;
-}
+.hero-section { margin: 0 !important; border-radius: 0; overflow: hidden; box-shadow: none; }
 
 .hero-image {
     height: 500px;
@@ -259,6 +242,35 @@
 .share-btn.primary { background: #EEF2FF; color: #4338CA; border: 1px solid #e0e7ff; cursor: pointer; }
 
 .btn-action:hover { transform: translateY(0); filter: brightness(0.95); }
+
+.share-dropdown { position: relative; display: inline-block; }
+.share-menu {
+    position: absolute;
+    top: 100%;
+    right: 0;
+    background: #fff;
+    border: 1px solid #e5e7eb;
+    border-radius: 10px;
+    box-shadow: 0 10px 20px rgba(0,0,0,0.08);
+    padding: 0.5rem;
+    min-width: 180px;
+    display: none;
+    z-index: 30;
+}
+.share-menu.show { display: block; }
+.share-menu a, .share-menu .copy-link {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    width: 100%;
+    padding: 0.5rem 0.6rem;
+    border-radius: 8px;
+    text-decoration: none;
+    color: #111827;
+    background: transparent;
+}
+.share-menu a:hover, .share-menu .copy-link:hover { background: #f3f4f6; }
+.share-menu .copy-link { border: 0; cursor: pointer; }
 
 .main-content { display: grid; grid-template-columns: 1fr; gap: 0; margin-top: 0; }
 
@@ -476,7 +488,7 @@
 
 /* Responsive */
 @media (max-width: 768px) {
-    .event-container { max-width: 100%; margin: 0; padding: 0; }
+    .event-container { max-width: 100%; margin: 0; padding: 0 !important; }
 
     .container-fluid {
         padding-left: 0 !important;
@@ -492,6 +504,7 @@
     .event-details { padding: 1.5rem; }
     
     .action-buttons { flex-direction: row; align-items: center; gap: 0.4rem; }
+    
     
     
     .ticket-card {
@@ -572,6 +585,31 @@ function showToast(message, type = 'info') {
 
 // Smooth scroll and animations
 document.addEventListener('DOMContentLoaded', function() {
+    const toggle = document.getElementById('shareToggle');
+    const menu = document.getElementById('shareMenu');
+    if (toggle && menu) {
+        toggle.addEventListener('click', function(e){
+            e.stopPropagation();
+            menu.classList.toggle('show');
+        });
+        document.addEventListener('click', function(){
+            menu.classList.remove('show');
+        });
+        const copyBtn = menu.querySelector('.copy-link');
+        if (copyBtn) {
+            copyBtn.addEventListener('click', function(e){
+                e.preventDefault();
+                e.stopPropagation();
+                const link = this.getAttribute('data-url');
+                if (navigator.clipboard) {
+                    navigator.clipboard.writeText(link).then(function(){
+                        showToast('Link copiado!', 'success');
+                    });
+                }
+                menu.classList.remove('show');
+            });
+        }
+    }
     // Intersection Observer for animations
     const observer = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
