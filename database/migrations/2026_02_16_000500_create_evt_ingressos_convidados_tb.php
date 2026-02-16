@@ -21,6 +21,7 @@ return new class extends Migration
                 $table->string('cpf', 20)->nullable();
                 $table->date('data_nascimento')->nullable();
                 $table->string('email', 255)->nullable();
+                $table->string('whatsapp', 30)->nullable();
                 $table->timestamps();
                 $table->index(['evento_id', 'lote_id']);
             });

@@ -88,6 +88,7 @@ class TicketCartController extends Controller
             'nome' => 'nullable|string',
             'email' => 'nullable|email',
             'telefone' => 'nullable|string',
+            'whatsapp_titular' => 'required|string',
             'convidados' => 'nullable|array',
             'convidados.*.nome' => 'nullable|string',
             'convidados.*.cpf' => 'nullable|string',
@@ -144,70 +145,80 @@ class TicketCartController extends Controller
             Auth::login($user);
         }
 
-        $codigo = strtoupper(substr(md5(uniqid(rand(), true)), 0, 8));
+        $titularNome  = $data['nome'] ?? ($user ? $user->name  : '');
+        $titularEmail = $data['email'] ?? ($user ? $user->email : '');
+        $titularWhats = $data['whatsapp_titular'] ?? '';
 
-        for ($i = 0; $i < $quantidade; $i++) {
+        $extrasEsperados = max(0, $quantidade - 1);
+        $convidados = $request->input('convidados', []);
+        $convidados = array_slice(is_array($convidados) ? $convidados : [], 0, $extrasEsperados);
+
+        // Monta lista sequencial de participantes: [titular, convidado1, convidado2, ...]
+        $participantes = [];
+        $participantes[] = [
+            'is_titular' => true,
+            'nome' => $titularNome,
+            'cpf' => $cpfDigits,
+            'data_nascimento' => null,
+            'email' => $titularEmail,
+        ];
+        foreach ($convidados as $cv) {
+            $participantes[] = [
+                'is_titular' => false,
+                'nome' => trim((string) ($cv['nome'] ?? '')),
+                'cpf' => preg_replace('/\D+/', '', (string) ($cv['cpf'] ?? '')) ?: null,
+                'data_nascimento' => !empty($cv['data_nascimento'] ?? null) ? $cv['data_nascimento'] : null,
+                'email' => $cv['email'] ?? null,
+            ];
+        }
+
+        // Garante que teremos exatamente $quantidade participantes (completa com placeholders se necessário)
+        while (count($participantes) < $quantidade) {
+            $participantes[] = [
+                'is_titular' => false,
+                'nome' => $titularNome,
+                'cpf' => null,
+                'data_nascimento' => null,
+                'email' => null,
+            ];
+        }
+        // Corta excedentes se vieram mais convidados do que o permitido
+        $participantes = array_slice($participantes, 0, $quantidade);
+
+        foreach ($participantes as $p) {
+            // Gera um código único por ingresso e garante unicidade
+            do {
+                $codigo = strtoupper(substr(bin2hex(random_bytes(8)), 0, 8));
+                $exists = DB::table('evt_ingressos_vendidos_tb')->where('codigo_unico', $codigo)->exists();
+            } while ($exists);
+
             DB::table('evt_ingressos_vendidos_tb')->insert([
                 'evento_id' => $event->evento_id,
                 'lote_id' => $ticket->lote_id,
                 'user_id' => $user ? $user->id : null,
-                'nome_comprador' => $data['nome'] ?? ($user ? $user->name : ''),
-                'email_comprador' => $data['email'] ?? ($user ? $user->email : ''),
+                'nome_comprador' => $titularNome,
+                'email_comprador' => $titularEmail,
                 'codigo_unico' => $codigo,
                 'status' => 'pago',
                 'valor_pago' => $ticket->preco,
                 'data_compra' => now(),
             ]);
-        }
 
-        $titularNome = $data['nome'] ?? ($user ? $user->name : '');
-        $titularEmail = $data['email'] ?? ($user ? $user->email : '');
-
-        // Registra o titular como um "convidado" is_titular = true
-        DB::table('evt_ingressos_convidados_tb')->insert([
-            'evento_id' => $event->evento_id,
-            'lote_id' => $ticket->lote_id,
-            'codigo_unico' => $codigo,
-            'is_titular' => true,
-            'titular_nome' => $titularNome,
-            'titular_cpf' => $cpfDigits,
-            'nome' => $titularNome,
-            'cpf' => $cpfDigits,
-            'data_nascimento' => null,
-            'email' => $titularEmail,
-            'created_at' => now(),
-            'updated_at' => now(),
-        ]);
-
-        $extrasEsperados = max(0, $quantidade - 1);
-        $convidados = $request->input('convidados', []);
-        if ($extrasEsperados > 0) {
-            // Garante que temos exatamente a quantidade de convidados esperados
-            $convidados = array_slice($convidados, 0, $extrasEsperados);
-            foreach ($convidados as $cv) {
-                $nomeCv = trim((string) ($cv['nome'] ?? ''));
-                if ($nomeCv === '') {
-                    continue;
-                }
-                $cpfCv = preg_replace('/\D+/', '', (string) ($cv['cpf'] ?? ''));
-                $nasc = !empty($cv['data_nascimento'] ?? null) ? $cv['data_nascimento'] : null;
-                $emailCv = $cv['email'] ?? null;
-
-                DB::table('evt_ingressos_convidados_tb')->insert([
-                    'evento_id' => $event->evento_id,
-                    'lote_id' => $ticket->lote_id,
-                    'codigo_unico' => $codigo,
-                    'is_titular' => false,
-                    'titular_nome' => $titularNome,
-                    'titular_cpf' => $cpfDigits,
-                    'nome' => $nomeCv,
-                    'cpf' => $cpfCv ?: null,
-                    'data_nascimento' => $nasc,
-                    'email' => $emailCv,
-                    'created_at' => now(),
-                    'updated_at' => now(),
-                ]);
-            }
+            DB::table('evt_ingressos_convidados_tb')->insert([
+                'evento_id' => $event->evento_id,
+                'lote_id' => $ticket->lote_id,
+                'codigo_unico' => $codigo,
+                'is_titular' => (bool) $p['is_titular'],
+                'titular_nome' => $titularNome,
+                'titular_cpf' => $cpfDigits,
+                'nome' => $p['nome'] ?: $titularNome,
+                'cpf' => $p['cpf'],
+                'data_nascimento' => $p['data_nascimento'],
+                'email' => $p['email'] ?: $titularEmail,
+                'whatsapp' => $titularWhats,
+                'created_at' => now(),
+                'updated_at' => now(),
+            ]);
         }
 
         return redirect()->route('site.ticket.show', $ticket->lote_id)

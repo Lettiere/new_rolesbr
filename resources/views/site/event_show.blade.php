@@ -226,26 +226,9 @@
     margin-bottom: 2.5rem;
 }
 
-.action-buttons {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 0.5rem;
-    justify-content: flex-start;
-}
+.action-buttons { display: flex; flex-wrap: wrap; gap: 0.5rem; justify-content: flex-start; }
 
-.btn-action {
-    display: flex;
-    align-items: center;
-    gap: 0.75rem;
-    padding: 0.5rem 0.9rem;
-    border-radius: 999px;
-    font-weight: 500;
-    text-decoration: none;
-    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-    font-size: 0.85rem;
-    position: relative;
-    overflow: hidden;
-}
+.btn-action { display: inline-flex; align-items: center; gap: 0.35rem; padding: 0.35rem 0.6rem; border-radius: 999px; font-weight: 600; text-decoration: none; transition: all 0.2s ease; font-size: 0.8rem; position: relative; line-height: 1; }
 
 .btn-action::before {
     content: attr(data-tooltip);
@@ -270,20 +253,12 @@
     bottom: -35px;
 }
 
-.maps-btn { background: linear-gradient(135deg, #4285f4, #34a853); color: white; }
-.waze-btn { background: linear-gradient(135deg, #ff7b00, #f44336); color: white; }
-.whatsapp-btn { background: linear-gradient(135deg, #25d366, #128c7e); color: white; }
-.share-btn.primary { 
-    background: linear-gradient(135deg, #3b82f6, #1d4ed8); 
-    color: white;
-    border: none;
-    cursor: pointer;
-}
+.maps-btn { background: #E8F0FE; color: #1a73e8; border: 1px solid #d2e3fc; }
+.waze-btn { background: #FFF4E5; color: #ea580c; border: 1px solid #ffe1c7; }
+.whatsapp-btn { background: #E7F6EE; color: #059669; border: 1px solid #c7ecd8; }
+.share-btn.primary { background: #EEF2FF; color: #4338CA; border: 1px solid #e0e7ff; cursor: pointer; }
 
-.btn-action:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 12px 20px -6px rgba(0, 0, 0, 0.25);
-}
+.btn-action:hover { transform: translateY(0); filter: brightness(0.95); }
 
 .main-content { display: grid; grid-template-columns: 1fr; gap: 0; margin-top: 0; }
 
@@ -516,10 +491,8 @@
     .hero-overlay { padding: 2rem 1.5rem; }
     .event-details { padding: 1.5rem; }
     
-    .action-buttons {
-        flex-direction: column;
-        align-items: stretch;
-    }
+    .action-buttons { flex-direction: row; align-items: center; gap: 0.4rem; }
+    
     
     .ticket-card {
         grid-template-columns: 1fr;

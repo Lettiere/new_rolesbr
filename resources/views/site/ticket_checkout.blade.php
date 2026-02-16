@@ -118,6 +118,10 @@
                                 <input type="text" class="form-control" name="cpf" value="{{ old('cpf') }}" placeholder="000.000.000-00" required>
                             </div>
                             <div class="col-12 col-md-6">
+                                <label class="form-label">WhatsApp do titular</label>
+                                <input type="tel" class="form-control" name="whatsapp_titular" value="{{ old('whatsapp_titular') }}" placeholder="(xx) xxxxx-xxxx" required>
+                            </div>
+                            <div class="col-12 col-md-6">
                                 <label class="form-label">Quantidade</label>
                                 <input type="number" min="1" max="5" value="{{ old('quantidade', 1) }}" class="form-control" name="quantidade">
                             </div>
@@ -242,19 +246,19 @@
             <div class="col-12">
                 <div class="fw-semibold mb-2">Convidado ${index+1}</div>
             </div>
-            <div class="col-12 col-md-6">
+            <div class="col-12">
                 <label class="form-label">Nome completo</label>
                 <input type="text" class="form-control" name="convidados[${index}][nome]" required>
             </div>
-            <div class="col-12 col-md-6">
+            <div class="col-12">
                 <label class="form-label">CPF</label>
                 <input type="text" class="form-control" name="convidados[${index}][cpf]" placeholder="000.000.000-00">
             </div>
-            <div class="col-12 col-md-6">
+            <div class="col-12">
                 <label class="form-label">Data de nascimento</label>
                 <input type="date" class="form-control" name="convidados[${index}][data_nascimento]">
             </div>
-            <div class="col-12 col-md-6">
+            <div class="col-12">
                 <label class="form-label">E-mail</label>
                 <input type="email" class="form-control" name="convidados[${index}][email]">
             </div>
