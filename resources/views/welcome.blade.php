@@ -20,6 +20,160 @@
         </form>
     </section>
     
+<section class="mb-4">
+    <div class="d-flex justify-content-between align-items-center mb-2 d-none">
+        <h2 class="h5 fw-bold mb-0">Stories dos Roles</h2>
+        <a id="storiesLink" href="/stories" class="inline-flex items-center px-3 py-1 rounded-full bg-gradient-to-r from-orange-500 to-pink-500 text-white text-xs shadow hover:opacity-90">
+            Ver mais
+        </a>
+    </div>
+
+    <div class="position-relative">
+        <button class="btn btn-sm btn-light position-absolute top-50 start-0 translate-middle-y shadow d-none d-md-inline-flex"
+                type="button" id="storiesPrev">
+            <i class="fas fa-chevron-left"></i>
+        </button>
+        <button class="btn btn-sm btn-light position-absolute top-50 end-0 translate-middle-y shadow d-none d-md-inline-flex"
+                type="button" id="storiesNext">
+            <i class="fas fa-chevron-right"></i>
+        </button>
+
+        <div id="storiesScroll"
+             class="stories-wrapper d-flex flex-row overflow-auto py-2 px-1"
+             style="scroll-behavior:smooth; gap:12px;">
+            <div id="storiesItems" class="d-flex" style="gap:12px;"></div>
+        </div>
+</div>
+
+ 
+<script>
+let allStories = [];
+let currentStoryIndex = 0;
+try {
+    const link = window.STORIES_LINK || '/stories';
+    const a = document.getElementById('storiesLink');
+    if (a) a.href = link;
+} catch(e) {}
+
+function storyItem(s, index){
+    const img = s.image_url ? ('/' + encodeURI(s.image_url)) : 'https://images.unsplash.com/photo-1521572267360-ee0c2909d518?w=200';
+    const name = s.name || s.user_name || 'Story';
+    return `<button class="border-0 bg-transparent p-0 text-center" onclick="openStoryModal(${index})" type="button">
+        <div class="rounded-circle p-1 shadow" style="background:linear-gradient(45deg,#f09433,#e6683c,#dc2743,#cc2366,#bc1888);">
+            <div class="rounded-circle border border-3 border-white" style="width:84px;height:84px;overflow:hidden;">
+                <img src="${img}" alt="${name}" class="w-100 h-100" style="object-fit:cover;">
+            </div>
+        </div>
+        <small class="d-block mt-2 text-truncate" style="max-width:96px;">${name}</small>
+    </button>`;
+}
+
+function openStoryModal(index) {
+    if (!allStories || allStories.length === 0) return;
+    currentStoryIndex = index;
+    const story = allStories[index];
+    const imgUrl = story.image_url ? ('/' + encodeURI(story.image_url)) : '';
+    const img = document.getElementById('storyModalImage');
+    const caption = document.getElementById('storyCaption');
+    if (img && imgUrl) {
+        img.src = imgUrl;
+        if (caption) {
+            caption.textContent = story.name || story.user_name || 'Story';
+        }
+        const modal = new bootstrap.Modal(document.getElementById('storyModal'));
+        modal.show();
+    }
+    // preload vizinho
+    const nextIdx = (index + 1) % allStories.length;
+    const prevIdx = (index - 1 + allStories.length) % allStories.length;
+    [nextIdx, prevIdx].forEach(i => {
+        const s = allStories[i];
+        if (s && s.image_url) {
+            const preload = new Image();
+            preload.src = '/' + encodeURI(s.image_url);
+        }
+    });
+}
+
+function changeStory(direction) {
+    if (!allStories || allStories.length === 0) return;
+    currentStoryIndex = (currentStoryIndex + direction + allStories.length) % allStories.length;
+    const story = allStories[currentStoryIndex];
+    const imgUrl = story.image_url ? ('/' + encodeURI(story.image_url)) : '';
+    const img = document.getElementById('storyModalImage');
+    const caption = document.getElementById('storyCaption');
+    if (img && imgUrl) {
+        img.src = imgUrl;
+        if (caption) {
+            caption.textContent = story.name || story.user_name || 'Story';
+        }
+    }
+}
+
+async function loadStories(){
+    const items=document.getElementById('storiesItems');
+    items.innerHTML='<div class="text-muted small">Carregando...</div>';
+    try{
+        const limit = window.STORIES_LIMIT || 12;
+        const endpoint = window.STORIES_ENDPOINT || '/home/stories-all';
+        const r=await fetch(endpoint + '?limit='+limit+'&_ts='+Date.now(),{headers:{'Accept':'application/json','X-Requested-With':'XMLHttpRequest'}});
+        if(!r.ok){ items.innerHTML='<div class="text-danger small">Erro ao carregar</div>'; return; }
+        const data=await r.json();
+        if(!Array.isArray(data)||!data.length){ items.innerHTML='<div class="text-muted small">Sem stories</div>'; return; }
+        const valid = data.filter(s => !!s.image_url);
+        if(!valid.length){ items.innerHTML='<div class="text-muted small">Sem stories</div>'; return; }
+        allStories = valid;
+        items.innerHTML=allStories.map((s, i) => storyItem(s, i)).join('');
+    }catch(e){
+        items.innerHTML='<div class="text-muted small">Falha de rede</div>';
+        console.error(e);
+    }
+}
+function initStoriesScroll(){
+    const scrollEl=document.getElementById('storiesScroll');
+    const prevBtn=document.getElementById('storiesPrev');
+    const nextBtn=document.getElementById('storiesNext');
+    const step=160;
+    prevBtn.addEventListener('click', ()=> scrollEl.scrollBy({left:-step, behavior:'smooth'}));
+    nextBtn.addEventListener('click', ()=> scrollEl.scrollBy({left:step, behavior:'smooth'}));
+}
+function initStoriesKeys(){
+    document.addEventListener('keydown', function(e){
+        const modal = document.getElementById('storyModal');
+        const hasShow = modal && modal.classList.contains('show');
+        if (!hasShow) return;
+        if (e.key === 'ArrowRight') changeStory(1);
+        if (e.key === 'ArrowLeft') changeStory(-1);
+        if (e.key === 'Escape') bootstrap.Modal.getInstance(modal)?.hide();
+    });
+}
+if(document.readyState!=='loading'){ loadStories(); initStoriesScroll(); initStoriesKeys(); } else { document.addEventListener('DOMContentLoaded', ()=>{ loadStories(); initStoriesScroll(); initStoriesKeys(); }); }
+</script>
+
+<!-- Modal para exibir story -->
+<div class="modal fade" id="storyModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-lg modal-fullscreen-sm-down">
+        <div class="modal-content bg-dark">
+            <div class="modal-body p-0 position-relative">
+                <button type="button" class="btn btn-light position-absolute top-50 start-0 translate-middle-y m-2" onclick="changeStory(-1)" style="z-index:10;">
+                    <i class="fas fa-chevron-left"></i>
+                </button>
+                <button type="button" class="btn btn-light position-absolute top-50 end-0 translate-middle-y m-2" onclick="changeStory(1)" style="z-index:10;">
+                    <i class="fas fa-chevron-right"></i>
+                </button>
+                <button type="button" class="btn-close btn-close-white position-absolute top-0 end-0 m-2" data-bs-dismiss="modal" aria-label="Fechar" style="z-index:10;"></button>
+                <img id="storyModalImage" src="" class="img-fluid w-100" style="max-height:100vh;object-fit:contain;" alt="Story">
+                <div class="position-absolute bottom-0 start-0 end-0 p-2 text-center text-white" style="background:linear-gradient(180deg, rgba(0,0,0,0), rgba(0,0,0,.6));">
+                    <span id="storyCaption" class="small"></span>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
     
   <!-- destaque -->
      @if($featured && $featured->count() > 0)

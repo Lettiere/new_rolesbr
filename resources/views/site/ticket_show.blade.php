@@ -3,7 +3,31 @@
 @section('content')
 @php
     $eventCover = $event && $event->imagem_capa ? asset(ltrim($event->imagem_capa, '/')) : 'https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?w=1400&h=700&fit=crop';
+    $ticketTitle = $ticket->nome ?? 'Ingresso';
+    $eventName = $event?->nome ?? '';
+    $metaTitle = $eventName !== '' ? $ticketTitle.' | '.$eventName.' | Ingresso | RolesBr' : $ticketTitle.' | Ingresso | RolesBr';
+    $metaDescBase = trim((string)($event->descricao ?? ''));
+    if ($metaDescBase === '') {
+        $metaDescBase = 'Detalhes do ingresso no RolesBr.';
+    }
+    $metaDesc = \Illuminate\Support\Str::limit($metaDescBase, 160, '...');
+    $likesPost = \Illuminate\Support\Facades\DB::table('user_posts_tb')
+        ->where('posted_as_type', 'ticket')
+        ->where('posted_as_id', $ticket->lote_id)
+        ->first();
+    $likesCount = $likesPost->likes_count ?? 0;
+    $likedByMe = false;
+    if (auth()->check() && $likesPost) {
+        $likedByMe = \Illuminate\Support\Facades\DB::table('user_post_likes_tb')
+            ->where('user_id', auth()->id())
+            ->where('post_id', $likesPost->post_id)
+            ->exists();
+    }
 @endphp
+@section('meta_title', $metaTitle)
+@section('meta_description', $metaDesc)
+@section('meta_image', $eventCover)
+@section('meta_og_type', 'product')
 <div class="event-container">
     <div class="hero-section">
         <div class="hero-image" style="background-image: url('{{ $eventCover }}');">
@@ -26,11 +50,19 @@
         <div class="content-grid">
             <div class="main-column">
                 <div class="tickets-section">
-                    <div class="section-header">
+                    <div class="section-header d-flex justify-content-between align-items-center">
                         <h2 class="section-title">
                             <i class="fas fa-ticket-alt"></i>
                             Ingresso selecionado
                         </h2>
+                        <button type="button"
+                                class="btn btn-outline-danger btn-sm like-toggle"
+                                data-type="ticket"
+                                data-id="{{ $ticket->lote_id }}"
+                                data-liked="{{ $likedByMe ? 1 : 0 }}">
+                            <i class="{{ $likedByMe ? 'fas' : 'far' }} fa-heart me-1"></i>
+                            <span class="like-count">{{ $likesCount }}</span>
+                        </button>
                     </div>
                     <div class="tickets-grid">
                         <div class="ticket-card">
@@ -223,6 +255,52 @@ document.addEventListener('DOMContentLoaded', function() {
         window.open(img.src, '_blank');
       });
     });
+});
+</script>
+@endpush
+
+@push('scripts')
+<script>
+document.addEventListener('click', function (e) {
+    var btn = e.target.closest('.like-toggle');
+    if (!btn) return;
+    var type = btn.getAttribute('data-type');
+    var id = btn.getAttribute('data-id');
+    if (!type || !id) return;
+    fetch("{{ route('api.likes.toggle') }}", {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'Accept': 'application/json',
+            'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content'),
+            'X-Requested-With': 'XMLHttpRequest'
+        },
+        body: JSON.stringify({ type: type, id: parseInt(id, 10) })
+    }).then(function (r) {
+        if (r.status === 401) {
+            window.location.href = "{{ route('login') }}";
+            return null;
+        }
+        return r.json();
+    }).then(function (data) {
+        if (!data) return;
+        if (data.error === 'not_implemented') {
+            alert('Curtidas para este tipo ainda não estão disponíveis.');
+            return;
+        }
+        if (typeof data.liked !== 'undefined') {
+            btn.setAttribute('data-liked', data.liked ? '1' : '0');
+            var icon = btn.querySelector('i');
+            if (icon) {
+                icon.classList.toggle('fas', data.liked);
+                icon.classList.toggle('far', !data.liked);
+            }
+        }
+        if (typeof data.likes !== 'undefined') {
+            var span = btn.querySelector('.like-count');
+            if (span) span.textContent = data.likes;
+        }
+    }).catch(function(){});
 });
 </script>
 @endpush

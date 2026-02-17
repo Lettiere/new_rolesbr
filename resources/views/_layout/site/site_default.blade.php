@@ -16,13 +16,22 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>RolesBr São Paulo | Eventos, Festas, Bares, Raves, Gospel e Cultura</title>
+    @php
+        $defaultTitle = 'RolesBr São Paulo | Eventos, Festas, Bares, Raves, Gospel e Cultura';
+        $defaultDescription = 'RolesBr São Paulo reúne eventos de todos os estilos: bares, festas, raves, gospel, cultura alternativa e encontros sociais. Entre em listas e ganhe descontos exclusivos.';
+        $defaultKeywords = 'roles sp, eventos são paulo, festas sp, bares sp, rave sp, eventos gospel sp, cultura alternativa sp, listas vip eventos, rolê sp';
+        $defaultAuthor = 'RolesBr';
+        $defaultImage = asset('uploads/logo/Logo.png');
+        $currentUrl = url()->current();
+    @endphp
 
-    <meta name="description" content="RolesBr São Paulo reúne eventos de todos os estilos: bares, festas, raves, gospel, cultura alternativa e encontros sociais. Entre em listas e ganhe descontos exclusivos.">
-    <meta name="keywords" content="roles sp, eventos são paulo, festas sp, bares sp, rave sp, eventos gospel sp, cultura alternativa sp, listas vip eventos, rolê sp">
-    <meta name="author" content="RolesBr">
-    <meta name="robots" content="index, follow">
-    <meta name="googlebot" content="index, follow">
+    <title>@yield('meta_title', $defaultTitle)</title>
+
+    <meta name="description" content="@yield('meta_description', $defaultDescription)">
+    <meta name="keywords" content="@yield('meta_keywords', $defaultKeywords)">
+    <meta name="author" content="@yield('meta_author', $defaultAuthor)">
+    <meta name="robots" content="@yield('meta_robots', 'index, follow')">
+    <meta name="googlebot" content="@yield('meta_googlebot', 'index, follow')">
 
     <!-- ===================== -->
     <!-- SEO LOCAL -->
@@ -32,31 +41,22 @@
     <meta name="geo.position" content="-23.550520;-46.633308">
     <meta name="ICBM" content="-23.550520, -46.633308">
 
-    <!-- ===================== -->
-    <!-- CANONICAL -->
-    <!-- ===================== -->
-    <link rel="canonical" href="https://rolesbr.com.br/sao-paulo">
+    <link rel="canonical" href="@yield('meta_canonical', $currentUrl)">
 
-    <!-- ===================== -->
-    <!-- OPEN GRAPH (Facebook / WhatsApp) -->
-    <!-- ===================== -->
-    <meta property="og:type" content="website">
-    <meta property="og:title" content="RolesBr São Paulo | Onde o povo se encontra">
-    <meta property="og:description" content="Descubra eventos em São Paulo: de bares e raves a gospel e cultura alternativa. Entre em listas, participe e ganhe benefícios reais.">
-    <meta property="og:url" content="https://rolesbr.com.br/sao-paulo">
-    <meta property="og:site_name" content="RolesBr">
-    <meta property="og:image" content="https://rolesbr.com.br/assets/img/og/rolesbr-sp.jpg">
+    <meta property="og:type" content="@yield('meta_og_type', 'website')">
+    <meta property="og:title" content="@yield('meta_og_title', $defaultTitle)">
+    <meta property="og:description" content="@yield('meta_og_description', $defaultDescription)">
+    <meta property="og:url" content="@yield('meta_og_url', $currentUrl)">
+    <meta property="og:site_name" content="@yield('meta_og_site_name', 'RolesBr')">
+    <meta property="og:image" content="@yield('meta_image', $defaultImage)">
     <meta property="og:image:width" content="1200">
     <meta property="og:image:height" content="630">
-    <meta property="og:locale" content="pt_BR">
+    <meta property="og:locale" content="@yield('meta_og_locale', 'pt_BR')">
 
-    <!-- ===================== -->
-    <!-- TWITTER CARD -->
-    <!-- ===================== -->
-    <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="RolesBr São Paulo | Eventos e Rolês">
-    <meta name="twitter:description" content="Eventos em São Paulo para todos os estilos. Do sagrado à rave. Se junta pessoas, é rolê.">
-    <meta name="twitter:image" content="https://rolesbr.com.br/assets/img/og/rolesbr-sp.jpg">
+    <meta name="twitter:card" content="@yield('meta_twitter_card', 'summary_large_image')">
+    <meta name="twitter:title" content="@yield('meta_twitter_title', $defaultTitle)">
+    <meta name="twitter:description" content="@yield('meta_twitter_description', $defaultDescription)">
+    <meta name="twitter:image" content="@yield('meta_twitter_image', $defaultImage)">
 
     <!-- ===================== -->
     <!-- PWA -->
@@ -386,7 +386,9 @@
                         <ul class="dropdown-menu dropdown-menu-end bg-dark border-secondary">
                             @auth
                                 <li><h6 class="dropdown-header text-muted">Olá, {{ Auth::user()->name }}</h6></li>
-                                <li><a class="dropdown-item text-light" href="#">Meu Perfil</a></li>
+                                @if($dashboardRoute)
+                                    <li><a class="dropdown-item text-light" href="{{ route($dashboardRoute) }}">Ir para o dashboard</a></li>
+                                @endif
                                 <li><a class="dropdown-item text-light" href="#" id="btnShareSite">Compartilhar o RolesBr</a></li>
                                 <li><hr class="dropdown-divider bg-secondary"></li>
                                 <li>
@@ -500,7 +502,7 @@
                     <i class="fas fa-house"></i>
                 </a>
                 <a href="{{ route('site.events.index') }}" class="mobile-bottom-nav-link {{ request()->is('eventos*') ? 'active' : '' }}" aria-label="Eventos">
-                    <i class="fas fa-calendar-star"></i>
+                    <i class="fas fa-calendar-days"></i>
                 </a>
                 <a href="{{ route('site.stories.index') }}" class="mobile-bottom-nav-link {{ request()->is('stories*') ? 'active' : '' }}" aria-label="Stories">
                     <i class="fas fa-circle-play"></i>
@@ -529,4 +531,3 @@
     @stack('scripts')
 
 </body>
-</html>

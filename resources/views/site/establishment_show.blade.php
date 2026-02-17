@@ -16,13 +16,36 @@
     $hoursLabel = $hIni && $hFim ? $hIni.' - '.$hFim : ($hIni ?: ($hFim ?: null));
     $capacity = $establishment->capacidade ?? null;
 
-    // métricas (adapte para sua lógica real)
-    $likesCount = $establishment->likes_count ?? 0;
+    $likesPost = \Illuminate\Support\Facades\DB::table('user_posts_tb')
+        ->where('posted_as_type', 'bar')
+        ->where('posted_as_id', $establishment->bares_id)
+        ->first();
+    $likesCount = $likesPost->likes_count ?? 0;
+    $likedByMe = false;
+    if (auth()->check() && $likesPost) {
+        $likedByMe = \Illuminate\Support\Facades\DB::table('user_post_likes_tb')
+            ->where('user_id', auth()->id())
+            ->where('post_id', $likesPost->post_id)
+            ->exists();
+    }
     $followersCount = $establishment->followers_count ?? 0;
 
     $slug = \Illuminate\Support\Str::slug($establishment->nome ?: 'estabelecimento');
     $shareUrl = url('estabelecimento/'.$establishment->bares_id.'-'.$slug);
+    $metaTitle = ($establishment->nome ? $establishment->nome.' | Estabelecimento | RolesBr' : 'Estabelecimento | RolesBr');
+    $metaDescBase = trim((string)($establishment->descricao ?? ''));
+    if ($metaDescBase === '') {
+        $metaDescBase = trim(($establishment->bairro_nome ?? '').' '.($establishment->cidade_nome ?? ''));
+        if ($metaDescBase === '') {
+            $metaDescBase = 'Estabelecimento no RolesBr.';
+        }
+    }
+    $metaDesc = \Illuminate\Support\Str::limit($metaDescBase, 160, '...');
 @endphp
+@section('meta_title', $metaTitle)
+@section('meta_description', $metaDesc)
+@section('meta_image', $cover)
+@section('meta_og_type', 'place')
 
 <div class="establishment-page w-100" style="margin-top:-18px;">
     {{-- HEADER TIPO PERFIL --}}
@@ -93,10 +116,12 @@
                     {{-- botões --}}
                     <div class="d-flex flex-wrap gap-2">
                         <button type="button"
-                                class="btn btn-sm btn-outline-light text-dark d-flex align-items-center gap-1"
-                                data-role="like-bar">
-                            <i class="far fa-heart"></i>
-                            <span>Curtir</span>
+                                class="btn btn-sm btn-outline-light text-dark d-flex align-items-center gap-1 like-toggle"
+                                data-type="bar"
+                                data-id="{{ $establishment->bares_id }}"
+                                data-liked="{{ $likedByMe ? 1 : 0 }}">
+                            <i class="{{ $likedByMe ? 'fas' : 'far' }} fa-heart"></i>
+                            <span class="like-count">{{ $likesCount }}</span>
                         </button>
                         <button type="button"
                                 class="btn btn-sm btn-primary d-flex align-items-center gap-1"
@@ -601,6 +626,52 @@ document.addEventListener('DOMContentLoaded', function () {
             e.preventDefault(); show(idx);
         });
     });
+});
+</script>
+@endpush
+
+@push('scripts')
+<script>
+document.addEventListener('click', function (e) {
+    var btn = e.target.closest('.like-toggle');
+    if (!btn) return;
+    var type = btn.getAttribute('data-type');
+    var id = btn.getAttribute('data-id');
+    if (!type || !id) return;
+    fetch("{{ route('api.likes.toggle') }}", {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'Accept': 'application/json',
+            'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content'),
+            'X-Requested-With': 'XMLHttpRequest'
+        },
+        body: JSON.stringify({ type: type, id: parseInt(id, 10) })
+    }).then(function (r) {
+        if (r.status === 401) {
+            window.location.href = "{{ route('login') }}";
+            return null;
+        }
+        return r.json();
+    }).then(function (data) {
+        if (!data) return;
+        if (data.error === 'not_implemented') {
+            alert('Curtidas para este tipo ainda não estão disponíveis.');
+            return;
+        }
+        if (typeof data.liked !== 'undefined') {
+            btn.setAttribute('data-liked', data.liked ? '1' : '0');
+            var icon = btn.querySelector('i');
+            if (icon) {
+                icon.classList.toggle('fas', data.liked);
+                icon.classList.toggle('far', !data.liked);
+            }
+        }
+        if (typeof data.likes !== 'undefined') {
+            var span = btn.querySelector('.like-count');
+            if (span) span.textContent = data.likes;
+        }
+    }).catch(function(){});
 });
 </script>
 @endpush

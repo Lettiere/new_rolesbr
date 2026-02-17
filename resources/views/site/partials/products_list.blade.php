@@ -21,8 +21,7 @@
             </div>
         @endforeach
     </div>
-    <div class="mt-3">
+    <div class="mt-3 products-list-pagination">
         {{ $products->withQueryString()->links() }}
     </div>
 @endif
-

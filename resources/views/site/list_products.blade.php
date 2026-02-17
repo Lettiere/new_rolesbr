@@ -1,5 +1,8 @@
 @extends('_layout.site.site_default')
 @section('content')
+@section('meta_title', 'Produtos | RolesBr')
+@section('meta_description', 'Lista de produtos e bebidas disponíveis nos estabelecimentos parceiros do RolesBr.')
+@section('meta_og_type', 'website')
 <div class="container py-4">
     <div class="d-flex justify-content-between align-items-center mb-3">
         <h1 class="h4 fw-bold mb-0">Produtos</h1>
@@ -18,6 +21,15 @@
     </div>
 </div>
 @push('scripts')
+@push('styles')
+<style>
+@media (max-width: 767.98px){
+    .products-list-pagination .pagination{justify-content:center;}
+    .products-list-pagination .page-item{margin:0 .1rem;}
+    .products-list-pagination .page-link{padding:.25rem .6rem;font-size:.8rem;border-radius:999px;min-width:2rem;text-align:center;}
+}
+</style>
+@endpush
 <script>
 document.addEventListener('DOMContentLoaded', function () {
     var form = document.querySelector('form[action="{{ route('site.products.index') }}"]');

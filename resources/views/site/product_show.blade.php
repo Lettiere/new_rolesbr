@@ -11,6 +11,29 @@
         } else {
             $img = 'https://images.unsplash.com/photo-1514933651103-005eec06c04b?w=800&h=600&fit=crop';
         }
+        $metaDescBase = trim((string)($product->descricao ?? ''));
+        if ($metaDescBase === '') {
+            $metaDescBase = $product->nome ?? 'Produto do RolesBr';
+        }
+        $metaDesc = \Illuminate\Support\Str::limit($metaDescBase, 160, '...');
+    @endphp
+    @section('meta_title', ($product->nome ? $product->nome.' | Produto | RolesBr' : 'Produto | RolesBr'))
+    @section('meta_description', $metaDesc)
+    @section('meta_image', $img)
+    @section('meta_og_type', 'product')
+    @php
+        $likesPost = \Illuminate\Support\Facades\DB::table('user_posts_tb')
+            ->where('posted_as_type', 'product')
+            ->where('posted_as_id', $product->prod_id)
+            ->first();
+        $likesCount = $likesPost->likes_count ?? 0;
+        $likedByMe = false;
+        if (auth()->check() && $likesPost) {
+            $likedByMe = \Illuminate\Support\Facades\DB::table('user_post_likes_tb')
+                ->where('user_id', auth()->id())
+                ->where('post_id', $likesPost->post_id)
+                ->exists();
+        }
     @endphp
     <div class="row g-4">
         <div class="col-md-6">
@@ -62,6 +85,16 @@
                 @endif
             </div>
             <div class="mt-4">
+                <div class="mb-2">
+                    <button type="button"
+                            class="btn btn-outline-danger btn-sm like-toggle"
+                            data-type="product"
+                            data-id="{{ $product->prod_id }}"
+                            data-liked="{{ $likedByMe ? 1 : 0 }}">
+                        <i class="{{ $likedByMe ? 'fas' : 'far' }} fa-heart me-1"></i>
+                        <span class="like-count">{{ $likesCount }}</span>
+                    </button>
+                </div>
                 <div class="dropdown">
                     <button class="btn btn-outline-secondary btn-sm dropdown-toggle" type="button" data-bs-toggle="dropdown">
                         Compartilhar
@@ -85,3 +118,49 @@
     </div>
 </div>
 @endsection
+
+@push('scripts')
+<script>
+document.addEventListener('click', function (e) {
+    var btn = e.target.closest('.like-toggle');
+    if (!btn) return;
+    var type = btn.getAttribute('data-type');
+    var id = btn.getAttribute('data-id');
+    if (!type || !id) return;
+    fetch("{{ route('api.likes.toggle') }}", {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'Accept': 'application/json',
+            'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content'),
+            'X-Requested-With': 'XMLHttpRequest'
+        },
+        body: JSON.stringify({ type: type, id: parseInt(id, 10) })
+    }).then(function (r) {
+        if (r.status === 401) {
+            window.location.href = "{{ route('login') }}";
+            return null;
+        }
+        return r.json();
+    }).then(function (data) {
+        if (!data) return;
+        if (data.error === 'not_implemented') {
+            alert('Curtidas para este tipo ainda não estão disponíveis.');
+            return;
+        }
+        if (typeof data.liked !== 'undefined') {
+            btn.setAttribute('data-liked', data.liked ? '1' : '0');
+            var icon = btn.querySelector('i');
+            if (icon) {
+                icon.classList.toggle('fas', data.liked);
+                icon.classList.toggle('far', !data.liked);
+            }
+        }
+        if (typeof data.likes !== 'undefined') {
+            var span = btn.querySelector('.like-count');
+            if (span) span.textContent = data.likes;
+        }
+    }).catch(function(){});
+});
+</script>
+@endpush

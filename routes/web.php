@@ -15,6 +15,8 @@ use App\Models\EventType;
 use App\Models\EstablishmentType;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\TicketCartController;
+use App\Http\Controllers\StoryUiController;
+use App\Http\Controllers\LikeController;
 
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\EstablishmentController;
@@ -369,6 +371,8 @@ Route::get('/stories', [\App\Http\Controllers\PublicStoriesController::class, 'i
 Route::get('/home/stories-all', [\App\Http\Controllers\PublicStoriesController::class, 'all'])
     ->name('site.stories.all');
 
+Route::post('/api/likes/toggle', [LikeController::class, 'toggle'])->name('api.likes.toggle');
+
 Route::get('/estabelecimentos', function (Request $request) {
     $q = trim((string) $request->input('q',''));
     $query = DB::table('form_perfil_bares_tb as b')
@@ -517,6 +521,7 @@ Route::get('/ingresso/{lote}', function ($lote) {
 })->name('site.ticket.show');
 
 Route::get('/ingresso/{lote}/comprar', [TicketCartController::class, 'publicCheckoutForm'])->name('site.ticket.checkout');
+Route::get('/dashboard/perfil/stories/ui', StoryUiController::class)->name('dashboard.stories.ui');
 Route::post('/ingresso/{lote}/comprar', [TicketCartController::class, 'publicCheckoutSubmit'])->name('site.ticket.checkout.submit');
 Route::post('/ingresso/registrar-inline', [TicketCartController::class, 'publicRegisterInline'])->name('site.ticket.register.inline');
 
@@ -525,6 +530,7 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/dashboard/rolezeiro', [DashboardController::class, 'rolezeiro'])->name('dashboard.rolezeiro');
     Route::get('/dashboard/master', [DashboardController::class, 'master'])->name('dashboard.master');
     Route::get('/dashboard/admin', [DashboardController::class, 'admin'])->name('dashboard.admin');
+    Route::post('/dashboard/perfil/stories/upload', [\App\Http\Controllers\StoryUploadController::class, 'upload'])->name('dashboard.stories.upload');
     
     Route::resource('dashboard/barista/estabelecimentos', EstablishmentController::class)
         ->names('dashboard.barista.establishments');

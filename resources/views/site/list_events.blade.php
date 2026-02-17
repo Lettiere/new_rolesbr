@@ -1,5 +1,8 @@
 @extends('_layout.site.site_default')
 @section('content')
+@section('meta_title', 'Eventos | RolesBr')
+@section('meta_description', 'Veja a agenda de eventos, festas e rolês cadastrados no RolesBr.')
+@section('meta_og_type', 'website')
 <div class="container py-4">
     <div class="d-flex justify-content-between align-items-center mb-3">
         <h1 class="h4 fw-bold mb-0">Eventos</h1>
@@ -8,10 +11,15 @@
             <button class="btn btn-sm btn-outline-secondary">Buscar</button>
         </form>
     </div>
+
+    <div class="mb-3">
+        @include('site.partials.stories_strip')
+    </div>
+
     <div id="eventsListWrapper">
         @include('site.partials.events_list', ['events' => $events])
     </div>
-    </div>
+</div>
 @push('scripts')
 <script>
 document.addEventListener('DOMContentLoaded', function () {

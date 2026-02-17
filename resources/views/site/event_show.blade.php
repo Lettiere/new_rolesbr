@@ -3,20 +3,51 @@
 @section('content')
 @php
     $cover = $event->imagem_capa ? asset(ltrim($event->imagem_capa, '/')) : 'https://images.unsplash.com/photo-1514933651103-005eec06c04b?w=1400&h=700&fit=crop';
+    $metaTitle = trim((string)$event->nome) !== '' ? $event->nome.' | Evento | RolesBr' : 'Evento | RolesBr';
+    $metaDescBase = trim((string)($event->descricao ?? ''));
+    if ($metaDescBase === '') {
+        $metaDescBase = 'Detalhes do evento no RolesBr.';
+    }
+    $metaDesc = \Illuminate\Support\Str::limit($metaDescBase, 160, '...');
+    $likesCount = \Illuminate\Support\Facades\DB::table('evt_interesse_evento_tb')
+        ->where('evento_id', $event->evento_id)
+        ->where('type', 'like')
+        ->count();
+    $likedByMe = false;
+    if (auth()->check()) {
+        $likedByMe = \Illuminate\Support\Facades\DB::table('evt_interesse_evento_tb')
+            ->where('evento_id', $event->evento_id)
+            ->where('user_id', auth()->id())
+            ->where('type', 'like')
+            ->exists();
+    }
 @endphp
+@section('meta_title', $metaTitle)
+@section('meta_description', $metaDesc)
+@section('meta_image', $cover)
+@section('meta_og_type', 'event')
 <div class="event-container">
     <div class="hero-section">
         <div class="hero-image" style="background-image: url('{{ $cover }}');">
             <div class="hero-overlay">
                 <div class="hero-content">
                     <h1 class="hero-title">{{ $event->nome }}</h1>
-                    <div class="hero-meta">
+                    <div class="hero-meta d-flex align-items-center gap-2 flex-wrap">
                         @if($event->data_inicio)
                             <div class="event-date">
                                 <i class="fas fa-calendar-alt"></i>
                                 {{ \Carbon\Carbon::parse($event->data_inicio)->translatedFormat('d \\d\\e F, H:i') }}
                             </div>
                         @endif
+                        <button type="button"
+                                class="btn-action share-btn primary like-toggle"
+                                data-type="event"
+                                data-id="{{ $event->evento_id }}"
+                                data-liked="{{ $likedByMe ? 1 : 0 }}"
+                                title="Curtir">
+                            <i class="{{ $likedByMe ? 'fas' : 'far' }} fa-heart me-1"></i>
+                            <span class="like-count">{{ $likesCount }}</span>
+                        </button>
                     </div>
                 </div>
             </div>
@@ -240,6 +271,7 @@
 .waze-btn { background: #FFF4E5; color: #ea580c; border: 1px solid #ffe1c7; }
 .whatsapp-btn { background: #E7F6EE; color: #059669; border: 1px solid #c7ecd8; }
 .share-btn.primary { background: #EEF2FF; color: #4338CA; border: 1px solid #e0e7ff; cursor: pointer; }
+.like-toggle { background: #FEE2E2; color: #B91C1C; border: 1px solid #fecaca; }
 
 .btn-action:hover { transform: translateY(0); filter: brightness(0.95); }
 
@@ -525,6 +557,52 @@
     .tickets-section { padding-left: 0 !important; padding-right: 0 !important; border: 0 !important; border-radius: 0 !important; }
 }
 </style>
+@endpush
+
+@push('scripts')
+<script>
+document.addEventListener('click', function (e) {
+    var btn = e.target.closest('.like-toggle');
+    if (!btn) return;
+    var type = btn.getAttribute('data-type');
+    var id = btn.getAttribute('data-id');
+    if (!type || !id) return;
+    fetch("{{ route('api.likes.toggle') }}", {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'Accept': 'application/json',
+            'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content'),
+            'X-Requested-With': 'XMLHttpRequest'
+        },
+        body: JSON.stringify({ type: type, id: parseInt(id, 10) })
+    }).then(function (r) {
+        if (r.status === 401) {
+            window.location.href = "{{ route('login') }}";
+            return null;
+        }
+        return r.json();
+    }).then(function (data) {
+        if (!data) return;
+        if (data.error === 'not_implemented') {
+            alert('Curtidas para este tipo ainda não estão disponíveis.');
+            return;
+        }
+        if (typeof data.liked !== 'undefined') {
+            btn.setAttribute('data-liked', data.liked ? '1' : '0');
+            var icon = btn.querySelector('i');
+            if (icon) {
+                icon.classList.toggle('fas', data.liked);
+                icon.classList.toggle('far', !data.liked);
+            }
+        }
+        if (typeof data.likes !== 'undefined') {
+            var span = btn.querySelector('.like-count');
+            if (span) span.textContent = data.likes;
+        }
+    }).catch(function(){});
+});
+</script>
 @endpush
 
 @push('scripts')

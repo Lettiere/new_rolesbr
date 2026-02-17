@@ -1,5 +1,8 @@
 @extends('_layout.site.site_default')
 @section('content')
+@section('meta_title', 'Estabelecimentos | RolesBr')
+@section('meta_description', 'Encontre bares, casas de eventos e outros estabelecimentos parceiros no RolesBr.')
+@section('meta_og_type', 'website')
 <div class="container py-4">
     <div class="d-flex justify-content-between align-items-center mb-3">
         <h1 class="h4 fw-bold mb-0">Estabelecimentos</h1>

@@ -19,21 +19,21 @@
         @php
             $user = Auth::user();
             $userName = $user->name ?? 'Usuário';
-            $avatar = "https://ui-avatars.com/api/?name=" . urlencode($userName) . "&size=128&background=random";
-            // Lógica de avatar do perfil (comentada até que o model exista)
-            /*
-            try {
-                 // Implementar busca de perfil
-            } catch (\Throwable $e) {}
-            */
+            $avatar = $user->foto
+                ? $user->foto
+                : "https://ui-avatars.com/api/?name=" . urlencode($userName) . "&size=128&background=random";
         @endphp
         <div class="d-flex align-items-center gap-2 mb-3">
-            <img src="{{ $avatar }}" alt="Avatar" class="rounded-circle border" width="36" height="36" style="object-fit:cover;">
-            <div class="fw-semibold">{{ $userName }}</div>
+            <a href="{{ route('profile') }}" class="text-decoration-none d-flex align-items-center gap-2">
+                <img src="{{ $avatar }}" alt="Avatar" class="rounded-circle border" width="36" height="36" style="object-fit:cover;">
+                <div class="fw-semibold text-light">{{ $userName }}</div>
+            </a>
         </div>
         <ul class="nav flex-column">
             <li><a class="nav-link py-2" href="{{ route('dashboard.barista') }}"><i class="fas fa-house me-2"></i>Home</a></li>
             <li><a class="nav-link py-2" href="{{ route('dashboard.barista.establishments.index') }}"><i class="fas fa-store me-2"></i>Estabelecimentos</a></li>
+            <li><a class="nav-link py-2" href="{{ route('profile') }}"><i class="fas fa-user me-2"></i>Meu perfil</a></li>
+            <li><a class="nav-link py-2" href="{{ url('dashboard/perfil/stories/ui') }}"><i class="fas fa-circle-play me-2"></i>Criar Stories</a></li>
         </ul>
 
         <div class="mt-3">
@@ -71,14 +71,18 @@
     @php
         $user = Auth::user();
         $userName = $user->name ?? 'Usuário';
-        $avatar = "https://ui-avatars.com/api/?name=" . urlencode($userName) . "&size=128&background=random";
+        $avatar = $user->foto
+            ? $user->foto
+            : "https://ui-avatars.com/api/?name=" . urlencode($userName) . "&size=128&background=random";
     @endphp
     <div class="d-flex align-items-center gap-2 mb-3">
-        <img src="{{ $avatar }}" alt="Avatar" class="rounded-circle border" width="40" height="40" style="object-fit:cover;">
-        <div>
-            <div class="fw-bold">{{ $userName }}</div>
-            <div class="small text-muted">Barista</div>
-        </div>
+        <a href="{{ route('profile') }}" class="d-flex align-items-center gap-2 text-decoration-none text-dark">
+            <img src="{{ $avatar }}" alt="Avatar" class="rounded-circle border" width="40" height="40" style="object-fit:cover;">
+            <div>
+                <div class="fw-bold">{{ $userName }}</div>
+                <div class="small text-muted">Barista</div>
+            </div>
+        </a>
     </div>
     
     <ul class="nav flex-column flex-grow-1">
@@ -112,7 +116,8 @@
             </ul>
         </li>
         <li class="nav-item mt-3"><span class="text-uppercase small text-muted fw-bold">Conta</span></li>
-        <li class="nav-item"><a class="nav-link" href="#"><i class="fas fa-user me-2"></i>Perfil</a></li>
+        <li class="nav-item"><a class="nav-link" href="{{ route('profile') }}"><i class="fas fa-user me-2"></i>Meu Perfil</a></li>
+        <li class="nav-item"><a class="nav-link" href="{{ url('dashboard/perfil/stories/ui') }}"><i class="fas fa-circle-play me-2"></i>Criar Stories</a></li>
         <li class="nav-item"><a class="nav-link" href="#"><i class="fas fa-cog me-2"></i>Configurações</a></li>
     </ul>
 
