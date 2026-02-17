@@ -157,6 +157,63 @@
                 height: auto;
             }
         }
+        @media (max-width: 767.98px) {
+            .container-fluid > .row { --bs-gutter-x: 0; }
+            main.col-12.col-md-6.pt-3 { padding-left: 0 !important; padding-right: 0 !important; }
+            main.col-12.col-md-6.pt-3 .container,
+            main.col-12.col-md-6.pt-3 .container-fluid {
+                padding-left: 0 !important;
+                padding-right: 0 !important;
+                margin-left: 0 !important;
+                margin-right: 0 !important;
+                max-width: 100% !important;
+                width: 100% !important;
+            }
+            main.col-12.col-md-6.pt-3 .row { --bs-gutter-x: 0; }
+            main.col-12.col-md-6.pt-3 [class*="col-"] { padding-left: 0; padding-right: 0; }
+        }
+        .mobile-bottom-nav{
+            position:fixed;
+            left:0;
+            right:0;
+            bottom:0;
+            z-index:1075;
+            background:rgba(0,0,0,0.96);
+            border-top:1px solid rgba(148,163,184,0.5);
+            backdrop-filter:blur(18px);
+        }
+        .mobile-bottom-nav-inner{
+            max-width:540px;
+            margin:0 auto;
+            padding:.35rem .9rem calc(.35rem + env(safe-area-inset-bottom,0));
+        }
+        .mobile-bottom-nav-menu{
+            display:flex;
+            align-items:center;
+            justify-content:space-between;
+            gap:.25rem;
+        }
+        .mobile-bottom-nav-link{
+            flex:1 1 0;
+            display:flex;
+            align-items:center;
+            justify-content:center;
+            height:40px;
+            border-radius:999px;
+            border:none;
+            background:transparent;
+            color:#e5e7eb;
+            text-decoration:none;
+            font-size:1.15rem;
+        }
+        .mobile-bottom-nav-link.active{
+            color:#facc15;
+            background:radial-gradient(circle at top,#facc1533 0,#020617 55%);
+            box-shadow:0 12px 22px rgba(0,0,0,.55);
+        }
+        @media (min-width: 768px){
+            .mobile-bottom-nav{display:none;}
+        }
     </style>
 
     @yield('css')
@@ -434,6 +491,29 @@
             </div>
         </div>
     </div>
+
+    <!-- MOBILE BOTTOM NAV -->
+    <nav class="mobile-bottom-nav d-md-none">
+        <div class="mobile-bottom-nav-inner">
+            <div class="mobile-bottom-nav-menu">
+                <a href="{{ url('/') }}" class="mobile-bottom-nav-link {{ request()->is('/') ? 'active' : '' }}" aria-label="Início">
+                    <i class="fas fa-house"></i>
+                </a>
+                <a href="{{ route('site.events.index') }}" class="mobile-bottom-nav-link {{ request()->is('eventos*') ? 'active' : '' }}" aria-label="Eventos">
+                    <i class="fas fa-calendar-star"></i>
+                </a>
+                <a href="{{ route('site.stories.index') }}" class="mobile-bottom-nav-link {{ request()->is('stories*') ? 'active' : '' }}" aria-label="Stories">
+                    <i class="fas fa-circle-play"></i>
+                </a>
+                <a href="{{ route('site.products.index') }}" class="mobile-bottom-nav-link {{ request()->is('produtos*') ? 'active' : '' }}" aria-label="Produtos">
+                    <i class="fas fa-martini-glass-citrus"></i>
+                </a>
+                <a href="{{ route('site.tickets.index') }}" class="mobile-bottom-nav-link {{ request()->is('ingressos*') ? 'active' : '' }}" aria-label="Ingressos">
+                    <i class="fas fa-ticket-alt"></i>
+                </a>
+            </div>
+        </div>
+    </nav>
 
     <!-- FOOTER -->
     @includeIf('sections.home.footer')

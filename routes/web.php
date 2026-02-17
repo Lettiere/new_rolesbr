@@ -364,6 +364,11 @@ Route::get('/ingressos', function (Request $request) {
     return view('site.list_tickets', compact('tickets'));
 })->name('site.tickets.index');
 
+Route::get('/stories', [\App\Http\Controllers\PublicStoriesController::class, 'index'])
+    ->name('site.stories.index');
+Route::get('/home/stories-all', [\App\Http\Controllers\PublicStoriesController::class, 'all'])
+    ->name('site.stories.all');
+
 Route::get('/estabelecimentos', function (Request $request) {
     $q = trim((string) $request->input('q',''));
     $query = DB::table('form_perfil_bares_tb as b')
@@ -403,7 +408,8 @@ Route::get('/produtos', function (Request $request) {
         $query->where(function($sub) use ($q) {
             $like = '%'.$q.'%';
             $sub->where('p.nome','like',$like)
-                ->orWhere('b.nome','like',$like);
+                ->orWhere('b.nome','like',$like)
+                ->orWhere('p.descricao','like',$like);
         });
     }
     $products = $query->orderBy('p.nome','asc')->paginate(24);

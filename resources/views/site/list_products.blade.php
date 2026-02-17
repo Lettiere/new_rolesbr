@@ -3,9 +3,14 @@
 <div class="container py-4">
     <div class="d-flex justify-content-between align-items-center mb-3">
         <h1 class="h4 fw-bold mb-0">Produtos</h1>
-        <form action="{{ route('site.products.index') }}" method="GET" class="d-flex gap-2">
-            <input type="text" class="form-control form-control-sm" name="q" value="{{ request('q') }}" placeholder="Buscar produtos">
-            <button class="btn btn-sm btn-outline-secondary">Buscar</button>
+        <form action="{{ route('site.products.index') }}" method="GET" class="d-flex gap-2 align-items-center">
+            <div class="input-group input-group-sm">
+                <span class="input-group-text"><i class="fas fa-search"></i></span>
+                <input type="text" class="form-control" name="q" value="{{ request('q') }}" placeholder="Buscar por nome, bar ou descrição">
+            </div>
+            <button class="btn btn-sm btn-outline-secondary" type="button" title="Filtros">
+                <i class="fas fa-filter"></i>
+            </button>
         </form>
     </div>
     <div id="productsListWrapper">

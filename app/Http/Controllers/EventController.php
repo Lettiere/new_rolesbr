@@ -90,6 +90,9 @@ class EventController extends Controller
         } else {
             unset($data['is_destaque']);
         }
+        if (!\Illuminate\Support\Facades\Schema::hasColumn('evt_eventos_tb', 'comprovante_pagamento')) {
+            unset($data['comprovante_pagamento']);
+        }
         $event = Event::create($data);
         if ($request->hasFile('imagem_capa')) {
             $this->handleEventCover($request, $event);
@@ -141,6 +144,9 @@ class EventController extends Controller
             $data['is_destaque'] = (bool) ($data['is_destaque'] ?? false);
         } else {
             unset($data['is_destaque']);
+        }
+        if (!\Illuminate\Support\Facades\Schema::hasColumn('evt_eventos_tb', 'comprovante_pagamento')) {
+            unset($data['comprovante_pagamento']);
         }
         $event->update($data);
         if ($request->hasFile('imagem_capa')) {
@@ -296,6 +302,7 @@ class EventController extends Controller
     protected function handlePaymentReceipt(Request $request, Event $event): void
     {
         if (!$request->hasFile('comprovante_pagamento')) return;
+        if (!\Illuminate\Support\Facades\Schema::hasColumn($event->getTable(), 'comprovante_pagamento')) return;
         $file = $request->file('comprovante_pagamento');
         $slug = \Illuminate\Support\Str::slug($event->nome ?: 'evento');
         $dir = public_path("uploads/eventos/{$event->evento_id}_{$slug}/comprovantes");

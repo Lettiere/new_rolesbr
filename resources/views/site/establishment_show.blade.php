@@ -229,7 +229,7 @@
                 @endphp
 
                 @if($establishment->descricao || $benefText || $benefBlocks)
-                    <div class="card border-0 shadow-sm mb-3">
+                    <div class="card border-0 shadow-sm mb-3 card-menu">
                         <div class="card-body">
                             @if($establishment->descricao)
                                 <h2 class="h6 fw-bold mb-1">Sobre o estabelecimento</h2>
@@ -427,7 +427,7 @@
                                                     $grouped = $items->groupBy(function($i){ return $i->categoria ?: 'Outros'; });
                                                 @endphp
                                                 @forelse($grouped as $categoria => $lista)
-                                                    <h6 class="fw-bold mt-3">{{ $categoria }}</h6>
+                                                    <h6 class="fw-bold mt-3 menu-category">{{ $categoria }}</h6>
                                                     <div class="row g-2">
                                                         @foreach($lista as $i)
                                                             @php
@@ -437,18 +437,18 @@
                                                             <div class="col-sm-6">
                                                                 <a href="{{ route('site.product.show', [$i->prod_id, $prodSlug]) }}"
                                                                    class="text-decoration-none text-reset">
-                                                                    <div class="d-flex justify-content-between align-items-center border rounded p-2">
-                                                                        <div>
-                                                                            <div class="fw-semibold">{{ $i->produto_nome }}</div>
+                                                                    <div class="menu-item-card d-flex justify-content-between align-items-center">
+                                                                        <div class="menu-item-info">
+                                                                            <div class="menu-item-title">{{ $i->produto_nome }}</div>
                                                                             @if($i->unidade)
-                                                                                <small class="text-muted d-block">{{ $i->unidade }}</small>
+                                                                                <div class="menu-item-unit">{{ $i->unidade }}</div>
                                                                             @endif
                                                                             @if($i->observacoes)
-                                                                                <div class="small text-muted">{{ $i->observacoes }}</div>
+                                                                                <div class="menu-item-notes">{{ $i->observacoes }}</div>
                                                                             @endif
                                                                         </div>
                                                                         @if($preco)
-                                                                            <div class="fw-bold text-primary">
+                                                                            <div class="menu-item-price">
                                                                                 R$ {{ number_format((float)$preco, 2, ',', '.') }}
                                                                             </div>
                                                                         @endif
@@ -525,7 +525,7 @@ document.addEventListener('DOMContentLoaded', function () {
     if (!items.length) return;
 
     var currentIndex = 0;
-    var overlay = null, img = null, btnClose = null, btnPrev = null, btnNext = null;
+    var overlay = null, img = null;
 
     function ensureOverlay() {
         if (overlay) return;
@@ -545,21 +545,26 @@ document.addEventListener('DOMContentLoaded', function () {
             + '<button type="button" class="btn btn-light position-absolute" data-role="next" style="right:10px;">&#8250;</button>';
         document.body.appendChild(overlay);
         img = overlay.querySelector('img[data-role="image"]');
-        btnClose = overlay.querySelector('[data-role="close"]');
-        btnPrev = overlay.querySelector('[data-role="prev"]');
-        btnNext = overlay.querySelector('[data-role="next"]');
-
         overlay.addEventListener('click', function (e) {
-            if (e.target === overlay) hide();
-        });
-        btnClose.addEventListener('click', function (e) {
-            e.preventDefault(); hide();
-        });
-        btnNext.addEventListener('click', function (e) {
-            e.preventDefault(); next();
-        });
-        btnPrev.addEventListener('click', function (e) {
-            e.preventDefault(); prev();
+            var role = e.target.getAttribute('data-role');
+            if (role === 'close') {
+                e.preventDefault();
+                hide();
+                return;
+            }
+            if (role === 'next') {
+                e.preventDefault();
+                next();
+                return;
+            }
+            if (role === 'prev') {
+                e.preventDefault();
+                prev();
+                return;
+            }
+            if (e.target === overlay) {
+                hide();
+            }
         });
         img.addEventListener('click', function () { next(); });
         document.addEventListener('keydown', function (e) {
@@ -598,5 +603,26 @@ document.addEventListener('DOMContentLoaded', function () {
     });
 });
 </script>
+@endpush
+
+@push('styles')
+<style>
+@media (max-width: 767.98px){
+    .establishment-page .container{padding-left:0 !important;padding-right:0 !important;margin-left:0 !important;margin-right:0 !important;max-width:100% !important;}
+    .establishment-page .row{--bs-gutter-x:0;}
+    .establishment-page [class*="col-"]{padding-left:0;padding-right:0;}
+    .establishment-page .card{border-radius:0;border-left:0;border-right:0;}
+    .establishment-page .card-menu .card-body{padding-left:0 !important;padding-right:0 !important;}
+}
+.establishment-page .menu-category{font-size:.9rem;letter-spacing:.08em;text-transform:uppercase;color:#9ca3af;}
+.establishment-page .menu-item-card{border-radius:12px;border:1px solid rgba(55,65,81,0.85);background:radial-gradient(circle at top left,rgba(250,204,21,0.08) 0,rgba(15,23,42,1) 45%);padding:.75rem 1rem;box-shadow:0 10px 24px rgba(0,0,0,0.45);}
+.establishment-page .menu-item-title{font-size:.95rem;font-weight:600;color:#f9fafb;margin-bottom:.1rem;}
+.establishment-page .menu-item-unit{font-size:.8rem;color:#9ca3af;}
+.establishment-page .menu-item-notes{font-size:.8rem;color:#e5e7eb;margin-top:.1rem;}
+.establishment-page .menu-item-price{font-weight:700;font-size:.95rem;color:#facc15;margin-left:.75rem;white-space:nowrap;}
+@media (max-width: 767.98px){
+    .establishment-page .menu-item-card{padding:.75rem .9rem;}
+}
+</style>
 @endpush
 @endsection

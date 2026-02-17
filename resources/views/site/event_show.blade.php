@@ -517,6 +517,13 @@
         justify-content: center;
     }
 }
+
+/* Mobile full-bleed (estilo Instagram) */
+@media (max-width: 767.98px) {
+    .content-grid { padding: 0 !important; }
+    .event-details { padding-left: 0 !important; padding-right: 0 !important; border: 0 !important; border-radius: 0 !important; }
+    .tickets-section { padding-left: 0 !important; padding-right: 0 !important; border: 0 !important; border-radius: 0 !important; }
+}
 </style>
 @endpush
 

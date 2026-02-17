@@ -60,7 +60,7 @@
             </div>
             <div class="sidebar">
                 @if($event && $event->establishment)
-                <div class="establishment-card">
+                <div class="establishment-card w-100">
                     <div class="card-header">
                         <h3 class="card-title">
                             <i class="fas fa-map-pin"></i>
@@ -103,7 +103,7 @@
 .main-content{background:#020617;}
 .content-grid{display:grid;grid-template-columns:minmax(0,2.2fr) minmax(0,1fr);gap:1.5rem;padding:1.5rem;}
 .main-column{display:flex;flex-direction:column;gap:1rem;}
-.sidebar{display:flex;flex-direction:column;gap:1rem;}
+.sidebar{display:flex;flex-direction:column;gap:1rem;width:100%;}
 .tickets-section{background:#020617;border-radius:14px;border:1px solid rgba(148,163,184,0.5);box-shadow:0 18px 40px rgba(0,0,0,0.4);padding:1.5rem;}
 .section-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:1rem;}
 .section-title{display:flex;align-items:center;gap:.5rem;font-size:.9rem;letter-spacing:.12em;text-transform:uppercase;color:#facc15;margin:0;}
@@ -127,7 +127,13 @@
 .btn-establishment:hover{background:#facc15;color:#111827;}
 .event-details{margin-top:1rem;background:transparent;border-radius:14px;border:1px solid rgba(55,65,81,0.9);padding:1.25rem;color:#e5e7eb;}
 .description{font-size:.95rem;line-height:1.7;color:#d1d5db;}
-@media (max-width:992px){.content-grid{grid-template-columns:1fr;padding:1rem;}.hero-image{height:260px;}.ticket-card{flex-direction:column;align-items:flex-start;}}
+@media (max-width:992px){.content-grid{grid-template-columns:1fr;padding:1rem;}.hero-image{height:260px;}.ticket-card{flex-direction:column;align-items:flex-start;}.sidebar{width:100%;}}
+/* Mobile full-bleed (estilo Instagram) */
+@media (max-width:767.98px){
+  .content-grid{padding:0 !important;}
+  .tickets-section{padding-left:0 !important;padding-right:0 !important;border:0 !important;border-radius:0 !important;}
+  .event-details{padding-left:0 !important;padding-right:0 !important;border:0 !important;border-radius:0 !important;}
+}
 
 .voucher-overlay {
     position: fixed; inset: 0; background: rgba(0,0,0,0.65);

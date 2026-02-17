@@ -56,6 +56,9 @@ class Event extends Model
             if (!\Illuminate\Support\Facades\Schema::hasColumn($model->getTable(), 'is_destaque')) {
                 unset($model->is_destaque);
             }
+            if (!\Illuminate\Support\Facades\Schema::hasColumn($model->getTable(), 'comprovante_pagamento')) {
+                unset($model->comprovante_pagamento);
+            }
         });
     }
 
