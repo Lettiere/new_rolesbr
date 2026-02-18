@@ -6231,7 +6231,7 @@ CREATE TABLE IF NOT EXISTS `ci_sessions` (
   KEY `timestamp` (`timestamp`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
--- Copiando dados para a tabela u690128405_role.ci_sessions: ~525 rows (aproximadamente)
+-- Copiando dados para a tabela u690128405_role.ci_sessions: ~530 rows (aproximadamente)
 INSERT INTO `ci_sessions` (`id`, `ip_address`, `timestamp`, `data`) VALUES
 	('ci_session:002170446fc239381a1de753f2f9d3ac', '74.7.227.130', 4294967295, _binary 0x5f5f63695f6c6173745f726567656e65726174657c693a313737303235383133333b637372665f746573745f6e616d657c733a33323a226339376632396132333238303039646435343630356536333039356534646637223b5f63695f70726576696f75735f75726c7c733a32333a2268747470733a2f2f726f6c657362722e636f6d2e62722f223b),
 	('ci_session:0104830b1cd86873aa003ddd12ce6b6a', '34.187.155.59', 4294967295, _binary 0x5f5f63695f6c6173745f726567656e65726174657c693a313737303038383433363b637372665f746573745f6e616d657c733a33323a226637326137353863366162326163616631306532373232326562393436613765223b),
@@ -6437,6 +6437,7 @@ INSERT INTO `ci_sessions` (`id`, `ip_address`, `timestamp`, `data`) VALUES
 	('ci_session:63def1e8b2215207f030919a191e9fda', '15.235.98.212', 4294967295, _binary 0x5f5f63695f6c6173745f726567656e65726174657c693a313737313231343836323b637372665f746573745f6e616d657c733a33323a223362336135313937393135666561366638376561316335373633663465376638223b5f63695f70726576696f75735f75726c7c733a35313a2268747470733a2f2f726f6c657362722e636f6d2e62722f6261722f32352d726f64697a696f2d6c69626572646164652d323538223b),
 	('ci_session:649b41088c82e23765ef8cc6b5fd8c84', '66.249.66.169', 4294967295, _binary 0x5f5f63695f6c6173745f726567656e65726174657c693a313737313139353730323b637372665f746573745f6e616d657c733a33323a223436636633313762666664323738656166626562623939653866653930633664223b5f63695f70726576696f75735f75726c7c733a34313a2268747470733a2f2f7777772e726f6c657362722e636f6d2e62722f6576656e746f2f372d7465737465223b),
 	('ci_session:6619c3a4399e009805266257d75a5670', '51.161.65.203', 4294967295, _binary 0x5f5f63695f6c6173745f726567656e65726174657c693a313737313231363230363b637372665f746573745f6e616d657c733a33323a223830616630336331623439333734636661646535663466663435653635386232223b),
+	('ci_session:6634986ccc5bd19db489d5bc9eb376ee', '74.7.227.167', 4294967295, _binary 0x5f5f63695f6c6173745f726567656e65726174657c693a313737313334343031383b637372665f746573745f6e616d657c733a33323a223137643932653565396137386566613633633762303332343763356637393264223b),
 	('ci_session:6675b17721687f2418a161d470913ec9', '::1', 4294967295, _binary 0x5f5f63695f6c6173745f726567656e65726174657c693a313737303038393130343b637372665f746573745f6e616d657c733a33323a223038323631633433343137323934646237353931316536343537656635303536223b72656469726563745f75726c7c733a33353a2268747470733a2f2f726f6c65732e746573742f64617368626f6172642f70657266696c223b6572726f727c733a35333a22566f63c3aa2070726563697361206573746172206c6f6761646f2070617261206163657373617220657374612070c3a167696e612e223b5f5f63695f766172737c613a313a7b733a353a226572726f72223b733a333a226e6577223b7d),
 	('ci_session:667e9af3b25a1fcac5764ec31078c3d8', '74.7.242.26', 4294967295, _binary 0x5f5f63695f6c6173745f726567656e65726174657c693a313737303635313536323b637372665f746573745f6e616d657c733a33323a223432313761353233396264393166393532383462333937636261663663663361223b),
 	('ci_session:6710f17fec106e2203ffd19d93983d97', '15.235.96.199', 4294967295, _binary 0x5f5f63695f6c6173745f726567656e65726174657c693a313737303238313231363b637372665f746573745f6e616d657c733a33323a223662656338376430663536623532613564323865316461373833663931313130223b5f63695f70726576696f75735f75726c7c733a32333a2268747470733a2f2f726f6c657362722e636f6d2e62722f223b),
@@ -6640,6 +6641,7 @@ INSERT INTO `ci_sessions` (`id`, `ip_address`, `timestamp`, `data`) VALUES
 	('ci_session:c0b600a4ca7a3f511ae7db2e43b79812', '189.46.34.31', 4294967295, _binary 0x5f5f63695f6c6173745f726567656e65726174657c693a313737313032323735333b637372665f746573745f6e616d657c733a33323a223636323037336437393833316262373136626639613237343237326539353361223b5f63695f70726576696f75735f75726c7c733a32333a2268747470733a2f2f726f6c657362722e636f6d2e62722f223b),
 	('ci_session:c1c9ad4e2712817aa11c33c25e91d9d7', '15.235.27.198', 4294967295, _binary 0x5f5f63695f6c6173745f726567656e65726174657c693a313737313231323936323b637372665f746573745f6e616d657c733a33323a226362393533313830623236343863386234343466383535373332653830303231223b5f63695f70726576696f75735f75726c7c733a36383a2268747470733a2f2f726f6c657362722e636f6d2e62722f6261722f32302d68656c6c6f2d6b697474792d616e642d667269656e64732d32642d62792d6561742d61736961223b),
 	('ci_session:c1f47aef27635c66ee2b1b4ba562402c', '74.7.227.141', 4294967295, _binary 0x5f5f63695f6c6173745f726567656e65726174657c693a313737303235383133323b637372665f746573745f6e616d657c733a33323a226433666231356631383763396232613064323732366535653537363131323661223b5f63695f70726576696f75735f75726c7c733a32393a2268747470733a2f2f62617265732e616368656973702e6f6e6c696e652f223b),
+	('ci_session:c2210a66d372df15ac26f9dfa1fc94da', '54.242.180.59', 4294967295, _binary 0x5f5f63695f6c6173745f726567656e65726174657c693a313737313334323239373b637372665f746573745f6e616d657c733a33323a223337636163646361616634346537373630376336663537386461623033386539223b5f63695f70726576696f75735f75726c7c733a32333a2268747470733a2f2f726f6c657362722e636f6d2e62722f223b),
 	('ci_session:c25d65473a2f46730d505667df8fe66f', '74.7.242.26', 4294967295, _binary 0x5f5f63695f6c6173745f726567656e65726174657c693a313737303539333339383b637372665f746573745f6e616d657c733a33323a226631303566316134373665336338626533616239376430623862373561376634223b5f63695f70726576696f75735f75726c7c733a32333a2268747470733a2f2f726f6c657362722e636f6d2e62722f223b),
 	('ci_session:c2bb1680dde57abbdce61f640edc2fab', '74.7.228.179', 4294967295, _binary 0x5f5f63695f6c6173745f726567656e65726174657c693a313737303833393038343b637372665f746573745f6e616d657c733a33323a223231656266323532613031613762393732643637353436323963626339346262223b5f63695f70726576696f75735f75726c7c733a33393a2268747470733a2f2f726f6c657362722e636f6d2e62722f6573746162656c6563696d656e746f73223b),
 	('ci_session:c3384f5593566e80aa9672482c207067', '138.197.123.89', 4294967295, _binary 0x5f5f63695f6c6173745f726567656e65726174657c693a313737313234393634353b637372665f746573745f6e616d657c733a33323a226631626532643337383166316433303564623730643138373738613266616135223b5f63695f70726576696f75735f75726c7c733a32333a2268747470733a2f2f726f6c657362722e636f6d2e62722f223b),
@@ -6662,6 +6664,7 @@ INSERT INTO `ci_sessions` (`id`, `ip_address`, `timestamp`, `data`) VALUES
 	('ci_session:cb199e3538647fc7b134595bb7305a73', '148.113.128.227', 4294967295, _binary 0x5f5f63695f6c6173745f726567656e65726174657c693a313737313232353538303b637372665f746573745f6e616d657c733a33323a226637666338376366316339386133363937636564653639626133633834643533223b),
 	('ci_session:cb1d5554576a93b59cf8f452aac64d58', '205.169.39.31', 4294967295, _binary 0x637372665f746573745f6e616d657c733a33323a223566376465643738366664316562383236633139663034656538313134376166223b),
 	('ci_session:cc621370d07e2fabb49c21c2c3d2e71d', '::1', 4294967295, _binary 0x5f5f63695f6c6173745f726567656e65726174657c693a313737303035353232343b637372665f746573745f6e616d657c733a33323a223633656164393866353232356639653564643662643563363263393836363330223b72656469726563745f75726c7c733a32383a2268747470733a2f2f726f6c65732e746573742f64617368626f617264223b6572726f727c733a35333a22566f63c3aa2070726563697361206573746172206c6f6761646f2070617261206163657373617220657374612070c3a167696e612e223b5f5f63695f766172737c613a313a7b733a353a226572726f72223b733a333a226e6577223b7d),
+	('ci_session:cc93d5c5a75a3182a544c35aabef59b7', '189.46.34.31', 4294967295, _binary 0x5f5f63695f6c6173745f726567656e65726174657c693a313737313334343435363b637372665f746573745f6e616d657c733a33323a223534383630663762623865613230333839346430313037303735646633326334223b5f63695f70726576696f75735f75726c7c733a35303a2268747470733a2f2f726f6c657362722e636f6d2e62722f64617368626f6172642f70657266696c2f73746f726965732f7569223b757365725f69647c733a323a223130223b6e616d657c733a31383a22416c6578616e647265204c65747469657265223b656d61696c7c733a32343a22616c6578616e6472652e7072746e40676d61696c2e636f6d223b726f6c657c733a363a22636c69656e74223b747970655f757365727c693a313b6c6f676765647c623a313b6c6f67696e5f74696d657c693a313737313334343436303b),
 	('ci_session:cd06bef2b2a8d62eef34fbca07b0b9cf', '66.249.85.99', 4294967295, _binary 0x5f5f63695f6c6173745f726567656e65726174657c693a313737303332313732373b5f5f63695f766172737c613a303a7b7d637372665f746573745f6e616d657c733a33323a226539383537383537396535633863313833613032613536326536326263393464223b5f63695f70726576696f75735f75726c7c733a33333a2268747470733a2f2f726f6c657362722e636f6d2e62722f617574682f6c6f67696e223b),
 	('ci_session:cd085f544253a98b9d61474e3c8fba42', '54.39.210.244', 4294967295, _binary 0x5f5f63695f6c6173745f726567656e65726174657c693a313737313232373237353b637372665f746573745f6e616d657c733a33323a223732323563373632323666656364626666653637376661383639666634626364223b5f63695f70726576696f75735f75726c7c733a33373a2268747470733a2f2f726f6c657362722e636f6d2e62722f6576656e746f2f372d7465737465223b),
 	('ci_session:cd9d59743e4dab9dd1fda28ef4b656ae', '5.255.231.158', 4294967295, _binary 0x5f5f63695f6c6173745f726567656e65726174657c693a313737303339353032323b637372665f746573745f6e616d657c733a33323a226235326462613536386134393238623964323066396433373531306534633630223b5f63695f70726576696f75735f75726c7c733a32333a2268747470733a2f2f616368656973702e6f6e6c696e652f223b),
@@ -6801,9 +6804,11 @@ CREATE TABLE IF NOT EXISTS `establishment_social_links` (
   `updated_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `establishment_social_links_bares_id_network_index` (`bares_id`,`network`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- Copiando dados para a tabela u690128405_role.establishment_social_links: ~0 rows (aproximadamente)
+INSERT INTO `establishment_social_links` (`id`, `bares_id`, `network`, `handle`, `created_at`, `updated_at`) VALUES
+	(3, 38, 'instagram', 'https://www.instagram.com/novolimoeiro/', '2026-02-18 03:01:40', '2026-02-18 03:01:40');
 
 -- Copiando estrutura para tabela u690128405_role.evt_album_fotos_tb
 CREATE TABLE IF NOT EXISTS `evt_album_fotos_tb` (
@@ -6819,98 +6824,7 @@ CREATE TABLE IF NOT EXISTS `evt_album_fotos_tb` (
   KEY `album_id` (`album_id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=305 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
--- Copiando dados para a tabela u690128405_role.evt_album_fotos_tb: ~90 rows (aproximadamente)
-INSERT INTO `evt_album_fotos_tb` (`foto_id`, `album_id`, `nome_arquivo`, `titulo`, `descricao`, `ordem`, `eh_thumbnail`, `created_at`) VALUES
-	(200, 1, 'uploads/eventos/albuns/1/1769372762_ca1a6171de068bd22eb1.jpg', NULL, NULL, 0, 1, '2026-01-25 17:26:02'),
-	(201, 1, 'uploads/eventos/albuns/1/1769372762_190da3e17592ea399d0a.jpg', NULL, NULL, 0, 0, '2026-01-25 17:26:03'),
-	(202, 1, 'uploads/eventos/albuns/1/1769372763_1561d671b7d337051880.jpg', NULL, NULL, 0, 0, '2026-01-25 17:26:03'),
-	(203, 1, 'uploads/eventos/albuns/1/1769372763_0784b333a87553455451.jpg', NULL, NULL, 0, 0, '2026-01-25 17:26:03'),
-	(204, 1, 'uploads/eventos/albuns/1/1769372763_e50f2770063ed615c0e1.jpg', NULL, NULL, 0, 0, '2026-01-25 17:26:03'),
-	(205, 1, 'uploads/eventos/albuns/1/1769372763_03708706c0858c3c9550.jpg', NULL, NULL, 0, 0, '2026-01-25 17:26:03'),
-	(206, 1, 'uploads/eventos/albuns/1/1769372788_c9db4f01bb4385e302cb.jpg', NULL, NULL, 0, 0, '2026-01-25 17:26:28'),
-	(207, 1, 'uploads/eventos/albuns/1/1769372788_db6364055e4cacdce485.jpg', NULL, NULL, 0, 0, '2026-01-25 17:26:28'),
-	(208, 1, 'uploads/eventos/albuns/1/1769372788_23a2ec90820f432ebbad.jpg', NULL, NULL, 0, 0, '2026-01-25 17:26:28'),
-	(209, 1, 'uploads/eventos/albuns/1/1769372788_62dc16ee6d57995bcc11.jpg', NULL, NULL, 0, 0, '2026-01-25 17:26:29'),
-	(210, 1, 'uploads/eventos/albuns/1/1769372789_a181b32e058ddfc7b6db.jpg', NULL, NULL, 0, 0, '2026-01-25 17:26:29'),
-	(211, 1, 'uploads/eventos/albuns/1/1769372789_a2a3ae8f3b53c8f6f919.jpg', NULL, NULL, 0, 0, '2026-01-25 17:26:29'),
-	(212, 1, 'uploads/eventos/albuns/1/1769372789_e04b121a6fd1eb5ea6b1.jpg', NULL, NULL, 0, 0, '2026-01-25 17:26:29'),
-	(213, 1, 'uploads/eventos/albuns/1/1769372789_a82dd9ee4a0d410adfbf.jpg', NULL, NULL, 0, 0, '2026-01-25 17:26:29'),
-	(214, 1, 'uploads/eventos/albuns/1/1769372789_b2902a46cca031d11067.jpg', NULL, NULL, 0, 0, '2026-01-25 17:26:29'),
-	(215, 1, 'uploads/eventos/albuns/1/1769372789_392beb9426fd01e81623.jpg', NULL, NULL, 0, 0, '2026-01-25 17:26:29'),
-	(216, 1, 'uploads/eventos/albuns/1/1769372789_ae9244a764e62ba98dfa.jpg', NULL, NULL, 0, 0, '2026-01-25 17:26:29'),
-	(217, 1, 'uploads/eventos/albuns/1/1769372789_711b9b106e40ed766e69.jpg', NULL, NULL, 0, 0, '2026-01-25 17:26:29'),
-	(218, 1, 'uploads/eventos/albuns/1/1769372789_ecfb7c9db993f683f404.jpg', NULL, NULL, 0, 0, '2026-01-25 17:26:29'),
-	(219, 1, 'uploads/eventos/albuns/1/1769372789_cd194bb474263cea9d83.jpg', NULL, NULL, 0, 0, '2026-01-25 17:26:29'),
-	(220, 1, 'uploads/eventos/albuns/1/1769372789_787c1a0569834e7b35d9.jpg', NULL, NULL, 0, 0, '2026-01-25 17:26:30'),
-	(221, 1, 'uploads/eventos/albuns/1/1769372790_688e3979dc62ccf7b637.jpg', NULL, NULL, 0, 0, '2026-01-25 17:26:30'),
-	(222, 1, 'uploads/eventos/albuns/1/1769372790_ecee19a7c76827ee96f4.jpg', NULL, NULL, 0, 0, '2026-01-25 17:26:30'),
-	(223, 1, 'uploads/eventos/albuns/1/1769372810_5b6862425241475b0757.jpg', NULL, NULL, 0, 0, '2026-01-25 17:26:50'),
-	(224, 1, 'uploads/eventos/albuns/1/1769372810_7589628dbfcadaaceb14.jpg', NULL, NULL, 0, 0, '2026-01-25 17:26:50'),
-	(227, 1, 'uploads/eventos/albuns/1/1769372810_e3b7800babcc74b2fcb9.jpg', NULL, NULL, 0, 0, '2026-01-25 17:26:50'),
-	(228, 1, 'uploads/eventos/albuns/1/1769372810_04a322fd68dd20a0e793.jpg', NULL, NULL, 0, 0, '2026-01-25 17:26:50'),
-	(230, 1, 'uploads/eventos/albuns/1/1769372810_0baf3950c056955a6594.jpg', NULL, NULL, 0, 0, '2026-01-25 17:26:51'),
-	(232, 1, 'uploads/eventos/albuns/1/1769372811_2030a516d7526a0d0b5b.jpg', NULL, NULL, 0, 0, '2026-01-25 17:26:51'),
-	(233, 1, 'uploads/eventos/albuns/1/1769372811_f9bbf0b6fdf4e825ad69.jpg', NULL, NULL, 0, 0, '2026-01-25 17:26:51'),
-	(234, 1, 'uploads/eventos/albuns/1/1769372811_bea6453b3f0f4d3d0f86.jpg', NULL, NULL, 0, 0, '2026-01-25 17:26:51'),
-	(235, 1, 'uploads/eventos/albuns/1/1769372811_4258dc1a4e3732ac6533.jpg', NULL, NULL, 0, 0, '2026-01-25 17:26:51'),
-	(236, 1, 'uploads/eventos/albuns/1/1769372811_aa033e961e8fe91061a6.jpg', NULL, NULL, 0, 0, '2026-01-25 17:26:51'),
-	(237, 1, 'uploads/eventos/albuns/1/1769372811_0a6c0031fb2543ffbc06.jpg', NULL, NULL, 0, 0, '2026-01-25 17:26:51'),
-	(238, 1, 'uploads/eventos/albuns/1/1769372811_43bc43093b20e7dead6a.jpg', NULL, NULL, 0, 0, '2026-01-25 17:26:51'),
-	(239, 1, 'uploads/eventos/albuns/1/1769372811_c0ec1701b836afa36e38.jpg', NULL, NULL, 0, 0, '2026-01-25 17:26:51'),
-	(240, 1, 'uploads/eventos/albuns/1/1769372811_be044dcbc502ffb1f323.jpg', NULL, NULL, 0, 0, '2026-01-25 17:26:51'),
-	(241, 1, 'uploads/eventos/albuns/1/1769372811_cad3eb76d78de461a353.jpg', NULL, NULL, 0, 0, '2026-01-25 17:26:52'),
-	(242, 1, 'uploads/eventos/albuns/1/1769372812_a3b672ccf53adfb03cd8.jpg', NULL, NULL, 0, 0, '2026-01-25 17:26:52'),
-	(243, 1, 'uploads/eventos/albuns/1/1769372812_ef3ce56c6fed67788675.jpg', NULL, NULL, 0, 0, '2026-01-25 17:26:52'),
-	(244, 1, 'uploads/eventos/albuns/1/1769372812_81cba6f5184d2becbfbf.jpg', NULL, NULL, 0, 0, '2026-01-25 17:26:52'),
-	(245, 1, 'uploads/eventos/albuns/1/1769372812_7b51d3db0edd287afe37.jpg', NULL, NULL, 0, 0, '2026-01-25 17:26:52'),
-	(246, 1, 'uploads/eventos/albuns/1/1769372812_907ed2391ec81404a828.jpg', NULL, NULL, 0, 0, '2026-01-25 17:26:52'),
-	(247, 1, 'uploads/eventos/albuns/1/1769372812_24dfb633330b10aaabc4.jpg', NULL, NULL, 0, 0, '2026-01-25 17:26:52'),
-	(248, 1, 'uploads/eventos/albuns/1/1769372812_a8c4e9ed2edb986e64a8.jpg', NULL, NULL, 0, 0, '2026-01-25 17:26:52'),
-	(249, 1, 'uploads/eventos/albuns/1/1769372812_83fa441c64e2d13910dc.jpg', NULL, NULL, 0, 0, '2026-01-25 17:26:52'),
-	(250, 1, 'uploads/eventos/albuns/1/1769372812_89596ecef362c710ce47.jpg', NULL, NULL, 0, 0, '2026-01-25 17:26:52'),
-	(251, 1, 'uploads/eventos/albuns/1/1769372812_a45b7ac69d261a6985e7.jpg', NULL, NULL, 0, 0, '2026-01-25 17:26:52'),
-	(252, 1, 'uploads/eventos/albuns/1/1769372812_ed853f7ce7c9e717b5a1.jpg', NULL, NULL, 0, 0, '2026-01-25 17:26:53'),
-	(253, 1, 'uploads/eventos/albuns/1/1769372813_ebce24ee90539082b70d.jpg', NULL, NULL, 0, 0, '2026-01-25 17:26:53'),
-	(255, 1, 'uploads/eventos/albuns/1/1769372813_0a5fe302ed46eb3306fd.jpg', NULL, NULL, 0, 0, '2026-01-25 17:26:53'),
-	(256, 1, 'uploads/eventos/albuns/1/1769372813_152259a7b8eca14bd4f9.jpg', NULL, NULL, 0, 0, '2026-01-25 17:26:53'),
-	(258, 1, 'uploads/eventos/albuns/1/1769372813_2543639e3e16dc9d6834.jpg', NULL, NULL, 0, 0, '2026-01-25 17:26:53'),
-	(260, 1, 'uploads/eventos/albuns/1/1769372839_a66af15b4937012de867.jpg', NULL, NULL, 0, 0, '2026-01-25 17:27:19'),
-	(264, 1, 'uploads/eventos/albuns/1/1769372840_569ea117ddd761b7e374.jpg', NULL, NULL, 0, 0, '2026-01-25 17:27:20'),
-	(265, 1, 'uploads/eventos/albuns/1/1769372840_873f79aa6c69167a06ff.jpg', NULL, NULL, 0, 0, '2026-01-25 17:27:20'),
-	(266, 1, 'uploads/eventos/albuns/1/1769372840_dea905a56f537546c454.jpg', NULL, NULL, 0, 0, '2026-01-25 17:27:20'),
-	(267, 1, 'uploads/eventos/albuns/1/1769372840_ad138746568c2717b7dd.jpg', NULL, NULL, 0, 0, '2026-01-25 17:27:20'),
-	(268, 1, 'uploads/eventos/albuns/1/1769372840_bc7dc5f191988c337a64.jpg', NULL, NULL, 0, 0, '2026-01-25 17:27:20'),
-	(269, 1, 'uploads/eventos/albuns/1/1769372840_9e97458ef01f6171502a.jpg', NULL, NULL, 0, 0, '2026-01-25 17:27:20'),
-	(271, 1, 'uploads/eventos/albuns/1/1769372840_2ff20a92b06dfc6902e6.jpg', NULL, NULL, 0, 0, '2026-01-25 17:27:20'),
-	(272, 1, 'uploads/eventos/albuns/1/1769372840_fea2766d943de43b1648.jpg', NULL, NULL, 0, 0, '2026-01-25 17:27:20'),
-	(273, 1, 'uploads/eventos/albuns/1/1769372840_b5268d099a20078ca2a2.jpg', NULL, NULL, 0, 0, '2026-01-25 17:27:21'),
-	(274, 1, 'uploads/eventos/albuns/1/1769372841_38ff9018ae5b59b9ede8.jpg', NULL, NULL, 0, 0, '2026-01-25 17:27:21'),
-	(275, 1, 'uploads/eventos/albuns/1/1769372841_24367946a7ccf4ba3ecb.jpg', NULL, NULL, 0, 0, '2026-01-25 17:27:21'),
-	(276, 1, 'uploads/eventos/albuns/1/1769372841_2c06eb63843c7f99bfcd.jpg', NULL, NULL, 0, 0, '2026-01-25 17:27:21'),
-	(278, 1, 'uploads/eventos/albuns/1/1769372841_2835e7c40a764287fd6e.jpg', NULL, NULL, 0, 0, '2026-01-25 17:27:21'),
-	(279, 1, 'uploads/eventos/albuns/1/1769372841_eeb270dd6874d21ea4d2.jpg', NULL, NULL, 0, 0, '2026-01-25 17:27:21'),
-	(280, 1, 'uploads/eventos/albuns/1/1769372841_ed5e842d0cb01c83d4db.jpg', NULL, NULL, 0, 0, '2026-01-25 17:27:21'),
-	(281, 1, 'uploads/eventos/albuns/1/1769372841_478392ef5cb50deead27.jpg', NULL, NULL, 0, 0, '2026-01-25 17:27:21'),
-	(282, 1, 'uploads/eventos/albuns/1/1769372841_e8e5603b589634072ee7.jpg', NULL, NULL, 0, 0, '2026-01-25 17:27:21'),
-	(283, 1, 'uploads/eventos/albuns/1/1769372841_2243d4e2969b73ee5576.jpg', NULL, NULL, 0, 0, '2026-01-25 17:27:21'),
-	(284, 1, 'uploads/eventos/albuns/1/1769372841_ba0ee9886c8c77d62c87.jpg', NULL, NULL, 0, 0, '2026-01-25 17:27:22'),
-	(285, 1, 'uploads/eventos/albuns/1/1769372842_d83283ce171ec6eb1c86.jpg', NULL, NULL, 0, 0, '2026-01-25 17:27:22'),
-	(287, 1, 'uploads/eventos/albuns/1/1769372842_93a6f049275ea6a9518d.jpg', NULL, NULL, 0, 0, '2026-01-25 17:27:22'),
-	(288, 1, 'uploads/eventos/albuns/1/1769372842_aef68cab76ce4427ab07.jpg', NULL, NULL, 0, 0, '2026-01-25 17:27:22'),
-	(289, 1, 'uploads/eventos/albuns/1/1769372871_bc7822e818abf383a59d.jpg', NULL, NULL, 0, 0, '2026-01-25 17:27:51'),
-	(290, 1, 'uploads/eventos/albuns/1/1769372871_24343b092e9c0284cce5.jpg', NULL, NULL, 0, 0, '2026-01-25 17:27:51'),
-	(291, 1, 'uploads/eventos/albuns/1/1769372871_af5b603f1123454df702.jpg', NULL, NULL, 0, 0, '2026-01-25 17:27:51'),
-	(294, 1, 'uploads/eventos/albuns/1/1769372872_f2b5b671fae99689be61.jpg', NULL, NULL, 0, 0, '2026-01-25 17:27:52'),
-	(295, 1, 'uploads/eventos/albuns/1/1769372872_9819eabbd2c3cf2c18fc.jpg', NULL, NULL, 0, 0, '2026-01-25 17:27:52'),
-	(296, 1, 'uploads/eventos/albuns/1/1769372872_57bfe0def96aacf6e3c3.jpg', NULL, NULL, 0, 0, '2026-01-25 17:27:52'),
-	(297, 1, 'uploads/eventos/albuns/1/1769372872_0349f0220e93ab9006e8.jpg', NULL, NULL, 0, 0, '2026-01-25 17:27:52'),
-	(298, 1, 'uploads/eventos/albuns/1/1769372872_2fbdfc04049990e2fb9e.jpg', NULL, NULL, 0, 0, '2026-01-25 17:27:52'),
-	(299, 1, 'uploads/eventos/albuns/1/1769372872_60b8cb0f44e1ee9f3b09.jpg', NULL, NULL, 0, 0, '2026-01-25 17:27:52'),
-	(300, 1, 'uploads/eventos/albuns/1/1769372872_1c0cad110a4eef367957.jpg', NULL, NULL, 0, 0, '2026-01-25 17:27:52'),
-	(301, 1, 'uploads/eventos/albuns/1/1769372872_0721e188160b3c9b97ef.jpg', NULL, NULL, 0, 0, '2026-01-25 17:27:53'),
-	(302, 1, 'uploads/eventos/albuns/1/1769372873_6576460ab88fe07d0254.jpg', NULL, NULL, 0, 0, '2026-01-25 17:27:53'),
-	(303, 4, '/uploads/eventos/5_bloco-vem-com-o-gigante-leo-santana/albuns/4/foto_1_bloco-vem-com-o-gigante-leo-santana.jpg', NULL, NULL, 1, 0, '2026-02-14 18:58:10'),
-	(304, 4, '/uploads/eventos/5_bloco-vem-com-o-gigante-leo-santana/albuns/4/foto_2_bloco-vem-com-o-gigante-leo-santana.jpg', NULL, NULL, 2, 0, '2026-02-14 18:58:10');
+-- Copiando dados para a tabela u690128405_role.evt_album_fotos_tb: ~0 rows (aproximadamente)
 
 -- Copiando estrutura para tabela u690128405_role.evt_albuns_fotos_tb
 CREATE TABLE IF NOT EXISTS `evt_albuns_fotos_tb` (
@@ -6929,12 +6843,9 @@ CREATE TABLE IF NOT EXISTS `evt_albuns_fotos_tb` (
   KEY `fotografo_id` (`fotografo_id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
--- Copiando dados para a tabela u690128405_role.evt_albuns_fotos_tb: ~4 rows (aproximadamente)
+-- Copiando dados para a tabela u690128405_role.evt_albuns_fotos_tb: ~1 rows (aproximadamente)
 INSERT INTO `evt_albuns_fotos_tb` (`album_id`, `evento_id`, `fotografo_id`, `titulo`, `descricao`, `data_fotografia`, `status`, `thumbnail_id`, `created_at`, `updated_at`) VALUES
-	(1, 4, 10, 'Sertanejo Prime', 'Um novo capítulo do sertanejo universitário chega com o evento Sertanejo Prime, no dia 24 de janeiro de 2026, comandado pelo professor Junior Arruda ao lado de Suzzy Hernandes. Será uma noite inteira dedicada à dança a dois, com foco no sertanejo moderno, reunindo quem gosta de aprender, treinar e se divertir na pista em um ambiente descontraído e acolhedor.\r\n​\r\n​A proposta é oferecer uma experiência completa: som sertanejo selecionado, pista liberada para dançar, momentos conduzidos pelos professores com dicas e intervenções na pista e clima de baile para todos os níveis, do iniciante ao avançado. É o tipo de evento pensado para quem quer viver o sertanejo de verdade, com técnica, harmonia e muita interação social ao longo da noite.', '2026-01-24', 'publico', 200, '2026-01-25 10:39:17', '2026-01-25 17:30:48'),
-	(2, 5, 10, 'Ibirapuera', 'odisodi´psodis das´dposidóps', '2026-02-22', 'rascunho', NULL, '2026-02-14 15:14:24', '2026-02-14 15:14:24'),
-	(3, 5, 10, 'Bloco vem com o Gigante - Leo Santana ', '', '2026-02-22', 'rascunho', NULL, '2026-02-14 17:33:37', '2026-02-14 17:33:37'),
-	(4, 5, 10, 'Bloco vem com o Gigante - Leo Santana ', '', '2026-02-22', 'rascunho', NULL, '2026-02-14 18:38:32', '2026-02-14 18:38:32');
+	(1, 4, 10, 'Sertanejo Prime', 'Um novo capítulo do sertanejo universitário chega com o evento Sertanejo Prime, no dia 24 de janeiro de 2026, comandado pelo professor Junior Arruda ao lado de Suzzy Hernandes. Será uma noite inteira dedicada à dança a dois, com foco no sertanejo moderno, reunindo quem gosta de aprender, treinar e se divertir na pista em um ambiente descontraído e acolhedor.\r\n​\r\n​A proposta é oferecer uma experiência completa: som sertanejo selecionado, pista liberada para dançar, momentos conduzidos pelos professores com dicas e intervenções na pista e clima de baile para todos os níveis, do iniciante ao avançado. É o tipo de evento pensado para quem quer viver o sertanejo de verdade, com técnica, harmonia e muita interação social ao longo da noite.', '2026-01-24', 'publico', 200, '2026-01-25 10:39:17', '2026-01-25 17:30:48');
 
 -- Copiando estrutura para tabela u690128405_role.evt_atracao_estilos_tb
 CREATE TABLE IF NOT EXISTS `evt_atracao_estilos_tb` (
@@ -7034,16 +6945,11 @@ CREATE TABLE IF NOT EXISTS `evt_eventos_tb` (
   PRIMARY KEY (`evento_id`),
   KEY `evt_eventos_tb_bares_id_foreign` (`bares_id`),
   KEY `evt_eventos_tb_tipo_evento_id_foreign` (`tipo_evento_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
--- Copiando dados para a tabela u690128405_role.evt_eventos_tb: ~5 rows (aproximadamente)
+-- Copiando dados para a tabela u690128405_role.evt_eventos_tb: ~0 rows (aproximadamente)
 INSERT INTO `evt_eventos_tb` (`evento_id`, `bares_id`, `tipo_evento_id`, `nome`, `slug`, `descricao`, `local_customizado`, `endereco_evento`, `latitude_evento`, `longitude_evento`, `data_inicio`, `data_fim`, `hora_abertura_portas`, `lotacao_maxima`, `idade_minima`, `status`, `visibilidade`, `imagem_capa`, `logo_img_1`, `logo_img_2`, `logo_img_3`, `logo_img_4`, `video_youtube_url`, `created_at`, `updated_at`, `deleted_at`) VALUES
-	(1, 6, 1, 'Terça do Patrão ', 'terça-do-patrão', 'Terça do Patrão é a noite do sertanejo universitário no comando: hits atuais, clima de balada de interior e muita sofrência para cantar alto até último gole. ', NULL, NULL, NULL, NULL, '2026-01-20 20:00:00', '2026-01-21 01:30:00', '12:00:00', 200, 18, 'publicado', 'publico', 'uploads/eventos/6/1768319095_f53ae5778a291b5431f3.jpg', NULL, NULL, NULL, NULL, '', '2026-01-13 15:44:55', '2026-01-14 02:51:41', NULL),
-	(4, 18, 1, 'Sertanejo Prime', 'sertanejo-prime', 'Um novo capítulo do sertanejo universitário chega com o evento Sertanejo Prime, no dia 24 de janeiro de 2026, comandado pelo professor Junior Arruda ao lado de Suzzy Hernandes. Será uma noite inteira dedicada à dança a dois, com foco no sertanejo moderno, reunindo quem gosta de aprender, treinar e se divertir na pista em um ambiente descontraído e acolhedor.\r\n​\r\n​A proposta é oferecer uma experiência completa: som sertanejo selecionado, pista liberada para dançar, momentos conduzidos pelos professores com dicas e intervenções na pista e clima de baile para todos os níveis, do iniciante ao avançado. É o tipo de evento pensado para quem quer viver o sertanejo de verdade, com técnica, harmonia e muita interação social ao longo da noite.', NULL, NULL, NULL, NULL, '2026-01-24 20:00:00', '2026-02-25 05:00:00', '20:00:00', 300, 18, 'publicado', 'publico', 'uploads/eventos/18/1768768112_0043c4d6b9a1c449a930.png', NULL, NULL, NULL, NULL, '', '2026-01-17 20:56:17', '2026-01-27 10:02:06', '2026-01-27 10:02:06'),
-	(5, 18, 11, 'Bloco vem com o Gigante - Leo Santana ', 'bloco-vem-com-o-gigante-leo-santana', '', NULL, NULL, NULL, NULL, '2026-02-22 10:03:00', '2026-01-23 17:00:00', '10:00:00', 10000, 18, 'publicado', 'publico', 'uploads/eventos/18/1768939516_4bcbb8d50eab2a86c88e.png', '/uploads/eventos/5_bloco-vem-com-o-gigante-leo-santana/logos/logo1.jpeg', '/uploads/eventos/5_bloco-vem-com-o-gigante-leo-santana/logos/logo2.png', '/uploads/eventos/5_bloco-vem-com-o-gigante-leo-santana/logos/logo3.jpeg', '/uploads/eventos/5_bloco-vem-com-o-gigante-leo-santana/logos/logo4.jpeg', '', '2026-01-20 17:05:16', '2026-02-14 17:34:11', NULL),
-	(6, 18, 11, 'Baile dos sertanejo', 'alexandre-lettiere', 'A imagem do evento deve estar em 16:9 ou 9:16.\r\nA imagem do evento deve estar em 16:9 ou 9:16.\r\nA imagem do evento deve estar em 16:9 ou 9:16.\r\nA imagem do evento deve estar em 16:9 ou 9:16.', 'Avenida Domingos Dias', '36', -23.5304680, -46.6816030, '2026-02-20 22:02:00', '2026-02-22 22:02:00', '22:02:00', NULL, 23, 'publicado', 'publico', '/uploads/eventos/6_alexandre-lettiere/capa.jpg', NULL, NULL, NULL, NULL, NULL, '2026-02-14 21:59:51', '2026-02-15 00:13:39', NULL),
-	(7, 18, 132, 'teste', 'teste', NULL, 'santos', 'rua santos', -23.5469930, -46.6343880, '2027-03-14 20:40:00', '2027-03-15 20:40:00', '20:41:00', NULL, 18, 'publicado', 'publico', '/uploads/eventos/7_teste/capa.jpeg', NULL, NULL, NULL, NULL, NULL, '2026-02-14 22:39:56', '2026-02-16 17:52:31', NULL),
-	(8, 18, 196, 'ForroFest', 'forrofest', 'Prepare-se para uma noite inesquecível na Festa Garota VIP, o evento mais glamouroso e empoderador de São Paulo! Vestida de brilho, atitude e muita energia, essa festa é feita para garotas que comandam a pista: solteiras, casadas ou em dupla, todas são VIPs aqui.\r\n\r\nO que te espera:\r\n\r\nDJ matador tocando os hits do momento, do funk proibidão ao pop brasileiro (com aquele som de Ivete Sangalo pra aquecer!).\r\n\r\nOpen bar premium com drinks exclusivos, shots liberados e coquetéis que vão te fazer dançar sem parar.\r\n\r\nPista de dança épica com luzes neon, efeitos especiais e coreografias que vão viralizar no Insta.\r\n\r\nÁrea VIP reservada com sofás aconchegantes, photobooth temático e surpresas para as mais estilosas.\r\n\r\nPromoções imperdíveis: Ingresso feminino R$50 (com consumação), masculino R$80. Grupos de 4+ ganham desconto!\r\n\r\nData: [Insira a data] | Local: [Insira o local] | Horário: 22h às 4h.\r\n\r\nVista seu look mais poderoso, chame as amigas e venha reinar na Garota VIP! 💃✨ Ingressos limitados – garanta o seu agora! #FestaGarotaVIP #NoiteDasRainhas', 'Arena Mix', 'Avenida Paulista , 100, sao Paulo', -23.5601710, -46.6579100, '2027-03-17 23:37:00', '2027-03-17 23:37:00', '23:37:00', NULL, 16, 'publicado', 'publico', '/uploads/eventos/8_forrofest/capa.jpg', '/uploads/eventos/8_forrofest/logos/logo1.png', NULL, NULL, NULL, 'https://www.youtube.com/watch?v=wFrjUL6Gk24&list=PLs5wTEi6ddhBsgqe6Rs5NBb6rKc9y4tNW&index=5', '2026-02-17 01:48:37', '2026-02-17 01:48:37', NULL);
+	(9, 38, 196, 'Noite do Piseiro', 'noite-do-piseiro', '<p>🎶✨ Noite do Piseiro – Washington Brasileiro &amp; Rene Bahia feat. Vitori Kepler&nbsp;</p><p>✨🎶 Prepare-se para uma noite inesquecível ao som do melhor piseiro! O fenômeno Washington Brasileiro chega com toda sua energia contagiante, ao lado de Rene Bahia, trazendo aquele repertório que não deixa ninguém parado. E para completar a festa, Vitori Kepler promete levantar o público com muito ritmo e animação.&nbsp;</p><p>🔥 Muito piseiro, sofrência, dança e vibração positiva.&nbsp;</p><p>🌙 Evento noturno, clima perfeito para curtir com os amigos.&nbsp;</p><p>💃🕺 Prepare o passinho porque essa noite vai ser diferenciada! Se você gosta de música boa, energia lá em cima e aquele clima que só o piseiro tem… A Noite do Piseiro é o seu lugar. Marca a galera e vem viver essa experiência! 🎤🎵</p>', 'Avenida Guilherme Cotching, 580 - Vila Maria Baixa', 'Avenida Guilherme Cotching, 580 - Vila Maria Baixa', -23.5217720, -46.5922450, '2026-02-21 22:00:00', '2026-02-22 06:00:00', '20:00:00', NULL, 18, 'publicado', 'publico', '/uploads/eventos/9_noite-do-piseiro/capa.png', '/uploads/eventos/9_noite-do-piseiro/logos/logo1.jpg', NULL, NULL, NULL, 'https://www.youtube.com/watch?v=N_F5LNOblcI', '2026-02-18 03:19:02', '2026-02-18 03:48:39', NULL);
 
 -- Copiando estrutura para tabela u690128405_role.evt_evento_atracoes_tb
 CREATE TABLE IF NOT EXISTS `evt_evento_atracoes_tb` (
@@ -7072,9 +6978,7 @@ CREATE TABLE IF NOT EXISTS `evt_foto_comentarios_tb` (
   KEY `user_id` (`user_id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
--- Copiando dados para a tabela u690128405_role.evt_foto_comentarios_tb: ~1 rows (aproximadamente)
-INSERT INTO `evt_foto_comentarios_tb` (`comentario_id`, `foto_id`, `user_id`, `parent_id`, `comentario`, `status`, `created_at`, `updated_at`) VALUES
-	(1, 3, 10, NULL, 'Essa Mulher é Top!', 'aprovado', '2026-01-25 16:27:49', NULL);
+-- Copiando dados para a tabela u690128405_role.evt_foto_comentarios_tb: ~0 rows (aproximadamente)
 
 -- Copiando estrutura para tabela u690128405_role.evt_foto_compartilhamentos_tb
 CREATE TABLE IF NOT EXISTS `evt_foto_compartilhamentos_tb` (
@@ -7088,9 +6992,7 @@ CREATE TABLE IF NOT EXISTS `evt_foto_compartilhamentos_tb` (
   KEY `user_id` (`user_id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
--- Copiando dados para a tabela u690128405_role.evt_foto_compartilhamentos_tb: ~1 rows (aproximadamente)
-INSERT INTO `evt_foto_compartilhamentos_tb` (`id`, `foto_id`, `user_id`, `canal`, `created_at`) VALUES
-	(1, 275, 10, 'link', '2026-01-26 17:23:02');
+-- Copiando dados para a tabela u690128405_role.evt_foto_compartilhamentos_tb: ~0 rows (aproximadamente)
 
 -- Copiando estrutura para tabela u690128405_role.evt_foto_likes_tb
 CREATE TABLE IF NOT EXISTS `evt_foto_likes_tb` (
@@ -7104,10 +7006,7 @@ CREATE TABLE IF NOT EXISTS `evt_foto_likes_tb` (
   KEY `user_id` (`user_id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
--- Copiando dados para a tabela u690128405_role.evt_foto_likes_tb: ~2 rows (aproximadamente)
-INSERT INTO `evt_foto_likes_tb` (`id`, `foto_id`, `user_id`, `created_at`) VALUES
-	(1, 3, 10, '2026-01-25 16:27:58'),
-	(2, 258, 10, '2026-01-26 17:22:03');
+-- Copiando dados para a tabela u690128405_role.evt_foto_likes_tb: ~0 rows (aproximadamente)
 
 -- Copiando estrutura para tabela u690128405_role.evt_ingressos_convidados_tb
 CREATE TABLE IF NOT EXISTS `evt_ingressos_convidados_tb` (
@@ -7133,18 +7032,7 @@ CREATE TABLE IF NOT EXISTS `evt_ingressos_convidados_tb` (
   KEY `evt_ingressos_convidados_tb_is_titular_index` (`is_titular`)
 ) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- Copiando dados para a tabela u690128405_role.evt_ingressos_convidados_tb: ~10 rows (aproximadamente)
-INSERT INTO `evt_ingressos_convidados_tb` (`id`, `evento_id`, `lote_id`, `codigo_unico`, `is_titular`, `titular_nome`, `titular_cpf`, `nome`, `cpf`, `data_nascimento`, `email`, `whatsapp`, `created_at`, `updated_at`) VALUES
-	(1, 6, 5, 'AE3EF37A', 1, 'Alexandre Lettiere', '01484840500', 'Alexandre Lettiere', '01484840500', NULL, 'alexandre.prtn@gmail.com', NULL, '2026-02-16 13:40:00', '2026-02-16 13:40:00'),
-	(2, 6, 5, '33CEF026', 1, 'Alexandre Lettiere', '01484840500', 'Alexandre Lettiere', '01484840500', NULL, 'alexandre.prtn@gmail.com', NULL, '2026-02-16 13:40:11', '2026-02-16 13:40:11'),
-	(3, 6, 5, 'B62B4294', 1, 'M&S Bar e Restaurante', '00000000000002', 'M&S Bar e Restaurante', '00000000000002', NULL, 'm&s@barerestaurante.com.br', NULL, '2026-02-16 13:40:22', '2026-02-16 13:40:22'),
-	(4, 6, 5, 'FF536A14', 1, 'Espaço Avenida', '01484840501', 'Espaço Avenida', '01484840501', NULL, 'espacoavenida@gmail.com', NULL, '2026-02-16 13:40:33', '2026-02-16 13:40:33'),
-	(5, 6, 5, '3D56C574', 1, 'Alexandre Lettiere', '000000', 'Alexandre Lettiere', '000000', NULL, 'al3.lettiere@gmail.com', NULL, '2026-02-16 13:41:29', '2026-02-16 13:41:29'),
-	(6, 6, 5, 'C5D7C07F', 1, 'Alexandre Lettiere', '01484840500', 'Alexandre Lettiere', '01484840500', NULL, 'alexandre.prtn@gmail.com', '998263095', '2026-02-16 14:00:36', '2026-02-16 14:00:36'),
-	(7, 6, 5, '042C8821', 1, 'Alexandre Lettiere', '01484840500', 'Alexandre Lettiere', '01484840500', NULL, 'alexandre.prtn@gmail.com', '11998263095', '2026-02-16 14:00:47', '2026-02-16 14:00:47'),
-	(8, 6, 5, 'E14A9D6E', 1, 'Alexandre Lettiere', '01484840500', 'Alexandre Lettiere', '01484840500', NULL, 'alexandre.prtn@gmail.com', '11982301985', '2026-02-16 14:31:47', '2026-02-16 14:31:47'),
-	(9, 6, 5, '86432C7E', 1, 'Alexandre Lettiere', '01484840500', 'Alexandre Lettiere', '01484840500', NULL, 'alexandre.prtn@gmail.com', '11982301985', '2026-02-16 15:35:02', '2026-02-16 15:35:02'),
-	(10, 6, 5, '470AE3D9', 1, 'Alexandre Lettiere', '01484840500', 'Alexandre Lettiere', '01484840500', NULL, 'alexandre.prtn@gmail.com', '11982301985', '2026-02-17 01:03:03', '2026-02-17 01:03:03');
+-- Copiando dados para a tabela u690128405_role.evt_ingressos_convidados_tb: ~0 rows (aproximadamente)
 
 -- Copiando estrutura para tabela u690128405_role.evt_ingressos_vendidos_tb
 CREATE TABLE IF NOT EXISTS `evt_ingressos_vendidos_tb` (
@@ -7169,25 +7057,7 @@ CREATE TABLE IF NOT EXISTS `evt_ingressos_vendidos_tb` (
   KEY `evt_ingressos_vendidos_tb_user_id_foreign` (`user_id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=18 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
--- Copiando dados para a tabela u690128405_role.evt_ingressos_vendidos_tb: ~17 rows (aproximadamente)
-INSERT INTO `evt_ingressos_vendidos_tb` (`ingresso_id`, `evento_id`, `lote_id`, `user_id`, `nome_comprador`, `email_comprador`, `codigo_unico`, `status`, `valor_pago`, `data_compra`, `data_utilizacao`, `created_at`, `updated_at`, `deleted_at`) VALUES
-	(1, 1, 2, 10, 'Alexandre Lettiere ', 'alexandre.prtn@gmail.com', 'C8DB0690', 'pago', 80.00, '2026-01-15 16:49:20', NULL, '2026-01-15 16:49:20', '2026-01-15 16:49:20', NULL),
-	(2, 1, 1, 10, 'ALEXANDRE LETTIERE', 'alexandre.prtn@gmail.com', '1F0D4896', 'pago', 0.00, '2026-01-16 12:32:34', NULL, NULL, NULL, NULL),
-	(3, 4, 3, 20, '', 'alexandre.prtn@gmail.com', 'EFDA6BDC', 'pago', 0.00, '2026-01-18 07:23:46', NULL, NULL, NULL, NULL),
-	(4, 6, 5, 10, 'Alexandre Lettiere', 'alexandre.prtn@gmail.com', '5EF6D34A', 'pago', 0.00, '2026-02-16 13:07:14', NULL, NULL, NULL, NULL),
-	(5, 6, 5, 10, 'Alexandre Lettiere', 'alexandre.prtn@gmail.com', '9995F08E', 'pago', 0.00, '2026-02-16 13:23:10', NULL, NULL, NULL, NULL),
-	(6, 6, 5, 10, 'Alexandre Lettiere', 'alexandre.prtn@gmail.com', 'AE3EF37A', 'pago', 0.00, '2026-02-16 13:40:00', NULL, NULL, NULL, NULL),
-	(7, 6, 5, 10, 'Alexandre Lettiere', 'alexandre.prtn@gmail.com', '33CEF026', 'pago', 0.00, '2026-02-16 13:40:11', NULL, NULL, NULL, NULL),
-	(8, 6, 5, 21, 'M&S Bar e Restaurante', 'm&s@barerestaurante.com.br', 'B62B4294', 'pago', 0.00, '2026-02-16 13:40:22', NULL, NULL, NULL, NULL),
-	(9, 6, 5, 20, 'Espaço Avenida', 'espacoavenida@gmail.com', 'FF536A14', 'pago', 0.00, '2026-02-16 13:40:33', NULL, NULL, NULL, NULL),
-	(10, 6, 5, 48, 'Alexandre Lettiere', 'al3.lettiere@gmail.com', '3D56C574', 'pago', 0.00, '2026-02-16 13:41:29', NULL, NULL, NULL, NULL),
-	(11, 6, 5, 10, 'Alexandre Lettiere', 'alexandre.prtn@gmail.com', '3CCB6A0F', 'pago', 0.00, '2026-02-16 13:53:56', NULL, NULL, NULL, NULL),
-	(12, 6, 5, 10, 'Alexandre Lettiere', 'alexandre.prtn@gmail.com', 'D0740BD9', 'pago', 0.00, '2026-02-16 13:55:53', NULL, NULL, NULL, NULL),
-	(13, 6, 5, 10, 'Alexandre Lettiere', 'alexandre.prtn@gmail.com', 'C5D7C07F', 'pago', 0.00, '2026-02-16 14:00:36', NULL, NULL, NULL, NULL),
-	(14, 6, 5, 10, 'Alexandre Lettiere', 'alexandre.prtn@gmail.com', '042C8821', 'pago', 0.00, '2026-02-16 14:00:47', NULL, NULL, NULL, NULL),
-	(15, 6, 5, 10, 'Alexandre Lettiere', 'alexandre.prtn@gmail.com', 'E14A9D6E', 'pago', 0.00, '2026-02-16 14:31:47', NULL, NULL, NULL, NULL),
-	(16, 6, 5, 10, 'Alexandre Lettiere', 'alexandre.prtn@gmail.com', '86432C7E', 'pago', 0.00, '2026-02-16 15:35:02', NULL, NULL, NULL, NULL),
-	(17, 6, 5, 10, 'Alexandre Lettiere', 'alexandre.prtn@gmail.com', '470AE3D9', 'pago', 0.00, '2026-02-17 01:03:03', NULL, NULL, NULL, NULL);
+-- Copiando dados para a tabela u690128405_role.evt_ingressos_vendidos_tb: ~0 rows (aproximadamente)
 
 -- Copiando estrutura para tabela u690128405_role.evt_interesse_evento_tb
 CREATE TABLE IF NOT EXISTS `evt_interesse_evento_tb` (
@@ -7199,11 +7069,13 @@ CREATE TABLE IF NOT EXISTS `evt_interesse_evento_tb` (
   `updated_at` datetime DEFAULT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `evento_user_type` (`evento_id`,`user_id`,`type`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
--- Copiando dados para a tabela u690128405_role.evt_interesse_evento_tb: ~1 rows (aproximadamente)
+-- Copiando dados para a tabela u690128405_role.evt_interesse_evento_tb: ~3 rows (aproximadamente)
 INSERT INTO `evt_interesse_evento_tb` (`id`, `evento_id`, `user_id`, `type`, `created_at`, `updated_at`) VALUES
-	(1, 6, 10, 'going', '2026-02-16 14:01:51', '2026-02-16 14:01:51');
+	(5, 9, 49, 'going', '2026-02-18 04:07:56', '2026-02-18 04:07:56'),
+	(6, 9, 49, 'like', '2026-02-18 04:08:03', '2026-02-18 04:08:03'),
+	(7, 9, 10, 'going', '2026-02-18 04:10:47', '2026-02-18 04:10:47');
 
 -- Copiando estrutura para tabela u690128405_role.evt_lotes_ingressos_tb
 CREATE TABLE IF NOT EXISTS `evt_lotes_ingressos_tb` (
@@ -7226,13 +7098,7 @@ CREATE TABLE IF NOT EXISTS `evt_lotes_ingressos_tb` (
   KEY `evt_lotes_ingressos_tb_evento_id_foreign` (`evento_id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
--- Copiando dados para a tabela u690128405_role.evt_lotes_ingressos_tb: ~5 rows (aproximadamente)
-INSERT INTO `evt_lotes_ingressos_tb` (`lote_id`, `evento_id`, `nome`, `tipo`, `descricao`, `preco`, `quantidade_total`, `quantidade_vendida`, `data_inicio_vendas`, `data_fim_vendas`, `ativo`, `status`, `created_at`, `updated_at`, `deleted_at`) VALUES
-	(1, 1, 'Entrada Vip', 'inteira', NULL, 0.00, 200, 0, '2026-01-13 20:00:00', '2026-01-14 01:00:00', 1, NULL, '2026-01-13 19:57:36', '2026-01-13 19:57:36', NULL),
-	(2, 1, 'Lote dois  20%', 'inteira', NULL, 80.00, 25, 0, '2026-01-15 16:48:00', '2026-01-17 16:51:00', 1, NULL, '2026-01-15 16:48:51', '2026-01-15 16:48:51', NULL),
-	(3, 4, 'Tenho interesse de ir... ', 'inteira', NULL, 0.00, 100, 0, '2026-01-18 19:27:00', '2026-01-22 19:27:00', 1, NULL, '2026-01-17 21:13:28', '2026-01-17 21:13:28', NULL),
-	(4, 5, 'teste', 'gratis', NULL, 0.00, 0, 0, NULL, NULL, 1, NULL, '2026-02-14 20:35:09', '2026-02-14 20:44:34', NULL),
-	(5, 6, 'Gratuito', 'gratis', NULL, 0.00, 100, 3, '2026-02-14 22:22:00', '2026-02-15 22:22:00', 1, NULL, '2026-02-14 22:00:48', '2026-02-14 22:00:48', NULL);
+-- Copiando dados para a tabela u690128405_role.evt_lotes_ingressos_tb: ~0 rows (aproximadamente)
 
 -- Copiando estrutura para tabela u690128405_role.evt_tipo_evento_tb
 CREATE TABLE IF NOT EXISTS `evt_tipo_evento_tb` (
@@ -7242,9 +7108,9 @@ CREATE TABLE IF NOT EXISTS `evt_tipo_evento_tb` (
   `descricao` text DEFAULT NULL,
   `ativo` tinyint(1) NOT NULL DEFAULT 1,
   PRIMARY KEY (`tipo_evento_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=197 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=198 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
--- Copiando dados para a tabela u690128405_role.evt_tipo_evento_tb: ~81 rows (aproximadamente)
+-- Copiando dados para a tabela u690128405_role.evt_tipo_evento_tb: ~83 rows (aproximadamente)
 INSERT INTO `evt_tipo_evento_tb` (`tipo_evento_id`, `nome`, `categoria`, `descricao`, `ativo`) VALUES
 	(1, 'Sertanejo Universitário', 'Música', 'Sertanejo universitário focado em hits atuais', 1),
 	(2, 'Sertanejo Raiz', 'Música', 'Sertanejo clássico e modão', 1),
@@ -7327,7 +7193,8 @@ INSERT INTO `evt_tipo_evento_tb` (`tipo_evento_id`, `nome`, `categoria`, `descri
 	(193, 'Réveillon & Ano Novo', 'Temático', 'Evento de virada de ano com música e ceia', 1),
 	(194, 'Festa de Aniversário do Bar', 'Temático', 'Comemoração de aniversário da casa', 1),
 	(195, 'Trap', 'Trap', 'trap', 1),
-	(196, 'Forró', 'Forró', 'Festa com musicas de Forró de todos os estilos (Xoté, Pisadinha, Vaneirão e outros)', 1);
+	(196, 'Forró Piseiro', 'Forró', 'Festa com musicas de Forró de todos os estilos (Xoté, Pisadinha, Vaneirão e outros)', 1),
+	(197, 'Forró', 'Forró', 'Festa com musicas de Forró de todos os estilos (Xoté, Pisadinha, Vaneirão e outros)', 1);
 
 -- Copiando estrutura para tabela u690128405_role.failed_jobs
 CREATE TABLE IF NOT EXISTS `failed_jobs` (
@@ -7470,11 +7337,11 @@ CREATE TABLE IF NOT EXISTS `form_perfil_bares_tb` (
   CONSTRAINT `fk_bares_cidade_id` FOREIGN KEY (`cidade_id`) REFERENCES `base_cidades` (`id`) ON DELETE SET NULL ON UPDATE CASCADE,
   CONSTRAINT `fk_bares_rua_id` FOREIGN KEY (`rua_id`) REFERENCES `base_ruas` (`id`) ON DELETE SET NULL,
   CONSTRAINT `fk_bares_user_id` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=38 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=39 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- Copiando dados para a tabela u690128405_role.form_perfil_bares_tb: ~17 rows (aproximadamente)
 INSERT INTO `form_perfil_bares_tb` (`bares_id`, `user_id`, `nome`, `endereco`, `telefone`, `horario_inicio`, `horario_final`, `tipo_bar`, `estado_id`, `cidade_id`, `bairro_id`, `bairro_nome`, `povoado_id`, `prefixo_rua_id`, `latitude`, `longitude`, `bebidas`, `beneficios`, `capacidade`, `nome_na_lista`, `descricao`, `site`, `imagem`, `status`, `created_at`, `updated_at`, `deleted_at`, `rua_id`) VALUES
-	(6, 8, 'Boteco do John', 'Baronese de Bela Vista, 728', '11 978951404', '11:00', '00:00', 4, 26, 5265, NULL, 'Campo Belo', NULL, 1, NULL, NULL, NULL, '{"comodidades":[],"entretenimento":[],"ofertas":[],"servicos":[]}', 100, 0, 'Melhor Bar da Região Aberto todos os dias!', NULL, 'uploads/bares/6_boteco-do-john/perfil/1771264904_01FId2U2hK.jpg', 'ativo', '2026-01-04 17:08:25', '2026-02-16 18:01:44', NULL, NULL),
+	(6, 8, 'Boteco do John', 'Baronese de Bela Vista, 728', '11 978951404', '11:00', '00:00', 4, 26, 5265, NULL, 'Campo Belo', NULL, 1, NULL, NULL, NULL, '{"comodidades":[],"entretenimento":[],"ofertas":[],"servicos":[]}', 100, 0, 'Melhor Bar da Região Aberto todos os dias!', NULL, 'uploads/bares/6_boteco-do-john/perfil/1771351929_5qtH5r6rOR.jpg', 'ativo', '2026-01-04 17:08:25', '2026-02-17 18:12:09', NULL, NULL),
 	(16, 20, 'Espaço Avenida', 'Vitória da Conquista, 850', '73 999324376', '17:00', '01:00', 4, 1, 323, NULL, 'Cidade Nova', NULL, 2, NULL, NULL, NULL, '{"comodidades":[],"entretenimento":[],"ofertas":[],"servicos":[]}', 50, 0, NULL, NULL, 'uploads/bares/16_espaco-avenida/perfil/1771284056_W2CI4M5oND.jpg', 'ativo', '2026-01-11 12:14:26', '2026-02-16 23:20:56', NULL, NULL),
 	(17, 21, 'M&S', 'Do Glicério', '11 959670681', '11:00', '00:00', 26, 26, 5265, NULL, 'Glicério', NULL, 1, NULL, NULL, NULL, '{"comodidades":[],"entretenimento":[],"ofertas":[],"servicos":[]}', 30, 0, 'Bar e restaurante aconchegante, com bebidas geladas, pratos variados e ambiente ideal para encontros entre amigos e família.', NULL, 'uploads/bares/17/perfil/1768236490_51da51e366d22e7bae51.jpg', 'ativo', '2026-01-12 16:08:35', '2026-01-12 16:48:10', NULL, NULL),
 	(18, 10, 'Lettiere Divulgações', 'Praça da Liberdade', '88', '00:00', '23:59', 5, 26, 5265, NULL, 'Glicério', NULL, 1, NULL, NULL, NULL, '{"comodidades":[],"entretenimento":[],"ofertas":[],"servicos":[]}', 1, 0, 'UDOAISUDPOSAIDU', 'HTTPS://WWW.ROLESBR.COM.BR', 'uploads/bares/18_lettiere-divulgacoes/perfil/1771066555_sxVqt8VRun.jpeg', 'ativo', '2026-01-16 20:23:34', '2026-02-14 10:59:11', NULL, NULL),
@@ -7490,7 +7357,8 @@ INSERT INTO `form_perfil_bares_tb` (`bares_id`, `user_id`, `nome`, `endereco`, `
 	(28, 38, 'Sushi Kenzo', 'Rua Tomás Gonzaga, 45', '11999383777', '1100', '2300', 10, 26, 5265, 5601, 'Liberdade', NULL, 1, NULL, NULL, 'comodidades,entretenimento,ofertas,servicos', NULL, 80, 0, 'Casa de sushi à la carte, foco em peças especiais.', NULL, NULL, 'ativo', '2026-01-22 17:05:56', '2026-01-22 17:05:56', NULL, NULL),
 	(29, 35, 'Sushi Yassu', 'Rua Tomás Gonzaga, 98', '', '1100', '2300', 10, 26, 5265, 5601, 'Liberdade', NULL, 1, NULL, NULL, 'comodidades,entretenimento,ofertas,servicos', NULL, 80, 0, 'Restaurante japonês tradicional com ambiente intimista.', NULL, NULL, 'ativo', '2026-01-22 17:05:56', '2026-01-22 17:05:56', NULL, NULL),
 	(30, 34, 'Tanka', 'Praça da Liberdade, 149', '11 99000-0004', '1100', '2300', 10, 26, 5265, 5601, 'Liberdade', NULL, 1, NULL, NULL, 'comodidades,entretenimento,ofertas,servicos', NULL, 120, 0, 'Buffet japonês conhecido na região da Liberdade.', NULL, NULL, 'ativo', '2026-01-22 17:05:56', '2026-01-22 17:05:56', NULL, NULL),
-	(37, 44, 'Karaoke Tequilas Oficial', 'Rua da Glória 543', '11 32072007', '19:00', '02:00', 16, 26, 5265, NULL, 'Liberdade', NULL, 1, NULL, NULL, NULL, '{"comodidades":[],"entretenimento":[],"ofertas":[],"servicos":[]}', 100, 0, 'TEQUILAS KARAOKÊ by Naomes\r\nO melhor karaokê da Liberdade! 🎤🎶\r\nGigantesco acervo de músicas, seg a sáb a partir das 19h.\r\nRua da Glória, 543 - São Paulo/SP (CEP 01510-001)\r\n📞 (11) 3207-2007 | Venha ser a estrela! ✨', NULL, 'uploads/bares/37/perfil/1770055823_8cf35759c9a9a3a56a7e.jpg', 'ativo', '2026-02-02 15:10:23', '2026-02-02 20:04:57', NULL, NULL);
+	(37, 44, 'Karaoke Tequilas Oficial', 'Rua da Glória 543', '11 32072007', '19:00', '02:00', 16, 26, 5265, NULL, 'Liberdade', NULL, 1, NULL, NULL, NULL, '{"comodidades":[],"entretenimento":[],"ofertas":[],"servicos":[]}', 100, 0, 'TEQUILAS KARAOKÊ by Naomes\r\nO melhor karaokê da Liberdade! 🎤🎶\r\nGigantesco acervo de músicas, seg a sáb a partir das 19h.\r\nRua da Glória, 543 - São Paulo/SP (CEP 01510-001)\r\n📞 (11) 3207-2007 | Venha ser a estrela! ✨', NULL, 'uploads/bares/37/perfil/1770055823_8cf35759c9a9a3a56a7e.jpg', 'ativo', '2026-02-02 15:10:23', '2026-02-02 20:04:57', NULL, NULL),
+	(38, 49, 'Novo Limoeiro Espaço Bar', 'Avenida Guilherme Cotching, 580', '11957641206', '20:00', '05:00', 4, 26, 5265, NULL, 'Vila Maria Baixa', NULL, NULL, NULL, NULL, NULL, NULL, 300, 1, 'Novo Limoeiro Espaço Bar, localizado na Av. Guilherme Cotching, 580, na Vila Maria, São Paulo, é um estabelecimento focado em entretenimento, música ao vivo (pagode, funk, piseiro) e bebidas. Sob nova direção, o local é conhecido por promover festas e shows na Zona Norte de São Paulo.', NULL, 'uploads/bares/38_novo-limoeiro-espaco-bar/perfil/1771379539_UsvupJ01cu.jpg', 'ativo', '2026-02-18 01:52:19', '2026-02-18 03:01:40', NULL, NULL);
 
 -- Copiando estrutura para tabela u690128405_role.form_perfil_tipo_bar_tb
 CREATE TABLE IF NOT EXISTS `form_perfil_tipo_bar_tb` (
@@ -7973,13 +7841,12 @@ CREATE TABLE IF NOT EXISTS `perfil_usuarios_tb` (
   CONSTRAINT `fk_perfil_user_id` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB AUTO_INCREMENT=37 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
--- Copiando dados para a tabela u690128405_role.perfil_usuarios_tb: ~19 rows (aproximadamente)
+-- Copiando dados para a tabela u690128405_role.perfil_usuarios_tb: ~17 rows (aproximadamente)
 INSERT INTO `perfil_usuarios_tb` (`perfil_id`, `user_id`, `cpf`, `rg`, `telefone`, `data_nascimento`, `genero_id`, `estado_id`, `cidade_id`, `bairro`, `bairro_id`, `location_lat`, `location_lng`, `rua_id`, `bairro_nome`, `foto_perfil`, `bio`, `created_at`, `updated_at`, `delete_at`) VALUES
 	(4, 8, '00000000000000', '0000000', '99999999999', '2000-01-01', 1, 26, 5265, NULL, 5600, NULL, NULL, NULL, 'Campo Belo', 'uploads/perfis/8/perfil/1767551771_86d68c31ba6739ae7046.jpg', '', '2026-01-04 18:36:11', '2026-01-04 18:36:11', NULL),
-	(5, 10, '01484840500', '397110704', '77998263095', '1985-03-18', 1, 26, 5265, NULL, 5601, NULL, NULL, NULL, 'Liberdade', NULL, '', '2026-01-07 21:59:01', '2026-01-07 21:59:01', NULL),
+	(5, 10, '01484840500', '397110704', '77998263095', '1985-03-18', 1, 26, 5265, NULL, 5601, NULL, NULL, NULL, 'Liberdade', '/storage/uploads/perfis/WFdMXLcOVUVmSoMC31MrCvvxYrhW5PnS0YXX6CUu.jpg', 'Viver e uma arte!', '2026-01-07 21:59:01', '2026-02-18 04:39:42', NULL),
 	(15, 20, '01484840501', '000000001', '11999999999', '2000-01-01', 4, 1, 323, NULL, 3, NULL, NULL, NULL, 'Cidade Nova', NULL, '', '2026-01-11 12:10:51', '2026-01-11 12:10:51', NULL),
 	(16, 21, '00000000000002', '00000000', '11959670681', '2001-01-01', 4, 26, 5265, NULL, 5602, NULL, NULL, NULL, 'Glicério', NULL, 'Restaurante que atende por plataformas de delivery. ', '2026-01-12 15:59:38', '2026-01-12 15:59:38', NULL),
-	(17, 25, '00000000000003', '390000000', '11982301985', '2000-01-01', 1, 26, 5265, NULL, 5602, NULL, NULL, NULL, 'Glicério', NULL, 'Promoter', '2026-01-16 19:36:11', '2026-01-16 19:36:11', NULL),
 	(18, 26, '03520423545', '501827456', '11982465871', '1987-11-05', 1, 1, 323, NULL, 9, NULL, NULL, NULL, 'Centro', NULL, 'Cara simpático estrovetido e companheiro ', '2026-01-17 00:55:08', '2026-01-17 00:55:08', NULL),
 	(19, 29, '0000000003', '000000003', '11999999999', '2000-01-01', 4, 26, 5265, NULL, 5601, NULL, NULL, NULL, 'Liberdade', 'uploads/perfis/29/perfil/1768919574_bbc7857af1204203f761.jpg', '', '2026-01-20 11:32:54', '2026-01-20 11:32:54', NULL),
 	(20, 30, '00000000000004', '000000004', '111999999999', '2000-01-01', 4, 26, 5265, NULL, 5601, NULL, NULL, NULL, 'Liberdade', NULL, '', '2026-01-20 12:26:17', '2026-01-20 12:26:17', NULL),
@@ -7992,8 +7859,7 @@ INSERT INTO `perfil_usuarios_tb` (`perfil_id`, `user_id`, `cpf`, `rg`, `telefone
 	(27, 31, '10000000001', 'RG201', '11990000001', '1985-01-01', 1, 26, 5265, NULL, 5601, NULL, NULL, NULL, 'Liberdade', NULL, 'Responsável pelo Sushi Isao na Liberdade.', '2026-01-22 17:00:45', '2026-01-22 17:00:45', NULL),
 	(28, 38, '10000000008', 'RG208', '11990000008', '1983-08-08', 4, 26, 5265, NULL, 5601, NULL, NULL, NULL, 'Liberdade', NULL, 'Administra o Sushi Kenzo Liberdade.', '2026-01-22 17:00:45', '2026-01-22 17:00:45', NULL),
 	(29, 35, '10000000005', 'RG205', '11990000005', '1989-05-05', 1, 26, 5265, NULL, 5601, NULL, NULL, NULL, 'Liberdade', NULL, 'Responsável pelo Sushi Yassu.', '2026-01-22 17:00:45', '2026-01-22 17:00:45', NULL),
-	(30, 34, '10000000004', 'RG204', '11990000004', '1988-04-04', 4, 26, 5265, NULL, 5601, NULL, NULL, NULL, 'Liberdade', NULL, 'Administra o Tanka na Praça da Liberdade.', '2026-01-22 17:00:45', '2026-01-22 17:00:45', NULL),
-	(36, 48, '000000', NULL, '998263095', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
+	(30, 34, '10000000004', 'RG204', '11990000004', '1988-04-04', 4, 26, 5265, NULL, 5601, NULL, NULL, NULL, 'Liberdade', NULL, 'Administra o Tanka na Praça da Liberdade.', '2026-01-22 17:00:45', '2026-01-22 17:00:45', NULL);
 
 -- Copiando estrutura para tabela u690128405_role.prod_base_produto_tb
 CREATE TABLE IF NOT EXISTS `prod_base_produto_tb` (
@@ -8577,7 +8443,7 @@ INSERT INTO `prod_produtos_tb` (`prod_id`, `bares_id`, `base_id`, `familia_id`, 
 	(194, 8, 188, 2, 28, 'Chá Gelado de Pêssego 300 ml', NULL, 'bebida', 'nao_alcoolica', 7.00, NULL, 'garrafa', 'cha gelado,pessego,300ml', 'ativo', '2026-01-13 04:05:00', '2026-01-13 04:05:00', NULL),
 	(195, 8, 189, 2, 28, 'H2OH! Limão 500 ml', NULL, 'bebida', 'nao_alcoolica', 7.00, NULL, 'garrafa', 'refrigerante,leve,h2oh,limao,500ml', 'ativo', '2026-01-13 04:05:00', '2026-01-13 04:05:00', NULL),
 	(196, 8, 190, 2, 28, 'Guaraná Natural 300 ml', NULL, 'bebida', 'nao_alcoolica', 7.00, NULL, 'garrafa', 'guarana,natural,300ml', 'ativo', '2026-01-13 04:05:00', '2026-01-13 04:05:00', NULL),
-	(197, 18, NULL, 5, 40, 'TESTE', 'DASD', 'bebida', 'alcoolica', 12.00, 22, '22', 'QWE', 'ativo', '2026-02-14 11:43:43', '2026-02-14 11:43:43', NULL);
+	(197, 18, NULL, 5, 40, 'TESTE', 'DASD', 'bebida', 'alcoolica', 12.00, 22, '22', 'QWE', 'inativo', '2026-02-14 11:43:43', '2026-02-17 18:04:12', '2026-02-17 18:04:12');
 
 -- Copiando estrutura para tabela u690128405_role.prod_tipo_produtos_tb
 CREATE TABLE IF NOT EXISTS `prod_tipo_produtos_tb` (
@@ -8658,9 +8524,10 @@ CREATE TABLE IF NOT EXISTS `sessions` (
   KEY `sessions_last_activity_index` (`last_activity`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- Copiando dados para a tabela u690128405_role.sessions: ~4 rows (aproximadamente)
+-- Copiando dados para a tabela u690128405_role.sessions: ~5 rows (aproximadamente)
 INSERT INTO `sessions` (`id`, `user_id`, `ip_address`, `user_agent`, `payload`, `last_activity`) VALUES
 	('5iSq8TiczNCpXPfAKlHbyDLVBtvIdRTNCen4M671', NULL, '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:147.0) Gecko/20100101 Firefox/147.0', 'YTozOntzOjY6Il90b2tlbiI7czo0MDoiTkkySXh0MkZKNXlock9GUHFyWlFteElMSlNCM0duVE1qR3NhMWZmZSI7czo2OiJfZmxhc2giO2E6Mjp7czozOiJvbGQiO2E6MDp7fXM6MzoibmV3IjthOjA6e319czo5OiJfcHJldmlvdXMiO2E6Mjp7czozOiJ1cmwiO3M6MzM6Imh0dHA6Ly9ndWlhcm9sZXMubG9jYWwvYXV0aC9sb2dpbiI7czo1OiJyb3V0ZSI7czoxMDoiYXV0aC5sb2dpbiI7fX0=', 1771039493),
+	('GKM6oC9tnxXq8npORnoLdbab2bWsE5j3p8PmePOz', NULL, '::1', 'Mozilla/5.0 (Linux; Android 11; SAMSUNG SM-G973U) AppleWebKit/537.36 (KHTML, like Gecko) SamsungBrowser/14.2 Chrome/87.0.4280.141 Mobile Safari/537.36', 'YToyOntzOjY6Il90b2tlbiI7czo0MDoiMnY4RVJXaml5eG91Tm1VUXFxV0NhOUZNRVVDM0JUV2FwcFdvMVZCQyI7czo2OiJfZmxhc2giO2E6Mjp7czozOiJvbGQiO2E6MDp7fXM6MzoibmV3IjthOjA6e319fQ==', 1771302444),
 	('PeMRI8NY38BF1xzuZlgIwIYEGctVNVlzcZfFueXM', NULL, '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/135.0.0.0 Safari/537.36', 'YTo0OntzOjY6Il90b2tlbiI7czo0MDoiZER2aHN4MDBTSTVhRlBkRTFLY1hEMVFiWWU2RHhOcDVVODhPSXZkZiI7czozOiJ1cmwiO2E6MTp7czo4OiJpbnRlbmRlZCI7czo1NDoiaHR0cDovL2d1aWFyb2xlcy5sb2NhbC9kYXNoYm9hcmQvYmFyaXN0YS9ldmVudG9zL3RpcG9zIjt9czo5OiJfcHJldmlvdXMiO2E6Mjp7czozOiJ1cmwiO3M6NTQ6Imh0dHA6Ly9ndWlhcm9sZXMubG9jYWwvZGFzaGJvYXJkL2JhcmlzdGEvZXZlbnRvcy90aXBvcyI7czo1OiJyb3V0ZSI7czozMDoiZGFzaGJvYXJkLmJhcmlzdGEuZXZlbnRzLnR5cGVzIjt9czo2OiJfZmxhc2giO2E6Mjp7czozOiJvbGQiO2E6MDp7fXM6MzoibmV3IjthOjA6e319fQ==', 1771110841),
 	('pPQ6OwPOnRQ6Rwf2fiUQIKKAijwT93hzNsPaGV0u', NULL, '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/135.0.0.0 Safari/537.36', 'YTozOntzOjY6Il90b2tlbiI7czo0MDoiOFY4bjZPOVZmYmR3MjJXZzBEWXpxZTdQeGpXelBOdlhNaW5mTmozMSI7czo5OiJfcHJldmlvdXMiO2E6Mjp7czozOiJ1cmwiO3M6MzM6Imh0dHA6Ly9ndWlhcm9sZXMubG9jYWwvYXV0aC9sb2dpbiI7czo1OiJyb3V0ZSI7czoxMDoiYXV0aC5sb2dpbiI7fXM6NjoiX2ZsYXNoIjthOjI6e3M6Mzoib2xkIjthOjA6e31zOjM6Im5ldyI7YTowOnt9fX0=', 1771040822),
 	('qlUjfo1CBed744s6reP7S8MroqsFZdM7NCPjL40g', NULL, '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/135.0.0.0 Safari/537.36', 'YTo0OntzOjY6Il90b2tlbiI7czo0MDoibnR4WTk0V3lXcDVRTFhNeWR3M2RWMnJ4T3p2S1Jzb0E2enFnV2ZveSI7czozOiJ1cmwiO2E6MTp7czo4OiJpbnRlbmRlZCI7czo1NToiaHR0cDovL2d1aWFyb2xlcy5sb2NhbC9kYXNoYm9hcmQvYmFyaXN0YS9ldmVudG9zL2NyZWF0ZSI7fXM6OToiX3ByZXZpb3VzIjthOjI6e3M6MzoidXJsIjtzOjU1OiJodHRwOi8vZ3VpYXJvbGVzLmxvY2FsL2Rhc2hib2FyZC9iYXJpc3RhL2V2ZW50b3MvY3JlYXRlIjtzOjU6InJvdXRlIjtzOjMxOiJkYXNoYm9hcmQuYmFyaXN0YS5ldmVudHMuY3JlYXRlIjt9czo2OiJfZmxhc2giO2E6Mjp7czozOiJvbGQiO2E6MDp7fXM6MzoibmV3IjthOjA6e319fQ==', 1771101777);
@@ -8825,35 +8692,33 @@ CREATE TABLE IF NOT EXISTS `users` (
   `deleted_at` datetime DEFAULT NULL,
   PRIMARY KEY (`id`) USING BTREE,
   UNIQUE KEY `email` (`email`) USING BTREE
-) ENGINE=InnoDB AUTO_INCREMENT=49 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=50 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
--- Copiando dados para a tabela u690128405_role.users: ~25 rows (aproximadamente)
+-- Copiando dados para a tabela u690128405_role.users: ~23 rows (aproximadamente)
 INSERT INTO `users` (`id`, `name`, `email`, `password`, `role`, `type_user`, `is_active`, `created_at`, `updated_at`, `deleted_at`) VALUES
 	(8, 'Boteco do Jhon', 'botecodojohn@gmail.com', '$2y$12$DJs8oiMLNT5UM9I4l2kyH.spDijjPt98G9euj7pNaao1kTAgYgfhi', 'client', 1, 1, '2026-01-04 16:58:41', '2026-02-16 18:01:24', NULL),
-	(10, 'Alexandre Lettiere', 'alexandre.prtn@gmail.com', '$2y$12$KfprcaZK67AciyvqSzSjUu8j4grzkS3a7juDWZg30McyCcI3UcqHC', 'client', 1, 1, '2026-01-07 21:55:55', '2026-02-17 01:52:44', NULL),
-	(20, 'Espaço Avenida', 'espacoavenida@gmail.com', '$2y$12$vE9nRmm8/QAGwqOF1OL3CupHQWelbRQav3fnkcG5DyD9qFeLyeKwK', 'client', 1, 1, '2026-01-11 12:08:47', '2026-02-16 23:14:50', NULL),
-	(21, 'M&S Bar e Restaurante', 'm&s@barerestaurante.com.br', '$2y$10$L1fSgBq1U4kiRgrxV.jRB.0mkjRTErR3E9jIM/ZVIdXpoR8RLXYLC', 'client', 1, 1, '2026-01-12 15:50:55', '2026-01-12 15:50:55', NULL),
-	(23, 'Alessandra lettiere', 'lettiere.mm@icloud.com', '$2y$10$ciNW2lH4wIk.1eQ/yMshd.MIYOYvmqUn2ZNh/uOyPAdX/HfMXPFUy', 'client', 2, 1, '2026-01-13 20:21:54', '2026-01-13 20:21:54', NULL),
-	(25, 'Alexandre Lettiere', 'ale.lettiere@gmail.com', '$2y$10$Ki8rqZOK/AXx8HwZ0lHKl.FQBMYkCSL/tzktL6s8Ksb.nA9oboKLS', 'client', 2, 1, '2026-01-16 19:12:10', '2026-01-16 19:12:10', NULL),
-	(26, 'Josimar Alcântara pereira', 'josimaralcantara707@gmail.com', '$2y$10$WrR0p.kVJnqSOOchdAL/vurCUP8Vu5UAEE9qcB7WXEtRceCB5MkPq', 'client', 1, 1, '2026-01-17 00:42:33', '2026-01-28 13:43:27', NULL),
-	(27, 'Master Admin', 'master@master.com', '$2y$10$i/YR/FcIh4TNmVYnUKgXKu6fAlaHB7FD2V9jMK6jZXV1.rLStQPpS', 'admin', 3, 1, '2026-01-17 13:10:31', '2026-01-17 13:10:31', NULL),
-	(29, 'Chayeen', 'chayeen@chayeen.com', '$2y$10$sumnZuGFrveeANt5lvfzWOSj9e1Llle8ebyXmWPJ5ffN.ilgX5QF.', 'client', 1, 1, '2026-01-20 11:27:32', '2026-01-20 11:27:32', NULL),
-	(30, 'Hello Kit', 'kellokit@hellokit.com', '$2y$10$sumnZuGFrveeANt5lvfzWOSj9e1Llle8ebyXmWPJ5ffN.ilgX5QF.', 'client', 1, 1, '2026-01-20 12:20:29', '2026-01-20 12:20:29', NULL),
-	(31, 'Sushi Isao Liberdade', 'contato@sushiisao-liberdade.com', '$2y$10$sumnZuGFrveeANt5lvfzWOSj9e1Llle8ebyXmWPJ5ffN.ilgX5QF.', 'client', 1, 1, '2026-01-22 16:53:31', '2026-01-22 16:53:31', NULL),
-	(32, 'Hinodê Liberdade', 'contato@hinode-liberdade.com', '$2y$10$sumnZuGFrveeANt5lvfzWOSj9e1Llle8ebyXmWPJ5ffN.ilgX5QF.', 'client', 1, 1, '2026-01-22 16:53:31', '2026-01-22 16:53:31', NULL),
-	(33, 'Sushi Amigo Liberdade', 'contato@sushiamigo-liberdade.com', '$2y$10$sumnZuGFrveeANt5lvfzWOSj9e1Llle8ebyXmWPJ5ffN.ilgX5QF.', 'client', 1, 1, '2026-01-22 16:53:31', '2026-01-22 16:53:31', NULL),
+	(10, 'Alexandre Lettiere', 'alexandre.prtn@gmail.com', '$2y$12$DJs8oiMLNT5UM9I4l2kyH.spDijjPt98G9euj7pNaao1kTAgYgfhi', 'client', 1, 1, '2026-01-07 21:55:55', '2026-02-17 18:03:55', NULL),
+	(20, 'Espaço Avenida', 'espacoavenida@gmail.com', '$2y$12$DJs8oiMLNT5UM9I4l2kyH.spDijjPt98G9euj7pNaao1kTAgYgfhi', 'client', 1, 1, '2026-01-11 12:08:47', '2026-02-16 23:14:50', NULL),
+	(21, 'M&S Bar e Restaurante', 'm&s@barerestaurante.com.br', '$2y$12$DJs8oiMLNT5UM9I4l2kyH.spDijjPt98G9euj7pNaao1kTAgYgfhi', 'client', 1, 1, '2026-01-12 15:50:55', '2026-01-12 15:50:55', NULL),
+	(23, 'Alessandra lettiere', 'lettiere.mm@icloud.com', '$2y$12$DJs8oiMLNT5UM9I4l2kyH.spDijjPt98G9euj7pNaao1kTAgYgfhi', 'client', 2, 1, '2026-01-13 20:21:54', '2026-01-13 20:21:54', NULL),
+	(26, 'Josimar Alcântara pereira', 'josimaralcantara707@gmail.com', '$2y$12$DJs8oiMLNT5UM9I4l2kyH.spDijjPt98G9euj7pNaao1kTAgYgfhi', 'client', 1, 1, '2026-01-17 00:42:33', '2026-01-28 13:43:27', NULL),
+	(27, 'Master Admin', 'master@master.com', '$2y$12$DJs8oiMLNT5UM9I4l2kyH.spDijjPt98G9euj7pNaao1kTAgYgfhi', 'admin', 3, 1, '2026-01-17 13:10:31', '2026-01-17 13:10:31', NULL),
+	(29, 'Chayeen', 'chayeen@chayeen.com', '$2y$12$DJs8oiMLNT5UM9I4l2kyH.spDijjPt98G9euj7pNaao1kTAgYgfhi', 'client', 1, 1, '2026-01-20 11:27:32', '2026-01-20 11:27:32', NULL),
+	(30, 'Hello Kit', 'kellokit@hellokit.com', '$2y$12$DJs8oiMLNT5UM9I4l2kyH.spDijjPt98G9euj7pNaao1kTAgYgfhi', 'client', 1, 1, '2026-01-20 12:20:29', '2026-01-20 12:20:29', NULL),
+	(31, 'Sushi Isao Liberdade', 'contato@sushiisao-liberdade.com', '$2y$12$DJs8oiMLNT5UM9I4l2kyH.spDijjPt98G9euj7pNaao1kTAgYgfhi', 'client', 1, 1, '2026-01-22 16:53:31', '2026-01-22 16:53:31', NULL),
+	(32, 'Hinodê Liberdade', 'contato@hinode-liberdade.com', '$2y$12$DJs8oiMLNT5UM9I4l2kyH.spDijjPt98G9euj7pNaao1kTAgYgfhi', 'client', 1, 1, '2026-01-22 16:53:31', '2026-01-22 16:53:31', NULL),
+	(33, 'Sushi Amigo Liberdade', 'contato@sushiamigo-liberdade.com', '$2y$12$DJs8oiMLNT5UM9I4l2kyH.spDijjPt98G9euj7pNaao1kTAgYgfhi', 'client', 1, 1, '2026-01-22 16:53:31', '2026-01-22 16:53:31', NULL),
 	(34, 'Tanka Liberdade', 'contato@tanka-liberdade.com', '$2y$10$sumnZuGFrveeANt5lvfzWOSj9e1Llle8ebyXmWPJ5ffN.ilgX5QF.', 'client', 1, 1, '2026-01-22 16:53:31', '2026-01-22 16:53:31', NULL),
-	(35, 'Sushi Yassu Liberdade', 'contato@sushiyassu-liberdade.com', '$2y$10$sumnZuGFrveeANt5lvfzWOSj9e1Llle8ebyXmWPJ5ffN.ilgX5QF.', 'client', 1, 1, '2026-01-22 16:53:31', '2026-01-22 16:53:31', NULL),
-	(36, 'Asia House Liberdade', 'contato@asiahouse-liberdade.com', '$2y$10$sumnZuGFrveeANt5lvfzWOSj9e1Llle8ebyXmWPJ5ffN.ilgX5QF.', 'client', 1, 1, '2026-01-22 16:53:31', '2026-01-22 16:53:31', NULL),
-	(37, 'Bento House Liberdade', 'contato@bentohouse-liberdade.com', '$2y$10$sumnZuGFrveeANt5lvfzWOSj9e1Llle8ebyXmWPJ5ffN.ilgX5QF.', 'client', 1, 1, '2026-01-22 16:53:31', '2026-01-22 16:53:31', NULL),
-	(38, 'Sushi Kenzo Liberdade', 'contato@sushikenzo-liberdade.com', '$2y$10$sumnZuGFrveeANt5lvfzWOSj9e1Llle8ebyXmWPJ5ffN.ilgX5QF.', 'client', 1, 1, '2026-01-22 16:53:31', '2026-01-22 16:53:31', NULL),
-	(39, 'Itidai Liberdade', 'contato@itidai-liberdade.com', '$2y$10$sumnZuGFrveeANt5lvfzWOSj9e1Llle8ebyXmWPJ5ffN.ilgX5QF.', 'client', 1, 1, '2026-01-22 16:53:31', '2026-01-22 16:53:31', NULL),
-	(40, 'Rodízio Liberdade 258', 'contato@rodiziolib258.com', '$2y$10$sumnZuGFrveeANt5lvfzWOSj9e1Llle8ebyXmWPJ5ffN.ilgX5QF.', 'client', 1, 1, '2026-01-22 16:53:31', '2026-01-22 16:53:31', NULL),
-	(42, 'Maracatu', 'maracatu@maracatu.com', '$2y$10$enFZfmyjddN0DHkiGSu9XuqrNq4UMR69cmntRwp9nSzg9/iWJfu9i', 'client', 1, 1, '2026-01-26 14:05:06', '2026-01-26 14:05:06', NULL),
-	(44, 'Karaoke Tequilas Oficial', 'KaraokeTequilasOficial@KaraokeTequilasOficial.com', '$2y$10$Zlw4VDNSGlZ8fvwWD.sCE.FTwAhAWzXMdHer/JPKfiXFw3Ym0N3Eu', 'client', 1, 1, '2026-02-02 15:03:03', '2026-02-02 15:03:03', NULL),
-	(46, 'Lettiere', 'paulosantos@gmail.com', '$2y$12$Tqx0kyp0enPGvVKg9A6NveOKdN.eQzuhc1H8E95Mbpzr6YJcK3Ufi', 'client', 2, 1, '2026-02-14 03:10:07', '2026-02-14 03:10:07', NULL),
-	(47, 'barista', 'barista@barista.com', '$2y$12$1ybpsSIZus861ou5AOzj/u9J4gE/yElAPdc5DZa9cZckm8MEpkw9q', 'client', 1, 1, '2026-02-14 03:49:22', '2026-02-14 03:49:22', NULL),
-	(48, 'Alexandre Lettiere', 'al3.lettiere@gmail.com', '$2y$12$XkAF.y1.dqhY6EY/K3ns4.DLK9wYV040x.O6m3.sHJpkrooWx0cIq', 'client', 2, 1, '2026-02-16 13:41:13', '2026-02-16 13:41:13', NULL);
+	(35, 'Sushi Yassu Liberdade', 'contato@sushiyassu-liberdade.com', '$2y$12$DJs8oiMLNT5UM9I4l2kyH.spDijjPt98G9euj7pNaao1kTAgYgfhi', 'client', 1, 1, '2026-01-22 16:53:31', '2026-01-22 16:53:31', NULL),
+	(36, 'Asia House Liberdade', 'contato@asiahouse-liberdade.com', '$2y$12$DJs8oiMLNT5UM9I4l2kyH.spDijjPt98G9euj7pNaao1kTAgYgfhi', 'client', 1, 1, '2026-01-22 16:53:31', '2026-01-22 16:53:31', NULL),
+	(37, 'Bento House Liberdade', 'contato@bentohouse-liberdade.com', '$2y$12$DJs8oiMLNT5UM9I4l2kyH.spDijjPt98G9euj7pNaao1kTAgYgfhi', 'client', 1, 1, '2026-01-22 16:53:31', '2026-01-22 16:53:31', NULL),
+	(38, 'Sushi Kenzo Liberdade', 'contato@sushikenzo-liberdade.com', '$2y$12$DJs8oiMLNT5UM9I4l2kyH.spDijjPt98G9euj7pNaao1kTAgYgfhi', 'client', 1, 1, '2026-01-22 16:53:31', '2026-01-22 16:53:31', NULL),
+	(39, 'Itidai Liberdade', 'contato@itidai-liberdade.com', '$2y$12$DJs8oiMLNT5UM9I4l2kyH.spDijjPt98G9euj7pNaao1kTAgYgfhi', 'client', 1, 1, '2026-01-22 16:53:31', '2026-01-22 16:53:31', NULL),
+	(40, 'Rodízio Liberdade 258', 'contato@rodiziolib258.com', '$2y$12$DJs8oiMLNT5UM9I4l2kyH.spDijjPt98G9euj7pNaao1kTAgYgfhi', 'client', 1, 1, '2026-01-22 16:53:31', '2026-01-22 16:53:31', NULL),
+	(42, 'Maracatu', 'maracatu@maracatu.com', '$2y$12$DJs8oiMLNT5UM9I4l2kyH.spDijjPt98G9euj7pNaao1kTAgYgfhi', 'client', 1, 1, '2026-01-26 14:05:06', '2026-01-26 14:05:06', NULL),
+	(44, 'Karaoke Tequilas Oficial', 'KaraokeTequilasOficial@KaraokeTequilasOficial.com', '$2y$12$DJs8oiMLNT5UM9I4l2kyH.spDijjPt98G9euj7pNaao1kTAgYgfhi', 'client', 1, 1, '2026-02-02 15:03:03', '2026-02-02 15:03:03', NULL),
+	(47, 'barista', 'barista@barista.com', '$2y$12$DJs8oiMLNT5UM9I4l2kyH.spDijjPt98G9euj7pNaao1kTAgYgfhi', 'client', 1, 1, '2026-02-14 03:49:22', '2026-02-14 03:49:22', NULL),
+	(49, 'Limoeiro', 'limoeiro@rolesbr.com.br', '$2y$12$lL72/izB6e7LgCVxL.w1VO3K..FsgI/E/s6GnyCar5inVqQKDtKnm', 'client', 1, 1, '2026-02-18 01:33:10', '2026-02-18 01:33:10', NULL);
 
 -- Copiando estrutura para tabela u690128405_role.user_media_tb
 CREATE TABLE IF NOT EXISTS `user_media_tb` (
@@ -8868,22 +8733,7 @@ CREATE TABLE IF NOT EXISTS `user_media_tb` (
   KEY `user_id` (`user_id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
--- Copiando dados para a tabela u690128405_role.user_media_tb: ~14 rows (aproximadamente)
-INSERT INTO `user_media_tb` (`media_id`, `user_id`, `tipo`, `url`, `created_at`, `updated_at`, `deleted_at`) VALUES
-	(1, 20, 'post_imagem', 'uploads/perfis/20/posts/1768257466_31c1cafd513e5cb91d9c.jpg', '2026-01-12 22:37:46', '2026-01-12 22:37:46', NULL),
-	(2, 20, 'post_imagem', 'uploads/perfis/20/posts/1768275448_ba2d71003aca6325117d.jpg', '2026-01-13 03:37:28', '2026-01-13 03:37:28', NULL),
-	(3, 8, 'post_imagem', 'uploads/perfis/8/posts/1768305616_f884cdbf17e5decb4fe1.jpg', '2026-01-13 12:00:16', '2026-01-13 12:00:16', NULL),
-	(4, 25, 'post_imagem', 'C:/wamp64/www/rolesbr/public/uploads/perfis/25/posts/1768603014_3273568fcc49b8f90ade.jpg', '2026-01-16 19:36:55', '2026-01-16 19:36:55', NULL),
-	(5, 8, 'post_imagem', 'uploads/perfis/8/posts/1768605919_236258f4cf845193c0b9.jpg', '2026-01-16 20:25:19', '2026-01-16 20:25:19', NULL),
-	(6, 8, 'perfil_foto', 'uploads/perfis/8/perfil/1768605941_1e2b3f9997e1af447ddf.webp', '2026-01-16 20:25:41', '2026-01-16 20:25:41', NULL),
-	(7, 10, 'perfil_foto', 'uploads/perfis/10/perfil/1768608454_ead7493de92ffc80eb9c.jpg', '2026-01-16 21:07:34', '2026-01-16 21:07:34', NULL),
-	(8, 10, 'post_imagem', 'uploads/perfis/10/posts/1768608598_299fd544c9085cf7f87e.jpg', '2026-01-16 21:09:58', '2026-01-16 21:09:58', NULL),
-	(9, 10, 'post_imagem', 'uploads/perfis/10/posts/1768681028_22103501c5a77d34682b.jpg', '2026-01-17 17:17:08', '2026-01-17 17:17:08', NULL),
-	(10, 29, 'perfil_foto', 'uploads/perfis/29/perfil/1768919574_bbc7857af1204203f761.jpg', '2026-01-20 11:32:54', '2026-01-20 11:32:54', NULL),
-	(11, 29, 'post_imagem', 'uploads/perfis/29/posts/1768921770_13d67e37a94b3f2753f7.jpg', '2026-01-20 12:09:30', '2026-01-20 12:09:30', NULL),
-	(12, 10, 'post_imagem', 'uploads/perfis/10/posts/1769415533_a41a30724e7283afdf9d.jpg', '2026-01-26 05:18:53', '2026-01-26 05:18:53', NULL),
-	(13, 26, 'post_imagem', 'uploads/perfis/26/posts/1769618983_fc9daecfefcb4a38ab48.jpg', '2026-01-28 13:49:43', '2026-01-28 13:49:43', NULL),
-	(14, 10, 'post_imagem', 'uploads/perfis/10/posts/1770172512_50b7c9c7fdc33e3b50d2.jpg', '2026-02-03 23:35:12', '2026-02-03 23:35:12', NULL);
+-- Copiando dados para a tabela u690128405_role.user_media_tb: ~0 rows (aproximadamente)
 
 -- Copiando estrutura para tabela u690128405_role.user_posts_tb
 CREATE TABLE IF NOT EXISTS `user_posts_tb` (
@@ -8912,22 +8762,7 @@ CREATE TABLE IF NOT EXISTS `user_posts_tb` (
   KEY `idx_user_posts_location_id` (`location_id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
--- Copiando dados para a tabela u690128405_role.user_posts_tb: ~14 rows (aproximadamente)
-INSERT INTO `user_posts_tb` (`post_id`, `user_id`, `owner_user_id`, `owner_bar_id`, `posted_as_type`, `posted_as_id`, `visibility`, `likes_count`, `comments_count`, `caption`, `image_url`, `location_lat`, `location_lng`, `neighborhood`, `location_id`, `created_at`, `updated_at`, `deleted_at`) VALUES
-	(1, 20, NULL, NULL, NULL, NULL, NULL, 0, 0, NULL, 'uploads/perfis/20/posts/1768257466_31c1cafd513e5cb91d9c.jpg', NULL, NULL, NULL, NULL, '2026-01-12 22:37:46', '2026-01-12 22:37:46', NULL),
-	(2, 20, NULL, NULL, NULL, NULL, NULL, 0, 0, NULL, 'uploads/perfis/20/posts/1768275448_ba2d71003aca6325117d.jpg', NULL, NULL, NULL, NULL, '2026-01-13 03:37:28', '2026-01-13 03:37:28', NULL),
-	(3, 8, NULL, NULL, NULL, NULL, NULL, 0, 0, NULL, 'uploads/perfis/8/posts/1768305616_f884cdbf17e5decb4fe1.jpg', NULL, NULL, NULL, NULL, '2026-01-13 12:00:16', '2026-01-13 12:03:29', '2026-01-13 12:03:29'),
-	(4, 8, NULL, NULL, NULL, NULL, NULL, 0, 0, 'O melhor boteco de  Campo Belo ', 'uploads/perfis/8/posts/1768572244_9b3b63ffc3dad3d1fcc9.jpg', NULL, NULL, NULL, NULL, '2026-01-16 11:04:04', '2026-01-16 20:30:14', '2026-01-16 20:30:14'),
-	(5, 8, NULL, NULL, NULL, NULL, NULL, 0, 0, NULL, 'uploads/perfis/8/posts/1768572256_905f0d605aa92b0ad0a3.jpg', NULL, NULL, NULL, NULL, '2026-01-16 11:04:16', '2026-01-16 20:30:12', '2026-01-16 20:30:12'),
-	(6, 8, NULL, NULL, NULL, NULL, NULL, 0, 0, NULL, 'uploads/perfis/8/posts/1768572444_edf1ff2704304a886772.jpg', NULL, NULL, NULL, NULL, '2026-01-16 11:07:24', '2026-01-16 20:30:10', '2026-01-16 20:30:10'),
-	(7, 25, NULL, NULL, NULL, NULL, NULL, 0, 0, NULL, 'C:/wamp64/www/rolesbr/public/uploads/perfis/25/posts/1768603014_3273568fcc49b8f90ade.jpg', NULL, NULL, NULL, NULL, '2026-01-16 19:36:55', '2026-01-16 19:36:55', NULL),
-	(8, 8, NULL, NULL, NULL, NULL, NULL, 0, 0, NULL, 'uploads/perfis/8/posts/1768605919_236258f4cf845193c0b9.jpg', NULL, NULL, NULL, NULL, '2026-01-16 20:25:19', '2026-01-16 20:25:19', NULL),
-	(9, 10, NULL, NULL, NULL, NULL, NULL, 0, 0, NULL, 'uploads/perfis/10/posts/1768608598_299fd544c9085cf7f87e.jpg', NULL, NULL, NULL, NULL, '2026-01-16 21:09:58', '2026-01-16 21:09:58', NULL),
-	(10, 10, NULL, NULL, NULL, NULL, NULL, 0, 0, 'Hoje tem... ', 'uploads/perfis/10/posts/1768681028_22103501c5a77d34682b.jpg', NULL, NULL, NULL, NULL, '2026-01-17 17:17:08', '2026-01-17 17:17:08', NULL),
-	(11, 29, NULL, NULL, NULL, NULL, NULL, 0, 0, NULL, 'uploads/perfis/29/posts/1768921770_13d67e37a94b3f2753f7.jpg', NULL, NULL, NULL, NULL, '2026-01-20 12:09:30', '2026-01-20 12:09:30', NULL),
-	(12, 10, NULL, NULL, NULL, NULL, NULL, 0, 0, NULL, 'uploads/perfis/10/posts/1769415533_a41a30724e7283afdf9d.jpg', NULL, NULL, NULL, NULL, '2026-01-26 05:18:53', '2026-01-26 05:18:53', NULL),
-	(13, 26, NULL, NULL, NULL, NULL, NULL, 0, 0, 'Venha curtir o esquenta do carnaval 2026.', 'uploads/perfis/26/posts/1769618983_fc9daecfefcb4a38ab48.jpg', NULL, NULL, NULL, NULL, '2026-01-28 13:49:43', '2026-01-28 13:49:43', NULL),
-	(14, 10, NULL, NULL, NULL, NULL, NULL, 0, 0, NULL, 'uploads/perfis/10/posts/1770172512_50b7c9c7fdc33e3b50d2.jpg', NULL, NULL, NULL, NULL, '2026-02-03 23:35:12', '2026-02-03 23:35:12', NULL);
+-- Copiando dados para a tabela u690128405_role.user_posts_tb: ~0 rows (aproximadamente)
 
 -- Copiando estrutura para tabela u690128405_role.user_post_comments_tb
 CREATE TABLE IF NOT EXISTS `user_post_comments_tb` (
@@ -8944,14 +8779,7 @@ CREATE TABLE IF NOT EXISTS `user_post_comments_tb` (
   KEY `post_id_parent_id` (`post_id`,`parent_id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
--- Copiando dados para a tabela u690128405_role.user_post_comments_tb: ~6 rows (aproximadamente)
-INSERT INTO `user_post_comments_tb` (`comment_id`, `post_id`, `user_id`, `parent_id`, `content`, `edited_at`, `created_at`, `updated_at`, `deleted_at`) VALUES
-	(1, 13, 25, NULL, 'eithaaaaa boraaaaaaa', NULL, '2026-02-02 23:00:14', '2026-02-02 23:00:14', NULL),
-	(2, 13, 25, 1, 'nao sei o que fazer', NULL, '2026-02-02 23:04:01', '2026-02-02 23:04:01', NULL),
-	(3, 13, 25, NULL, 'testo', NULL, '2026-02-02 23:04:16', '2026-02-02 23:04:16', NULL),
-	(4, 13, 25, NULL, 'testoriano', NULL, '2026-02-02 23:04:23', '2026-02-02 23:04:23', NULL),
-	(5, 13, 25, 3, 'testo', NULL, '2026-02-02 23:04:32', '2026-02-02 23:04:32', NULL),
-	(6, 7, 25, NULL, 'Linda', NULL, '2026-02-03 10:22:08', '2026-02-03 10:22:08', NULL);
+-- Copiando dados para a tabela u690128405_role.user_post_comments_tb: ~0 rows (aproximadamente)
 
 -- Copiando estrutura para tabela u690128405_role.user_post_likes_tb
 CREATE TABLE IF NOT EXISTS `user_post_likes_tb` (
@@ -8966,13 +8794,7 @@ CREATE TABLE IF NOT EXISTS `user_post_likes_tb` (
   KEY `user_id_post_id` (`user_id`,`post_id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
--- Copiando dados para a tabela u690128405_role.user_post_likes_tb: ~5 rows (aproximadamente)
-INSERT INTO `user_post_likes_tb` (`id`, `user_id`, `post_id`, `created_at`, `update_at`, `delete_at`) VALUES
-	(2, 26, 13, '2026-01-28 13:50:34', NULL, NULL),
-	(4, 25, 13, '2026-02-02 23:40:53', NULL, NULL),
-	(5, 25, 11, '2026-02-02 23:41:16', NULL, NULL),
-	(6, 25, 12, '2026-02-03 00:33:59', NULL, NULL),
-	(11, 25, 14, '2026-02-03 23:48:45', NULL, NULL);
+-- Copiando dados para a tabela u690128405_role.user_post_likes_tb: ~0 rows (aproximadamente)
 
 -- Copiando estrutura para tabela u690128405_role.user_post_tags_tb
 CREATE TABLE IF NOT EXISTS `user_post_tags_tb` (
@@ -9001,11 +8823,7 @@ CREATE TABLE IF NOT EXISTS `user_post_texts_tb` (
   KEY `post_id` (`post_id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
--- Copiando dados para a tabela u690128405_role.user_post_texts_tb: ~3 rows (aproximadamente)
-INSERT INTO `user_post_texts_tb` (`text_id`, `post_id`, `text_body`, `created_at`, `updated_at`, `deleted_at`) VALUES
-	(1, 4, 'O melhor boteco de  Campo Belo ', '2026-01-16 11:04:04', '2026-01-16 11:04:04', NULL),
-	(2, 10, 'Hoje tem... ', '2026-01-17 17:17:08', '2026-01-17 17:17:08', NULL),
-	(3, 13, 'Venha curtir o esquenta do carnaval 2026.', '2026-01-28 13:49:43', '2026-01-28 13:49:43', NULL);
+-- Copiando dados para a tabela u690128405_role.user_post_texts_tb: ~0 rows (aproximadamente)
 
 -- Copiando estrutura para tabela u690128405_role.user_stories_tb
 CREATE TABLE IF NOT EXISTS `user_stories_tb` (
@@ -9019,39 +8837,11 @@ CREATE TABLE IF NOT EXISTS `user_stories_tb` (
   `overlay_json` text DEFAULT NULL COMMENT 'JSON com elementos posicionados sobre a imagem',
   PRIMARY KEY (`story_id`),
   KEY `user_id` (`user_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=30 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=33 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
--- Copiando dados para a tabela u690128405_role.user_stories_tb: ~29 rows (aproximadamente)
+-- Copiando dados para a tabela u690128405_role.user_stories_tb: ~1 rows (aproximadamente)
 INSERT INTO `user_stories_tb` (`story_id`, `user_id`, `image_url`, `expires_at`, `created_at`, `updated_at`, `deleted_at`, `overlay_json`) VALUES
-	(1, 8, 'uploads/perfis/8/stories/1768305684_f43fb63b2fd615510523.jpg', '2026-01-14 12:01:24', '2026-01-13 12:01:24', '2026-01-13 12:03:44', '2026-01-13 12:03:44', '{"elements":[],"mentions":[]}'),
-	(2, 8, 'uploads/perfis/8/stories/1768305700_a12540564c1a1de5a2be.jpg', '2026-01-14 12:01:40', '2026-01-13 12:01:40', '2026-01-13 12:03:42', '2026-01-13 12:03:42', '{"elements":[],"mentions":[]}'),
-	(3, 8, 'uploads/perfis/8/stories/1768305797_ab2bb377c181a12c1977.jpg', '2026-01-14 12:03:17', '2026-01-13 12:03:17', '2026-01-13 12:03:41', '2026-01-13 12:03:41', '{"elements":[],"mentions":[]}'),
-	(4, 8, 'uploads/perfis/8/stories/1768305908_9b798b4c6abc13066370.jpg', '2026-01-14 12:05:08', '2026-01-13 12:05:08', '2026-01-14 15:36:25', '2026-01-14 15:36:25', '{"elements":[],"mentions":[]}'),
-	(5, 8, 'uploads/perfis/8/stories/1768305919_bd17c26ac0faf8d71aa2.jpg', '2026-01-14 12:05:19', '2026-01-13 12:05:19', '2026-01-14 15:36:25', '2026-01-14 15:36:25', '{"elements":[],"mentions":[]}'),
-	(6, 8, 'uploads/perfis/8/stories/1768305933_4f757ac60c4cca0f65cc.jpg', '2026-01-14 12:05:33', '2026-01-13 12:05:33', '2026-01-14 15:36:25', '2026-01-14 15:36:25', '{"elements":[],"mentions":[]}'),
-	(7, 20, 'uploads/perfis/20/stories/1768307394_7a31b431c2bbe8907fa9.jpg', '2026-01-14 12:29:54', '2026-01-13 12:29:54', '2026-01-14 15:36:25', '2026-01-14 15:36:25', '{"elements":[],"mentions":[]}'),
-	(8, 8, 'uploads/perfis/8/stories/1768415798_3b81e6f009e52c166a82.jpg', '2026-01-15 15:36:38', '2026-01-14 15:36:38', '2026-01-15 16:19:00', '2026-01-15 16:19:00', '{"elements":[],"mentions":[]}'),
-	(9, 8, 'uploads/perfis/8/stories/1768415831_2fedeca0e8dcf8feaf6c.jpg', '2026-01-15 15:37:11', '2026-01-14 15:37:11', '2026-01-15 16:19:00', '2026-01-15 16:19:00', '{"elements":[],"mentions":[]}'),
-	(10, 20, 'uploads/perfis/20/stories/1768504757_da77f2ec549fe47a74cd.jpg', '2026-01-16 16:19:17', '2026-01-15 16:19:17', '2026-01-16 19:36:13', '2026-01-16 19:36:13', '{"elements":[],"mentions":[]}'),
-	(11, 8, 'uploads/perfis/8/stories/1768566623_d4e36186f07724425be4.jpg', '2026-01-17 09:30:23', '2026-01-16 09:30:23', '2026-01-16 11:01:24', '2026-01-16 11:01:24', '{"elements":[],"mentions":[]}'),
-	(12, 8, 'uploads/perfis/8/stories/1768572166_e11c7e6654f66ec57629.jpg', '2026-01-17 11:02:46', '2026-01-16 11:02:46', '2026-01-17 12:08:14', '2026-01-17 12:08:14', '{"elements":[],"mentions":[]}'),
-	(13, 8, 'uploads/perfis/8/stories/1768572186_237805b8b458b820d7ec.jpg', '2026-01-17 11:03:06', '2026-01-16 11:03:06', '2026-01-17 12:08:14', '2026-01-17 12:08:14', '{"elements":[],"mentions":[]}'),
-	(14, 10, 'uploads/perfis/10/stories/1768606160_e757696cb1ee22b11085.jpg', '2026-01-17 20:29:20', '2026-01-16 20:29:20', '2026-01-18 11:04:58', '2026-01-18 11:04:58', '{"elements":[],"mentions":[]}'),
-	(15, 10, 'uploads/perfis/10/stories/1768606172_ff1120bd1e6f6d005f87.jpg', '2026-01-17 20:29:32', '2026-01-16 20:29:32', '2026-01-18 11:04:58', '2026-01-18 11:04:58', '{"elements":[],"mentions":[]}'),
-	(16, 10, 'uploads/perfis/10/stories/1768608755_e3be997693183930a2c4.jpg', '2026-01-17 21:12:35', '2026-01-16 21:12:35', '2026-01-18 11:04:58', '2026-01-18 11:04:58', '{"elements":[{"type":"text","text":"@Alessandra lettiere","x":-2.232147216796875,"y":26.785644531250092,"scaleX":0.43450481605870367,"scaleY":0.4345048160587038,"rotation":0,"fill":"#00d1ff","src":null}],"mentions":[{"id":23,"type":"user","name":"Alessandra lettiere","nodeId":4}]}'),
-	(17, 10, 'uploads/perfis/10/stories/1768680549_5ccd7a05d0e9d5551c3e.jpg', '2026-01-18 17:09:10', '2026-01-17 17:09:10', '2026-01-20 11:32:54', '2026-01-20 11:32:54', '{"elements":[],"mentions":[]}'),
-	(18, 8, 'uploads/perfis/8/stories/1768935975_76c22a7c53e5281f9593.jpg', '2026-01-21 16:06:15', '2026-01-20 16:06:15', '2026-01-25 14:28:35', '2026-01-25 14:28:35', '{"elements":[],"mentions":[]}'),
-	(19, 10, 'uploads/perfis/10/stories/1768939178_4eccc10fba7f65ebbd92.jpg', '2026-01-21 16:59:38', '2026-01-20 16:59:38', '2026-01-25 14:28:35', '2026-01-25 14:28:35', '{"elements":[],"mentions":[]}'),
-	(20, 10, 'uploads/perfis/10/stories/1769362165_8047ffcf8dbac900856f.jpg', '2026-01-26 14:29:25', '2026-01-25 14:29:25', '2026-01-29 19:27:39', '2026-01-29 19:27:39', '{"elements":[],"mentions":[]}'),
-	(21, 10, 'uploads/perfis/10/stories/1769415504_0ccf2474edc11b60efee.jpg', '2026-01-27 05:18:24', '2026-01-26 05:18:24', '2026-01-29 19:27:39', '2026-01-29 19:27:39', '{"elements":[],"mentions":[]}'),
-	(22, 10, 'uploads/perfis/10/stories/1769725688_cad63a0967e15b12baa8.jpg', '2026-01-30 19:28:09', '2026-01-29 19:28:09', '2026-01-31 00:01:14', '2026-01-31 00:01:14', '{"elements":[],"mentions":[]}'),
-	(23, 10, 'uploads/perfis/10/stories/1769725794_3a372a858428ea7f9019.jpg', '2026-01-30 19:29:54', '2026-01-29 19:29:54', '2026-01-31 00:01:14', '2026-01-31 00:01:14', '{"elements":[],"mentions":[]}'),
-	(24, 10, 'uploads/perfis/10/stories/1769828505_1ec3a9d832b7a77cbf5a.jpg', '2026-02-01 00:01:45', '2026-01-31 00:01:45', '2026-02-02 12:09:18', '2026-02-02 12:09:18', '{"elements":[],"mentions":[]}'),
-	(25, 43, 'C:/wamp64/www/rolesbr/public/uploads/perfis/43/stories/1770044968_7b3bef1dd04e4113b50c.jpg', '2026-02-03 12:09:28', '2026-02-02 12:09:28', '2026-02-03 15:09:58', '2026-02-03 15:09:58', '{"elements":[],"mentions":[]}'),
-	(26, 25, 'uploads/perfis/25/stories/1770142217_b6a07101eebac5a4fb11.jpg', '2026-02-04 15:10:18', '2026-02-03 15:10:18', '2026-02-04 19:03:55', '2026-02-04 19:03:55', '{"elements":[],"mentions":[]}'),
-	(27, 10, 'uploads/perfis/10/stories/1770172480_415a64e562415d02bcf2.jpg', '2026-02-04 23:34:40', '2026-02-03 23:34:40', '2026-02-05 20:36:53', '2026-02-05 20:36:53', '{"elements":[],"mentions":[]}'),
-	(28, 10, 'uploads/perfis/10/stories/1770242704_3cc8224eecf6a7951335.jpg', '2026-02-05 19:05:04', '2026-02-04 19:05:04', '2026-02-05 20:36:53', '2026-02-05 20:36:53', '{"elements":[],"mentions":[]}'),
-	(29, 25, 'uploads/perfis/25/stories/1770334628_ed8d16c640cb1bc52660.jpg', '2026-02-06 20:37:08', '2026-02-05 20:37:08', '2026-02-17 11:02:09', '2026-02-17 11:02:09', '{"elements":[],"mentions":[]}');
+	(32, 8, 'uploads/perfis/8/stories/1771351877_6JHbqWSwSh.png', '2026-02-18 18:11:17', '2026-02-17 18:11:17', '2026-02-17 18:11:17', NULL, '{"elements":[],"mentions":[],"music":null}');
 
 /*!40103 SET TIME_ZONE=IFNULL(@OLD_TIME_ZONE, 'system') */;
 /*!40101 SET SQL_MODE=IFNULL(@OLD_SQL_MODE, '') */;

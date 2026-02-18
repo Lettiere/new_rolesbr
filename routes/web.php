@@ -17,6 +17,7 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\TicketCartController;
 use App\Http\Controllers\StoryUiController;
 use App\Http\Controllers\LikeController;
+use App\Http\Controllers\ProfileUserController;
 
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\EstablishmentController;
@@ -375,6 +376,11 @@ Route::post('/api/likes/toggle', [LikeController::class, 'toggle'])->name('api.l
 
 Route::get('/estabelecimentos', function (Request $request) {
     $q = trim((string) $request->input('q',''));
+    $estadoId = (int) $request->input('estado_id', 0);
+    $cidadeId = (int) $request->input('cidade_id', 0);
+    $bairroId = (int) $request->input('bairro_id', 0);
+    $tipoBarId = (int) $request->input('tipo_bar_id', 0);
+
     $query = DB::table('form_perfil_bares_tb as b')
         ->selectRaw("
             b.bares_id,
@@ -386,6 +392,7 @@ Route::get('/estabelecimentos', function (Request $request) {
         ")
         ->leftJoin('base_cidades as cid', 'cid.id', '=', 'b.cidade_id')
         ->whereNull('b.deleted_at');
+
     if ($q !== '') {
         $query->where(function($sub) use ($q) {
             $like = '%'.$q.'%';
@@ -395,11 +402,73 @@ Route::get('/estabelecimentos', function (Request $request) {
                 ->orWhere('cid.nome','like',$like);
         });
     }
+
+    if ($estadoId > 0) {
+        $query->where('b.estado_id', $estadoId);
+    }
+    if ($cidadeId > 0) {
+        $query->where('b.cidade_id', $cidadeId);
+    }
+    if ($bairroId > 0) {
+        $query->where('b.bairro_id', $bairroId);
+    }
+    if ($tipoBarId > 0) {
+        $query->where('b.tipo_bar', $tipoBarId);
+    }
+
     $establishments = $query->orderBy('b.nome','asc')->paginate(24);
+
+    $estados = DB::table('form_perfil_bares_tb as b')
+        ->join('base_estados as est', 'est.id', '=', 'b.estado_id')
+        ->whereNull('b.deleted_at')
+        ->groupBy('est.id', 'est.nome', 'est.uf')
+        ->orderBy('est.nome', 'ASC')
+        ->get(['est.id', 'est.nome', 'est.uf']);
+
+    $cidades = collect();
+    if ($estadoId > 0) {
+        $cidades = DB::table('form_perfil_bares_tb as b')
+            ->join('base_cidades as cid', 'cid.id', '=', 'b.cidade_id')
+            ->whereNull('b.deleted_at')
+            ->where('b.estado_id', $estadoId)
+            ->groupBy('cid.id', 'cid.nome')
+            ->orderBy('cid.nome', 'ASC')
+            ->get(['cid.id', 'cid.nome']);
+    }
+
+    $bairros = collect();
+    if ($cidadeId > 0) {
+        $sqlBairros = "
+            SELECT DISTINCT bai.id, bai.nome
+            FROM form_perfil_bares_tb b
+            INNER JOIN base_bairros bai
+                ON bai.cidade_id = b.cidade_id
+               AND (
+                    bai.id = b.bairro_id
+                    OR (b.bairro_id IS NULL AND bai.nome = b.bairro_nome)
+               )
+            WHERE b.deleted_at IS NULL
+              AND b.cidade_id = ?
+            ORDER BY bai.nome ASC
+        ";
+        $bairros = collect(DB::select($sqlBairros, [$cidadeId]));
+    }
+
+    $tipoEstabelecimentos = EstablishmentType::where('ativo', 1)
+        ->orderBy('nome')
+        ->get(['tipo_bar_id','nome']);
+
     if ($request->ajax() || $request->boolean('ajax')) {
         return view('site.partials.establishments_list', compact('establishments'));
     }
-    return view('site.list_establishments', compact('establishments'));
+
+    return view('site.list_establishments', compact(
+        'establishments',
+        'estados',
+        'cidades',
+        'bairros',
+        'tipoEstabelecimentos'
+    ));
 })->name('site.establishments.index');
 
 Route::get('/produtos', function (Request $request) {
@@ -531,6 +600,51 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/dashboard/master', [DashboardController::class, 'master'])->name('dashboard.master');
     Route::get('/dashboard/admin', [DashboardController::class, 'admin'])->name('dashboard.admin');
     Route::post('/dashboard/perfil/stories/upload', [\App\Http\Controllers\StoryUploadController::class, 'upload'])->name('dashboard.stories.upload');
+    Route::delete('/dashboard/perfil/stories/{story}', [\App\Http\Controllers\StoryUploadController::class, 'destroy'])->name('dashboard.stories.destroy');
+    Route::get('/api/stories/mentions', function (\Illuminate\Http\Request $request) {
+        $q = trim((string) $request->query('q', ''));
+        $type = $request->query('type', 'user'); // user|bar
+        $limit = (int) $request->query('limit', 8);
+        if ($limit < 1 || $limit > 20) $limit = 8;
+        if ($type === 'bar') {
+            $rows = \Illuminate\Support\Facades\DB::table('form_perfil_bares_tb')
+                ->select('bares_id as id', 'nome')
+                ->whereNull('deleted_at')
+                ->when($q !== '', function ($w) use ($q) {
+                    $like = '%'.$q.'%';
+                    $w->where('nome', 'like', $like);
+                })
+                ->orderBy('nome')
+                ->limit($limit)
+                ->get();
+            return response()->json(['type' => 'bar', 'items' => $rows]);
+        } else {
+            $rows = \Illuminate\Support\Facades\DB::table('users')
+                ->select('id', 'name as nome')
+                ->when($q !== '', function ($w) use ($q) {
+                    $like = '%'.$q.'%';
+                    $w->where('name', 'like', $like);
+                })
+                ->orderBy('name')
+                ->limit($limit)
+                ->get();
+            return response()->json(['type' => 'user', 'items' => $rows]);
+        }
+    })->name('api.stories.mentions');
+    Route::get('/api/stories/music', function (\Illuminate\Http\Request $request) {
+        $q = strtolower(trim((string) $request->query('q','')));
+        $lib = [
+            ['id' => 'track1', 'title' => 'Sunny Day', 'artist' => 'Royalty Free', 'url' => 'https://cdn.jsdelivr.net/gh/trae-assets/royalty-free/sunny_day.mp3', 'length' => 30],
+            ['id' => 'track2', 'title' => 'Chill Night', 'artist' => 'Royalty Free', 'url' => 'https://cdn.jsdelivr.net/gh/trae-assets/royalty-free/chill_night.mp3', 'length' => 30],
+            ['id' => 'track3', 'title' => 'Upbeat Vibes', 'artist' => 'Royalty Free', 'url' => 'https://cdn.jsdelivr.net/gh/trae-assets/royalty-free/upbeat_vibes.mp3', 'length' => 30],
+        ];
+        if ($q !== '') {
+            $lib = array_values(array_filter($lib, function ($t) use ($q) {
+                return str_contains(strtolower($t['title']), $q) || str_contains(strtolower($t['artist']), $q);
+            }));
+        }
+        return response()->json($lib);
+    })->name('api.stories.music');
     
     Route::resource('dashboard/barista/estabelecimentos', EstablishmentController::class)
         ->names('dashboard.barista.establishments');
@@ -617,10 +731,12 @@ Route::middleware(['auth'])->group(function () {
     Route::post('tickets/cart/remove', [\App\Http\Controllers\TicketCartController::class, 'remove'])->name('tickets.cart.remove');
     Route::get('tickets/cart/checkout', [\App\Http\Controllers\TicketCartController::class, 'checkout'])->name('tickets.cart.checkout');
     
-    // Placeholder route for profile to avoid errors
-    Route::get('/perfil', function () {
-        return "Perfil do Usuário (Em construção)";
-    })->name('profile');
+    Route::get('/perfil', [ProfileUserController::class, 'showCurrent'])->name('profile');
+    Route::get('/perfil/lista', [ProfileUserController::class, 'index'])->name('profile.index');
+    Route::get('/perfil/{perfil}', [ProfileUserController::class, 'show'])->name('profile.show');
+    Route::get('/perfil/{perfil}/edit', [ProfileUserController::class, 'edit'])->name('profile.edit');
+    Route::put('/perfil/{perfil}', [ProfileUserController::class, 'update'])->name('profile.update');
+    Route::delete('/perfil/{perfil}', [ProfileUserController::class, 'destroy'])->name('profile.destroy');
 });
 
 Route::controller(AuthController::class)->group(function () {

@@ -30,6 +30,8 @@ class LikeController extends Controller
                 return $this->toggleGenericLike('product', $id, $userId);
             case 'ticket':
                 return $this->toggleGenericLike('ticket', $id, $userId);
+            case 'story':
+                return $this->toggleGenericLike('story', $id, $userId);
         }
 
         return response()->json(['error' => 'invalid_type'], Response::HTTP_BAD_REQUEST);

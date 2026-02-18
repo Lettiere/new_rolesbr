@@ -34,11 +34,18 @@ class StoryUiController extends Controller
             ];
         }
 
+        $myStories = DB::table('user_stories_tb')
+            ->where('user_id', $userId)
+            ->whereNull('deleted_at')
+            ->orderByDesc('created_at')
+            ->limit(24)
+            ->get();
+
         return view('dash_client.perfil_usuario.stories_instagram', [
             'perfil' => $perfil,
             'ads' => $ads,
             'targetUserId' => $userId,
+            'myStories' => $myStories,
         ]);
     }
 }
-

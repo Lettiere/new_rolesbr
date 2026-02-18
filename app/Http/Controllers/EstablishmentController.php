@@ -22,8 +22,10 @@ class EstablishmentController extends Controller
 {
     public function index()
     {
-        $establishments = Establishment::where('user_id', Auth::id())->get();
-        return view('dashboard.barista.establishments.index', compact('establishments'));
+        $userId = Auth::id();
+        $establishments = Establishment::where('user_id', $userId)->get();
+        $canCreateMore = in_array($userId, [10, 27]) || $establishments->count() < 1;
+        return view('dashboard.barista.establishments.index', compact('establishments', 'canCreateMore'));
     }
 
     public function create()
@@ -61,8 +63,15 @@ class EstablishmentController extends Controller
             'galeria.*' => 'image|max:2048',
         ]);
 
+        $userId = Auth::id();
+        $allowedMulti = in_array($userId, [10, 27]);
+        $existingCount = Establishment::where('user_id', $userId)->count();
+        if (!$allowedMulti && $existingCount >= 1) {
+            return redirect()->route('dashboard.barista.establishments.index');
+        }
+
         $data = $request->except('imagem');
-        $data['user_id'] = Auth::id();
+        $data['user_id'] = $userId;
         $data['status'] = 'ativo';
         
         $data['nome_na_lista'] = $request->has('nome_na_lista');

@@ -5,9 +5,11 @@
 @section('content')
 <div class="d-flex justify-content-between align-items-center pt-3 pb-2 mb-3 border-bottom">
     <h1 class="h3 m-0">Estabelecimentos</h1>
-    <a href="{{ route('dashboard.barista.establishments.create') }}" class="btn btn-primary">
-        <i class="fas fa-plus me-1"></i>Novo
-    </a>
+    @if(!isset($canCreateMore) || $canCreateMore)
+        <a href="{{ route('dashboard.barista.establishments.create') }}" class="btn btn-primary">
+            <i class="fas fa-plus me-1"></i>Novo
+        </a>
+    @endif
 </div>
 
 @if(session('success'))

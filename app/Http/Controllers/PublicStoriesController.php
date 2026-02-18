@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
 class PublicStoriesController extends Controller
@@ -79,7 +80,46 @@ class PublicStoriesController extends Controller
             $all = array_slice($all, 0, $limit);
         }
 
+        $storyIds = array_values(array_unique(array_map(function ($row) {
+            return (int) ($row->story_id ?? 0);
+        }, $all)));
+
+        $likesByStory = [];
+        $likedPosts = [];
+
+        if (!empty($storyIds)) {
+            $posts = DB::table('user_posts_tb')
+                ->where('posted_as_type', 'story')
+                ->whereIn('posted_as_id', $storyIds)
+                ->get(['post_id', 'posted_as_id', 'likes_count']);
+
+            foreach ($posts as $post) {
+                $likesByStory[(int) $post->posted_as_id] = [
+                    'post_id' => (int) $post->post_id,
+                    'likes' => (int) $post->likes_count,
+                ];
+            }
+
+            if (Auth::check() && !empty($likesByStory)) {
+                $userId = (int) Auth::id();
+                $postIds = array_column($likesByStory, 'post_id');
+                $userLikes = DB::table('user_post_likes_tb')
+                    ->where('user_id', $userId)
+                    ->whereIn('post_id', $postIds)
+                    ->pluck('post_id')
+                    ->all();
+                $likedPosts = array_map('intval', $userLikes);
+            }
+        }
+
+        foreach ($all as &$row) {
+            $sid = (int) ($row->story_id ?? 0);
+            $postMeta = $likesByStory[$sid] ?? ['post_id' => 0, 'likes' => 0];
+            $row->likes = $postMeta['likes'];
+            $row->liked_by_me = in_array($postMeta['post_id'], $likedPosts, true);
+        }
+        unset($row);
+
         return response()->json($all);
     }
 }
-

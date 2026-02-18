@@ -105,7 +105,7 @@
             </div>
             <div class="col-12">
                 <label class="form-label">Descrição</label>
-                <textarea name="descricao" rows="3" class="form-control">{{ old('descricao',$event->descricao) }}</textarea>
+                <textarea id="eventDescriptionEdit" name="descricao" rows="3" class="form-control">{{ old('descricao',$event->descricao) }}</textarea>
             </div>
             <div class="col-12">
                 <label class="form-label">Imagem de capa do evento</label>
@@ -186,7 +186,7 @@
                     </div>
                     <div class="col-12">
                         <label class="form-label">Descrição</label>
-                        <textarea name="descricao" class="form-control" rows="3"></textarea>
+                        <textarea id="eventTypeDescriptionEdit" name="descricao" class="form-control" rows="3"></textarea>
                     </div>
                     <div class="col-12 form-check">
                         <input class="form-check-input" type="checkbox" name="ativo" value="1" id="novoTipoAtivo" checked>
@@ -205,6 +205,7 @@
 <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin=""/>
 @endpush
 @push('scripts')
+<script src="https://cdn.ckeditor.com/ckeditor5/41.0.0/classic/ckeditor.js"></script>
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
 <script>
 document.addEventListener('DOMContentLoaded', function () {
@@ -274,6 +275,14 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     }
     initMap();
+    var desc = document.getElementById('eventDescriptionEdit');
+    if (desc && window.ClassicEditor) {
+        ClassicEditor.create(desc).catch(function(){});
+    }
+    var descType = document.getElementById('eventTypeDescriptionEdit');
+    if (descType && window.ClassicEditor) {
+        ClassicEditor.create(descType).catch(function(){});
+    }
     if (btnGps && latInput && lngInput) {
         btnGps.addEventListener('click', function () {
             if (!navigator.geolocation) {

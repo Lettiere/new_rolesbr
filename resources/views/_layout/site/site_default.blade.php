@@ -49,6 +49,7 @@
     <meta property="og:url" content="@yield('meta_og_url', $currentUrl)">
     <meta property="og:site_name" content="@yield('meta_og_site_name', 'RolesBr')">
     <meta property="og:image" content="@yield('meta_image', $defaultImage)">
+    <meta property="og:image:secure_url" content="@yield('meta_image', $defaultImage)">
     <meta property="og:image:width" content="1200">
     <meta property="og:image:height" content="630">
     <meta property="og:locale" content="@yield('meta_og_locale', 'pt_BR')">
@@ -66,9 +67,10 @@
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <meta name="apple-mobile-web-app-title" content="RolesBr">
-    <link rel="apple-touch-icon" href="/uploads/logos/rolerbr.jpeg">
-    <link rel="apple-touch-icon" sizes="192x192" href="/uploads/logos/rolerbr.jpeg">
-    <link rel="apple-touch-icon" sizes="512x512" href="/uploads/logos/rolerbr.jpeg">
+    <link rel="apple-touch-icon" href="{{ asset('uploads/logo/Logo.png') }}">
+    <link rel="apple-touch-icon" sizes="192x192" href="{{ asset('uploads/logo/Logo.png') }}">
+    <link rel="apple-touch-icon" sizes="512x512" href="{{ asset('uploads/logo/Logo.png') }}">
+    <link rel="icon" type="image/png" href="{{ asset('uploads/logo/Logo.png') }}">
 
     <!-- ===================== -->
     <!-- PERFORMANCE -->
@@ -125,6 +127,10 @@
         .event-card:hover {
             transform: translateY(-5px);
             box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+        }
+
+        .placeholder-logo{
+            opacity: .2;
         }
 
         .lista-btn {
@@ -409,7 +415,7 @@
                     <a href="https://wa.me/5511982301985" class="btn btn-outline-light btn-sm ms-1" target="_blank" rel="noopener" title="WhatsApp">
                         <i class="fab fa-whatsapp"></i>
                     </a>
-                    <a href="https://instagram.com/rolesbrsp" class="btn btn-outline-light btn-sm" target="_blank" rel="noopener" title="Instagram">
+                    <a href="https://www.instagram.com/rolesbr" class="btn btn-outline-light btn-sm" target="_blank" rel="noopener" title="Instagram">
                         <i class="fab fa-instagram"></i>
                     </a>
                 </div>
@@ -424,30 +430,7 @@
             <!-- LEFT COLUMN (25%) - Hidden on Mobile -->
             <aside class="col-md-3 d-none d-md-block pt-3">
                 @section('sidebar_left')
-                    @auth
-                        @if(Auth::user()->type_user == 2) <!-- Rolezeiro -->
-                            @include('includes.sidebars.left_rolezeiro')
-                        @else
-                            <!-- Espaço em branco reservado para futuras propagandas -->
-                        @endif
-                    @else
-                        <div class="card shadow-sm border-0 mb-3">
-                            <div class="card-body text-center">
-                                <span class="badge bg-warning text-dark mb-2">Publicidade</span>
-                                <p class="card-text small text-muted mb-2">
-                                    Anuncie seu evento ou bar aqui e alcance quem ama um rolê em São Paulo.
-                                </p>
-                                <a href="#" class="btn btn-outline-primary btn-sm w-100">Quero anunciar</a>
-                            </div>
-                        </div>
-                        <div class="card shadow-sm border-0">
-                            <div class="card-body p-2">
-                                <div class="ratio ratio-16x9 bg-light d-flex align-items-center justify-content-center">
-                                    <span class="text-muted small">Espaço para banner 300x250</span>
-                                </div>
-                            </div>
-                        </div>
-                    @endauth
+                    @include('includes.sidebars.left_rolezeiro')
                 @show
             </aside>
 

@@ -68,6 +68,29 @@ function storyItem(s, index){
     </button>`;
 }
 
+function updateStoryLikeUi(story) {
+    const btn = document.getElementById('storyLikeBtn');
+    if (!btn || !story) return;
+    const id = parseInt(story.story_id || 0, 10);
+    const liked = !!story.liked_by_me;
+    let likes = story.likes;
+    if (typeof likes !== 'number') {
+        likes = parseInt(likes || '0', 10) || 0;
+    }
+    btn.setAttribute('data-type', 'story');
+    btn.setAttribute('data-id', String(id > 0 ? id : 0));
+    btn.setAttribute('data-liked', liked ? '1' : '0');
+    const icon = btn.querySelector('i');
+    if (icon) {
+        icon.classList.toggle('fas', liked);
+        icon.classList.toggle('far', !liked);
+    }
+    const span = btn.querySelector('.like-count');
+    if (span) {
+        span.textContent = String(likes);
+    }
+}
+
 function openStoryModal(index) {
     if (!allStories || allStories.length === 0) return;
     currentStoryIndex = index;
@@ -80,10 +103,10 @@ function openStoryModal(index) {
         if (caption) {
             caption.textContent = story.name || story.user_name || 'Story';
         }
+        updateStoryLikeUi(story);
         const modal = new bootstrap.Modal(document.getElementById('storyModal'));
         modal.show();
     }
-    // preload vizinho
     const nextIdx = (index + 1) % allStories.length;
     const prevIdx = (index - 1 + allStories.length) % allStories.length;
     [nextIdx, prevIdx].forEach(i => {
@@ -107,6 +130,7 @@ function changeStory(direction) {
         if (caption) {
             caption.textContent = story.name || story.user_name || 'Story';
         }
+        updateStoryLikeUi(story);
     }
 }
 
@@ -163,18 +187,61 @@ if(document.readyState!=='loading'){ loadStories(); initStoriesScroll(); initSto
                 </button>
                 <button type="button" class="btn-close btn-close-white position-absolute top-0 end-0 m-2" data-bs-dismiss="modal" aria-label="Fechar" style="z-index:10;"></button>
                 <img id="storyModalImage" src="" class="img-fluid w-100" style="max-height:100vh;object-fit:contain;" alt="Story">
-                <div class="position-absolute bottom-0 start-0 end-0 p-2 text-center text-white" style="background:linear-gradient(180deg, rgba(0,0,0,0), rgba(0,0,0,.6));">
+                <div class="position-absolute bottom-0 start-0 end-0 p-2 text-white d-flex justify-content-between align-items-center" style="background:linear-gradient(180deg, rgba(0,0,0,0), rgba(0,0,0,.6));">
                     <span id="storyCaption" class="small"></span>
+                    <button id="storyLikeBtn" type="button" class="btn btn-sm btn-outline-light like-toggle" data-type="story" data-id="0" data-liked="0">
+                        <i class="far fa-heart me-1"></i>
+                        <span class="like-count">0</span>
+                    </button>
                 </div>
             </div>
         </div>
     </div>
 </div>
 
-
-
-
-    
+<script>
+document.addEventListener('click', function (e) {
+    var btn = e.target.closest('.like-toggle');
+    if (!btn) return;
+    var type = btn.getAttribute('data-type');
+    var id = btn.getAttribute('data-id');
+    if (!type || !id) return;
+    fetch("{{ route('api.likes.toggle') }}", {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'Accept': 'application/json',
+            'X-CSRF-TOKEN': document.querySelector('meta[name=\"csrf-token\"]').getAttribute('content'),
+            'X-Requested-With': 'XMLHttpRequest'
+        },
+        body: JSON.stringify({ type: type, id: parseInt(id, 10) })
+    }).then(function (r) {
+        if (r.status === 401) {
+            window.location.href = "{{ route('login') }}";
+            return null;
+        }
+        return r.json();
+    }).then(function (data) {
+        if (!data) return;
+        if (data.error === 'not_implemented') {
+            alert('Curtidas para este tipo ainda não estão disponíveis.');
+            return;
+        }
+        if (typeof data.liked !== 'undefined') {
+            btn.setAttribute('data-liked', data.liked ? '1' : '0');
+            var icon = btn.querySelector('i');
+            if (icon) {
+                icon.classList.toggle('fas', data.liked);
+                icon.classList.toggle('far', !data.liked);
+            }
+        }
+        if (typeof data.likes !== 'undefined') {
+            var span = btn.querySelector('.like-count');
+            if (span) span.textContent = data.likes;
+        }
+    }).catch(function(){});
+});
+</script>
   <!-- destaque -->
      @if($featured && $featured->count() > 0)
     <section class="mb-4">
@@ -236,16 +303,17 @@ if(document.readyState!=='loading'){ loadStories(); initStoriesScroll(); initSto
         @else
             <div class="row g-3">
                 @foreach($establishments as $bar)
+                    @php
+                        $hasImage = !empty($bar->imagem);
+                        $img = $hasImage ? asset(ltrim($bar->imagem, '/')) : asset('uploads/logo/Logo.png');
+                    @endphp
                     <div class="col-12 col-md-6">
                         <a href="{{ route('site.establishment.show', [$bar->bares_id, \Illuminate\Support\Str::slug($bar->nome)]) }}" class="text-decoration-none text-reset">
                             <div class="card event-card h-100 border-0 shadow-sm">
-                                @php
-                                    $img = $bar->imagem ? asset(ltrim($bar->imagem, '/')) : 'https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?w=600&h=350&fit=crop';
-                                @endphp
                                 <div class="row g-0">
                                     <div class="col-4">
                                         <div class="ratio ratio-1x1">
-                                            <img src="{{ $img }}" class="img-fluid rounded-start" alt="{{ $bar->nome }}" style="object-fit:cover;">
+                                            <img src="{{ $img }}" class="img-fluid rounded-start {{ $hasImage ? '' : 'placeholder-logo' }}" alt="{{ $bar->nome }}" style="object-fit:cover;">
                                         </div>
                                     </div>
                                     <div class="col-8">

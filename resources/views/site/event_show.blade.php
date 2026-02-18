@@ -4,11 +4,24 @@
 @php
     $cover = $event->imagem_capa ? asset(ltrim($event->imagem_capa, '/')) : 'https://images.unsplash.com/photo-1514933651103-005eec06c04b?w=1400&h=700&fit=crop';
     $metaTitle = trim((string)$event->nome) !== '' ? $event->nome.' | Evento | RolesBr' : 'Evento | RolesBr';
-    $metaDescBase = trim((string)($event->descricao ?? ''));
+
+    $rawDesc = (string)($event->descricao ?? '');
+    $decodedDesc = html_entity_decode($rawDesc, ENT_QUOTES | ENT_HTML5, 'UTF-8');
+    $descWithBreaks = preg_replace('/<(\/p|p|br|br\/)[^>]*>/i', "\n", $decodedDesc);
+    $descPlain = trim(strip_tags($descWithBreaks));
+    $displayDescription = $descPlain;
+
+    $metaDescBase = preg_replace('/\s+/', ' ', $descPlain);
     if ($metaDescBase === '') {
         $metaDescBase = 'Detalhes do evento no RolesBr.';
     }
     $metaDesc = \Illuminate\Support\Str::limit($metaDescBase, 160, '...');
+
+    $canonicalUrl = route('site.event.show', [
+        $event->evento_id,
+        \Illuminate\Support\Str::slug($event->nome ?? 'evento'),
+    ]);
+
     $likesCount = \Illuminate\Support\Facades\DB::table('evt_interesse_evento_tb')
         ->where('evento_id', $event->evento_id)
         ->where('type', 'like')
@@ -21,11 +34,29 @@
             ->where('type', 'like')
             ->exists();
     }
+
+    $goingCount = \App\Models\EventInterest::where('evento_id', $event->evento_id)
+        ->where('type', 'going')
+        ->count();
+    $goingByMe = false;
+    if (auth()->check()) {
+        $goingByMe = \App\Models\EventInterest::where('evento_id', $event->evento_id)
+            ->where('user_id', auth()->id())
+            ->where('type', 'going')
+            ->exists();
+    }
 @endphp
 @section('meta_title', $metaTitle)
 @section('meta_description', $metaDesc)
 @section('meta_image', $cover)
 @section('meta_og_type', 'event')
+@section('meta_canonical', $canonicalUrl)
+@section('meta_og_title', $metaTitle)
+@section('meta_og_description', $metaDesc)
+@section('meta_og_url', $canonicalUrl)
+@section('meta_twitter_title', $metaTitle)
+@section('meta_twitter_description', $metaDesc)
+@section('meta_twitter_image', $cover)
 <div class="event-container">
     <div class="hero-section">
         <div class="hero-image" style="background-image: url('{{ $cover }}');">
@@ -46,8 +77,21 @@
                                 data-liked="{{ $likedByMe ? 1 : 0 }}"
                                 title="Curtir">
                             <i class="{{ $likedByMe ? 'fas' : 'far' }} fa-heart me-1"></i>
-                            <span class="like-count">{{ $likesCount }}</span>
+                            <span>Curtir</span>
+                            <span class="like-count ms-1">{{ $likesCount }}</span>
                         </button>
+                        <form method="POST" action="{{ route('events.going.toggle', $event->evento_id) }}" class="d-inline">
+                            @csrf
+                            <button type="submit"
+                                    class="btn-action going-btn {{ $goingByMe ? 'active' : '' }}"
+                                    title="Eu vou neste evento">
+                                <i class="fas fa-user-check me-1"></i>
+                                <span>{{ $goingByMe ? 'Você vai' : 'Eu vou' }}</span>
+                                @if($goingCount > 0)
+                                    <span class="going-count ms-1">({{ $goingCount }})</span>
+                                @endif
+                            </button>
+                        </form>
                     </div>
                 </div>
             </div>
@@ -65,15 +109,17 @@
                 $mapsLink = 'https://www.google.com/maps/search/?api=1&query=' . urlencode($mapsQuery);
                 $wazeLink = ($lat && $lon) ? ('https://waze.com/ul?ll=' . $lat . ',' . $lon . '&navigate=yes') : ('https://waze.com/ul?q=' . urlencode($address) . '&navigate=yes');
                 $shareTitle = trim($event->nome . ' - ' . ($event->establishment->nome ?? ''));
-                $currentUrl = url()->current();
+                $currentUrl = $canonicalUrl;
             @endphp
     <div class="main-content">
         <div class="content-grid">
+
+            
             <div class="main-column">
                 @if($event->descricao)
                     <div class="event-details">
                         <div class="description">
-                            {{ $event->descricao }}
+                            {{ $displayDescription }}
                         </div>
                         <div class="action-buttons">
                             <a href="{{ $mapsLink }}" target="_blank" rel="noopener" class="btn-action maps-btn" data-tooltip="Abrir no Google Maps">
@@ -84,10 +130,90 @@
                                 <i class="fas fa-route"></i>
                                 <span>Waze</span>
                             </a>
-                            <a href="https://wa.me/?text={{ urlencode($shareTitle.' '.$currentUrl) }}" target="_blank" rel="noopener" class="btn-action whatsapp-btn" data-tooltip="Compartilhar no WhatsApp">
+                            <a href="https://wa.me/?text={{ urlencode($currentUrl) }}" target="_blank" rel="noopener" class="btn-action whatsapp-btn" data-tooltip="Compartilhar no WhatsApp">
                                 <i class="fab fa-whatsapp"></i>
                                 <span>WhatsApp</span>
                             </a>
+                            <div class="share-dropdown">
+                                <button type="button"
+                                        class="btn-action share-btn secondary"
+                                        id="shareToggle">
+                                    <i class="fas fa-share-alt"></i>
+                                    <span>Compartilhar</span>
+                                </button>
+                                <div class="share-menu" id="shareMenu">
+                                    <a href="https://wa.me/?text={{ urlencode($currentUrl) }}"
+                                       target="_blank" rel="noopener">
+                                        <i class="fab fa-whatsapp text-success"></i>
+                                        <span>WhatsApp</span>
+                                    </a>
+                                    <a href="https://t.me/share/url?url={{ urlencode($currentUrl) }}&text={{ urlencode($shareTitle.' - '.$metaDesc) }}"
+                                       target="_blank" rel="noopener">
+                                        <i class="fab fa-telegram text-primary"></i>
+                                        <span>Telegram</span>
+                                    </a>
+                                    <a href="https://www.facebook.com/sharer/sharer.php?u={{ urlencode($currentUrl) }}"
+                                       target="_blank" rel="noopener">
+                                        <i class="fab fa-facebook text-primary"></i>
+                                        <span>Facebook</span>
+                                    </a>
+                                    <a href="https://twitter.com/intent/tweet?url={{ urlencode($currentUrl) }}&text={{ urlencode($shareTitle) }}"
+                                       target="_blank" rel="noopener">
+                                        <i class="fab fa-twitter text-info"></i>
+                                        <span>Twitter/X</span>
+                                    </a>
+                                    <button type="button"
+                                            class="copy-link"
+                                            data-url="{{ $currentUrl }}">
+                                        <i class="far fa-copy"></i>
+                                        <span>Copiar link</span>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                @endif
+                @if($event->video_youtube_url)
+                    @php
+                        $videoUrl = trim($event->video_youtube_url);
+                        $embedUrl = null;
+                        $parsed = parse_url($videoUrl);
+                        if (isset($parsed['host'])) {
+                            $host = $parsed['host'];
+                            if (strpos($host, 'youtu.be') !== false) {
+                                $path = trim($parsed['path'] ?? '', '/');
+                                if ($path !== '') {
+                                    $embedUrl = 'https://www.youtube.com/embed/' . $path;
+                                }
+                            } elseif (strpos($host, 'youtube.com') !== false) {
+                                $queryString = $parsed['query'] ?? '';
+                                parse_str($queryString, $query);
+                                $id = $query['v'] ?? null;
+                                if ($id) {
+                                    $embedUrl = 'https://www.youtube.com/embed/' . $id;
+                                }
+                            }
+                        }
+                        if (!$embedUrl) {
+                            $embedUrl = $videoUrl;
+                        }
+                    @endphp
+                    <div class="video-section">
+                        <div class="section-header">
+                            <h2 class="section-title">
+                                <i class="fab fa-youtube"></i>
+                                Vídeo do evento
+                            </h2>
+                        </div>
+                        <div class="video-wrapper">
+                            <div class="ratio ratio-16x9">
+                                <iframe
+                                    src="{{ $embedUrl }}"
+                                    title="Vídeo do evento"
+                                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                                    allowfullscreen
+                                    loading="lazy"></iframe>
+                            </div>
                         </div>
                     </div>
                 @endif
@@ -192,7 +318,11 @@
 
 @push('styles')
 <style>
-.event-container { width: 100%; margin: 0; padding: 0; }
+.event-container { width: 100%; margin: 0; padding: 0 0 5rem; }
+
+main.col-12.col-md-6.pt-3 {
+    padding-top: 0;
+}
 
 .hero-section { margin: 0 !important; border-radius: 0; overflow: hidden; box-shadow: none; }
 
@@ -238,6 +368,8 @@
     line-height: 1.7;
     color: #374151;
     margin-bottom: 2.5rem;
+    white-space: pre-line;
+    text-align: justify;
 }
 
 .action-buttons { display: flex; flex-wrap: wrap; gap: 0.5rem; justify-content: flex-start; }
@@ -272,6 +404,8 @@
 .whatsapp-btn { background: #E7F6EE; color: #059669; border: 1px solid #c7ecd8; }
 .share-btn.primary { background: #EEF2FF; color: #4338CA; border: 1px solid #e0e7ff; cursor: pointer; }
 .like-toggle { background: #FEE2E2; color: #B91C1C; border: 1px solid #fecaca; }
+.going-btn { background: #ECFDF3; color: #166534; border: 1px solid #BBF7D0; }
+.going-btn.active { background: #166534; color: #ECFDF3; border-color: #166534; }
 
 .btn-action:hover { transform: translateY(0); filter: brightness(0.95); }
 
@@ -306,8 +440,39 @@
 
 .main-content { display: grid; grid-template-columns: 1fr; gap: 0; margin-top: 0; }
 
+.video-section {
+    background: #fff;
+    border-radius: 0;
+    overflow: hidden;
+    box-shadow: none;
+    margin-top: 1.5rem;
+}
+
+.video-wrapper {
+    padding: 1.5rem 1.75rem 1.75rem;
+}
+
+.video-wrapper iframe {
+    width: 100%;
+    height: 100%;
+    border: 0;
+}
+
 @media (max-width: 992px) {
-    .main-content { grid-template-columns: 1fr; gap: 0; }
+    .main-content {
+        grid-template-columns: 1fr;
+        gap: 0;
+        padding: 1.25rem 1rem 4.5rem;
+    }
+    .event-details,
+    .tickets-section,
+    .video-section {
+        border-radius: 16px;
+        box-shadow: 0 18px 45px rgba(15,23,42,0.12);
+        border: 1px solid #e5e7eb;
+        margin: 0 0 1.5rem 0;
+        padding: 1.5rem 1.25rem 1.75rem;
+    }
     .sidebar { order: -1; }
 }
 
